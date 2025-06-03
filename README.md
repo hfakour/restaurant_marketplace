@@ -1,4 +1,5 @@
 # restaurant_marketplace
+<<<<<<< HEAD
 
 A multi-restaurant marketplace app built with Flutter using MVVM and DDD.
 
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+A multi-restaurant marketplace app built with Flutter using MVVM and DDD.
+>>>>>>> ee738418642d9b51b156a2e8d04a5860f798bfa2
