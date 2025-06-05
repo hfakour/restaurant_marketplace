@@ -8,14 +8,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final categories = [
       {
-        'name': 'International',
-        'image': 'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80'
-      },
-      {
-        'name': 'Pet Food',
-        'image': 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=400&q=80'
-      },
-      {
         'name': 'Drinks',
         'image': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80'
       },
@@ -26,10 +18,6 @@ class HomeScreen extends StatelessWidget {
       {
         'name': 'Seafood',
         'image': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80'
-      },
-      {
-        'name': 'Desserts',
-        'image': 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80'
       },
       {
         'name': 'Fast Food',
@@ -46,10 +34,6 @@ class HomeScreen extends StatelessWidget {
       {
         'name': 'Breakfast',
         'image': 'https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80'
-      },
-      {
-        'name': 'Pizza',
-        'image': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80'
       },
       {
         'name': 'Asian',
@@ -161,12 +145,12 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF8F4EF),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         elevation: 0,
         title: const Text(
-          'Good evening, Hassan',
+          'Good evening, Hassan 👋',
           style: TextStyle(
-            color: Colors.brown,
+            color: Colors.white,
             fontFamily: 'Georgia',
             fontWeight: FontWeight.bold,
             fontSize: 24,
@@ -256,7 +240,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 26),
+              const SizedBox(height: 10),
               RestaurantCarouselSection(
                 title: "Discount Restaurants",
                 restaurants: discountRestaurants,

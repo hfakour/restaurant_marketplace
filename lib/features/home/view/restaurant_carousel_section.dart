@@ -15,6 +15,7 @@ class RestaurantCarouselSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (restaurants.isEmpty) return const SizedBox.shrink();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -30,15 +31,26 @@ class RestaurantCarouselSection extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 150,
-          child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-            scrollDirection: Axis.horizontal,
-            itemCount: restaurants.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 14),
-            itemBuilder: (context, idx) {
-              final r = restaurants[idx];
-              return _restaurantCard(context, r);
+          height: 300, // slightly increased for more content
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final screenWidth = constraints.maxWidth > 0
+                  ? constraints.maxWidth
+                  : MediaQuery.of(context).size.width;
+              // Card width: 74% of screen, min 180, max 320
+              final cardWidth = screenWidth * 0.74;
+              final width = cardWidth.clamp(180.0, 320.0);
+
+              return ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                scrollDirection: Axis.horizontal,
+                itemCount: restaurants.length,
+                separatorBuilder: (_, __) => const SizedBox(width: 14),
+                itemBuilder: (context, idx) {
+                  final r = restaurants[idx];
+                  return _restaurantCard(context, r, width);
+                },
+              );
             },
           ),
         ),
@@ -47,7 +59,7 @@ class RestaurantCarouselSection extends StatelessWidget {
     );
   }
 
-  static Widget _restaurantCard(BuildContext context, Map r) {
+  static Widget _restaurantCard(BuildContext context, Map r, double width) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -57,7 +69,7 @@ class RestaurantCarouselSection extends StatelessWidget {
         );
       },
       child: Container(
-        width: 220,
+        width: width,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -74,11 +86,13 @@ class RestaurantCarouselSection extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-              child: Image.network(
-                r['image'],
-                width: 220,
-                height: 80,
-                fit: BoxFit.cover,
+              child: AspectRatio(
+                aspectRatio: 16 / 6.7, // for a nice horizontal card image
+                child: Image.network(
+                  r['image'],
+                  width: width,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Padding(

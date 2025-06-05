@@ -47,7 +47,7 @@ class AppShell extends ConsumerWidget {
         child: BottomNavigationBar(
           currentIndex: index,
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.black,
           selectedItemColor: const Color(0xFFD4AF37),
           // Gold
           unselectedItemColor: Colors.brown.shade300,
