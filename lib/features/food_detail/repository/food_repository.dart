@@ -1,10 +1,16 @@
 import '../model/food.dart';
-import '../data/food_mock_data.dart';
 
-class FoodRepository {
+abstract class IFoodRepository {
+  Future<Food> fetchFoodById(String id);
+}
+
+class MockFoodRepository implements IFoodRepository {
+  final List<Food> _mockFoods;
+  MockFoodRepository(this._mockFoods);
+
+  @override
   Future<Food> fetchFoodById(String id) async {
-    // Simulate fetching data with a delay
     await Future.delayed(const Duration(milliseconds: 300));
-    return mockFood; // Use mock data here!
+    return _mockFoods.firstWhere((f) => f.id == id, orElse: () => throw Exception('Not found'));
   }
 }

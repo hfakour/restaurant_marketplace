@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'features/app_shell/app_shell.dart';
+import 'features/food_detail/view/food_detail_screen.dart'; // Adjust path if needed
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.brown),
         useMaterial3: true,
       ),
-      home: const AppShell(), // <-- Use your shell here!
+      home: const FoodDetailScreen(foodId: '1'), // <-- DIRECTLY SHOWS FOOD DETAIL
       debugShowCheckedModeBanner: false,
     );
   }

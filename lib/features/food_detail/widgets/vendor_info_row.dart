@@ -10,6 +10,8 @@ class VendorInfoRow extends StatelessWidget {
   final int reviewsCount;
   final VoidCallback onViewRestaurant;
   final Color? highlightColor;
+  final Color? backgroundColor;
+  final EdgeInsetsGeometry? padding;
 
   const VendorInfoRow({
     required this.vendorImage,
@@ -19,6 +21,8 @@ class VendorInfoRow extends StatelessWidget {
     required this.reviewsCount,
     required this.onViewRestaurant,
     this.highlightColor,
+    this.backgroundColor,
+    this.padding,
     super.key,
   });
 
@@ -26,23 +30,39 @@ class VendorInfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final gold = highlightColor ?? const Color(0xFFD4AF37);
 
-    return Row(
-      children: [
-        VendorAvatar(imageUrl: vendorImage),
-        const SizedBox(width: 16),
-        Expanded(
-          child: VendorInfoText(
-            vendorName: vendorName,
-            vendorLocation: vendorLocation,
-            rating: rating,
-            reviewsCount: reviewsCount,
+    return Container(
+      // Remove the color property here (move it to decoration)
+      padding: padding ?? const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: backgroundColor ?? Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            offset: const Offset(0, -4), // Only on top
+            blurRadius: 12,
+            spreadRadius: 0,
           ),
-        ),
-        TextButton(
-          onPressed: onViewRestaurant,
-          child: Text('View Restaurant', style: TextStyle(color: gold)),
-        ),
-      ],
+        ],
+        // No borderRadius!
+      ),
+      child: Row(
+        children: [
+          VendorAvatar(imageUrl: vendorImage),
+          const SizedBox(width: 16),
+          Expanded(
+            child: VendorInfoText(
+              vendorName: vendorName,
+              vendorLocation: vendorLocation,
+              rating: rating,
+              reviewsCount: reviewsCount,
+            ),
+          ),
+          TextButton(
+            onPressed: onViewRestaurant,
+            child: Text('View', style: TextStyle(color: gold)),
+          ),
+        ],
+      ),
     );
   }
 }

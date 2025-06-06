@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../home/view/home_screen.dart';
-import '../restaurant_detail/view/restaurant_detail_screen.dart';
 import '../cart/view/cart_screen.dart';
 
 // Dummy ProfileScreen for demonstration
