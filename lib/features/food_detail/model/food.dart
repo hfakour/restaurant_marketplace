@@ -1,3 +1,5 @@
+import '../../restaurant_detail/model/review.dart';
+
 class Food {
   final String id;
   final String name;
@@ -14,7 +16,7 @@ class Food {
   final String vendorName;
   final String vendorLocation;
   final String vendorImage;
-  final List<FoodReview> reviews;
+  final List<Review> reviews;
 
   Food({
     required this.id,
@@ -36,12 +38,4 @@ class Food {
   });
 
   double get discountedPrice => originalPrice * (1 - discountPercentage / 100);
-}
-
-class FoodReview {
-  final String name;
-  final String comment;
-  final double rating;
-
-  FoodReview({required this.name, required this.comment, required this.rating});
 }

@@ -1,12 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../model/food.dart';
-import '../repository/food_repository.dart';
-
-final foodRepositoryProvider = Provider((ref) => FoodRepository());
-final foodDetailProvider = FutureProvider.family<Food, String>((ref, id) {
-  final repo = ref.watch(foodRepositoryProvider);
-  return repo.fetchFoodById(id);
-});
 
 class FoodDetailState {
   final int quantity;
@@ -47,7 +39,3 @@ class FoodDetailViewModel extends StateNotifier<FoodDetailState> {
     state = state.copyWith(extraCheese: !state.extraCheese);
   }
 }
-
-final foodDetailViewModelProvider = StateNotifierProvider.autoDispose<FoodDetailViewModel, FoodDetailState>(
-      (ref) => FoodDetailViewModel(),
-);
