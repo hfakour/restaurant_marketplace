@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../features/cart/view/cart_screen.dart';
+import 'package:restaurant_marketplace/features/checkout/view/checkout_screen.dart';
+import 'package:restaurant_marketplace/features/restaurant_admin/view/restaurant_admin.screen.dart';
+import 'package:restaurant_marketplace/features/securiry/view/secuurity.screen.dart';
+import '../../features/favorite/view/favorite_screen.dart';
+import '../../features/help_and_support/view/help_and_support.screen.dart';
 import '../../features/home/view/home_screen.dart';
-
-// Dummy ProfileScreen for demonstration
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Profile Page', style: TextStyle(fontSize: 24))),
-    );
-  }
-}
+import '../../features/orders/view/orders_screen.dart';
+import '../../features/payment_method/view/peyment_method.screen.dart';
+import '../../features/preference/view/preference.screen.dart';
+import '../../features/profile/view/profile_screen.dart';
+import '../../features/search/view/search.screen.dart';
 
 final bottomNavIndexProvider = StateProvider<int>((ref) => 0);
 
@@ -26,7 +22,7 @@ class AppShell extends ConsumerWidget {
     final index = ref.watch(bottomNavIndexProvider);
 
     final screens = [
-      const CartScreen(),
+      const RestaurantAdminPanel(),
       const HomeScreen(), // Home
       // Shop (Cart)
       const ProfileScreen(), // Profile
