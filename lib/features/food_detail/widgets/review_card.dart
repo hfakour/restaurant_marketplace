@@ -5,11 +5,13 @@ class ReviewCard extends StatelessWidget {
   final String name;
   final String comment;
   final double rating;
+  final String? userAvatar;
 
   const ReviewCard({
     required this.name,
     required this.comment,
     required this.rating,
+    this.userAvatar,
     super.key,
   });
 
@@ -22,7 +24,10 @@ class ReviewCard extends StatelessWidget {
         children: [
           CircleAvatar(
             backgroundColor: Colors.brown.shade100,
-            child: Text(name.isNotEmpty ? name[0] : '?', style: const TextStyle(color: Colors.brown)),
+            backgroundImage: userAvatar != null ? NetworkImage(userAvatar!) : null,
+            child: userAvatar == null
+                ? Text(name.isNotEmpty ? name[0] : '?', style: const TextStyle(color: Colors.brown))
+                : null,
           ),
           const SizedBox(width: 12),
           Expanded(
