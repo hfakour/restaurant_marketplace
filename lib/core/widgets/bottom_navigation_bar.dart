@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../home/view/home_screen.dart';
-import '../cart/view/cart_screen.dart';
+
+import '../../features/cart/view/cart_screen.dart';
+import '../../features/home/view/home_screen.dart';
 
 // Dummy ProfileScreen for demonstration
 class ProfileScreen extends StatelessWidget {
@@ -62,7 +63,7 @@ class AppShell extends ConsumerWidget {
           ),
           onTap:
               (selected) =>
-                  ref.read(bottomNavIndexProvider.notifier).state = selected,
+          ref.read(bottomNavIndexProvider.notifier).state = selected,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart),

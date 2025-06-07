@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_marketplace/core/theme/theme_extensions.dart';
 import 'app_colors.dart';
+import 'theme_extensions.dart';
 
 class AppTheme {
   static ThemeData get light {
     return ThemeData(
       useMaterial3: true,
-      fontFamily: 'Roboto', // Or your preferred sans-serif
-      extensions: <ThemeExtension<dynamic>>[
-        const AppSpacing(),
-      ],
+      fontFamily: 'Roboto',
       scaffoldBackgroundColor: AppColors.background,
-      colorScheme: ColorScheme(
+      colorScheme: const ColorScheme(
         brightness: Brightness.light,
         primary: AppColors.primary,
         onPrimary: Colors.black,
@@ -30,7 +27,7 @@ class AppTheme {
         elevation: 0,
         centerTitle: false,
         titleTextStyle: TextStyle(
-          fontFamily: 'Merriweather', // Or a similar serif font
+          fontFamily: 'Merriweather',
           fontWeight: FontWeight.w700,
           fontSize: 24,
           color: Colors.white,
@@ -39,10 +36,11 @@ class AppTheme {
       cardTheme: CardTheme(
         color: AppColors.surface,
         elevation: 2,
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+        shadowColor: AppColors.shadowLight,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -55,32 +53,48 @@ class AppTheme {
           ),
           minimumSize: const Size.fromHeight(56),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           elevation: 0,
         ),
       ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: AppColors.primary,
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       textTheme: const TextTheme(
-        // Display: main app bar or feature headers
+        // Large headline for titles/app bars
         displayLarge: TextStyle(
           fontFamily: 'Merriweather',
           fontWeight: FontWeight.w700,
           fontSize: 28,
           color: AppColors.textPrimary,
         ),
-        // Headline: Card titles, product names
+        // Card titles, product names
         headlineLarge: TextStyle(
           fontFamily: 'Merriweather',
           fontWeight: FontWeight.bold,
           fontSize: 24,
           color: AppColors.textPrimary,
         ),
-        // Body: main text, details
+        // Medium titles (e.g. Vendor name)
+        titleMedium: TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: AppColors.textPrimary,
+        ),
+        // Main body
         bodyLarge: TextStyle(
           fontSize: 16,
           color: AppColors.textPrimary,
         ),
-        // Secondary body: muted, old prices
+        // Subtle or line-through (e.g. old price)
         bodyMedium: TextStyle(
           fontSize: 16,
           color: AppColors.muted,
@@ -91,6 +105,11 @@ class AppTheme {
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: Colors.black,
+        ),
+        // Small info (e.g. location, reviews)
+        bodySmall: TextStyle(
+          fontSize: 14,
+          color: AppColors.textSecondary,
         ),
       ),
       chipTheme: ChipThemeData(
@@ -109,18 +128,21 @@ class AppTheme {
       ),
       checkboxTheme: CheckboxThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-        fillColor: MaterialStateProperty.all(AppColors.primary),
-        checkColor: MaterialStateProperty.all(Colors.black),
+        fillColor: MaterialStatePropertyAll(AppColors.primary),
+        checkColor: MaterialStatePropertyAll(Colors.black),
         side: const BorderSide(width: 1.2, color: AppColors.border),
       ),
       dividerColor: AppColors.border,
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.border),
+          borderSide: const BorderSide(color: AppColors.border),
         ),
         contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       ),
+      extensions: const <ThemeExtension<dynamic>>[
+        AppSpacing(),
+      ], // <--- this line is CRITICAL!
     );
   }
 }
