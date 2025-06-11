@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurant_marketplace/features/checkout/view/checkout_screen.dart';
 import 'package:restaurant_marketplace/features/restaurant_admin/view/restaurant_admin.screen.dart';
 import 'package:restaurant_marketplace/features/securiry/view/secuurity.screen.dart';
+import '../../features/Food_Sellers/view/food_seller.screen.dart';
+import '../../features/cart/view/cart_screen.dart';
 import '../../features/favorite/view/favorite_screen.dart';
 import '../../features/help_and_support/view/help_and_support.screen.dart';
 import '../../features/home/view/home_screen.dart';
@@ -22,7 +24,7 @@ class AppShell extends ConsumerWidget {
     final index = ref.watch(bottomNavIndexProvider);
 
     final screens = [
-      const RestaurantAdminPanel(),
+      const CartScreen(),
       const HomeScreen(), // Home
       // Shop (Cart)
       const ProfileScreen(), // Profile
