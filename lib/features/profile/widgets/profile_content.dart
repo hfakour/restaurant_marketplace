@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'profile_sections.dart';
-import 'profile_styles.dart';
+import '../../../core/theme/profile_styles.dart';
 
 class ProfileContent extends StatelessWidget {
   const ProfileContent({super.key});

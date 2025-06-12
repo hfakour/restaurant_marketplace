@@ -2,7 +2,8 @@
 // App bar for cart page.
 
 import 'package:flutter/material.dart';
-import 'cart_styles.dart';
+
+import '../../../core/theme/cart_styles.dart';
 
 class CartAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CartAppBar({super.key});

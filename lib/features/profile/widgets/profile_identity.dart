@@ -2,7 +2,7 @@
 // User name and "Premium Member" chip.
 
 import 'package:flutter/material.dart';
-import 'profile_styles.dart';
+import '../../../core/theme/profile_styles.dart';
 
 class ProfileIdentity extends StatelessWidget {
   const ProfileIdentity({super.key});

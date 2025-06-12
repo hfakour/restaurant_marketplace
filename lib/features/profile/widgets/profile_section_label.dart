@@ -2,7 +2,7 @@
 // Bold label for separating profile sections.
 
 import 'package:flutter/material.dart';
-import 'profile_styles.dart';
+import '../../../core/theme/profile_styles.dart';
 
 class ProfileSectionLabel extends StatelessWidget {
   final String label;

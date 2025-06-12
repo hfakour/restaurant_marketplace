@@ -2,7 +2,7 @@
 // Visually prominent logout button.
 
 import 'package:flutter/material.dart';
-import 'profile_styles.dart';
+import '../../../core/theme/profile_styles.dart';
 
 class ProfileLogoutButton extends StatelessWidget {
   final VoidCallback onPressed;

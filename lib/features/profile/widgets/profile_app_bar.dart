@@ -2,7 +2,7 @@
 // The top AppBar for the profile page.
 
 import 'package:flutter/material.dart';
-import 'profile_styles.dart';
+import '../../../core/theme/profile_styles.dart';
 
 class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ProfileAppBar({super.key});

@@ -2,7 +2,7 @@
 // Circular user avatar with border and drop shadow.
 
 import 'package:flutter/material.dart';
-import 'profile_styles.dart';
+import '../../../core/theme/profile_styles.dart';
 
 class ProfileAvatar extends StatelessWidget {
   const ProfileAvatar({super.key});

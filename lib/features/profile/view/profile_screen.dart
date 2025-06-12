@@ -2,10 +2,10 @@
 // Root widget for the Profile page. Assembles header and content.
 
 import 'package:flutter/material.dart';
-import 'profile_app_bar.dart';
-import 'profile_header.dart';
-import 'profile_content.dart';
-import 'profile_styles.dart';
+import '../widgets/profile_app_bar.dart';
+import '../widgets/profile_header.dart';
+import '../widgets/profile_content.dart';
+import '../../../core/theme/profile_styles.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
