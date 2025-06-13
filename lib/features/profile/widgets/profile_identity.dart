@@ -26,7 +26,7 @@ class ProfileIdentity extends StatelessWidget {
           color: ProfileStyles.cardBg,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: ProfileStyles.charcoal.withOpacity(0.08),
+            color: ProfileStyles.charcoal.withValues(alpha: .1),
             width: 1,
           ),
         ),
@@ -34,12 +34,12 @@ class ProfileIdentity extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.workspace_premium,
-                color: ProfileStyles.charcoal.withOpacity(0.6), size: 17),
+                color: ProfileStyles.charcoal.withValues(alpha: 1), size: 17),
             const SizedBox(width: 3),
             Text(
               'Premium Member',
               style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                color: ProfileStyles.charcoal.withOpacity(0.6),
+                color: ProfileStyles.charcoal.withValues(alpha: .7),
                 fontWeight: FontWeight.w700,
                 fontSize: 14.1,
                 letterSpacing: -0.5,
