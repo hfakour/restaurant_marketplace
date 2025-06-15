@@ -33,7 +33,7 @@ class ProfileTile extends StatelessWidget {
         alignment: Alignment.center,
         child: Icon(
           icon,
-          color: ProfileStyles.charcoal.withOpacity(0.85),
+          color:Colors.brown,
           size: ProfileStyles.tileIconSize,
         ),
       ),
