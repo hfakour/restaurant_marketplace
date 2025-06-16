@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class ProfileStyles {
   // --- Main Colors ---
-  static const bgColor = Color(0xFFF8F4EF);      // App background color
+  static const bgColor = Color(0xFFEDECEC);      // App background color
   static const cardBg = Colors.white;            // Card/section background
   static const charcoal = Color(0xFF232325);     // Primary dark accent
   static const subtleGray = Color(0xFFEEEEEE);   // Icon bg/secondary

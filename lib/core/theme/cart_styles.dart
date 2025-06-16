@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 
 class CartStyles {
-  static const bgColor = Color(0xFFF8F4EF);
+  static const bgColor = Color(0xFFEDECEC);
   static const cardBg = Colors.white;
   static const charcoal = Color(0xFF232325);
   static const subtleGray = Color(0xFFEEEEEE);

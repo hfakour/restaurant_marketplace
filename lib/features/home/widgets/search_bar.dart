@@ -26,7 +26,7 @@ class HomeSearchBar extends StatelessWidget {
           padding: HomeStyles.searchPad,
           child: Row(
             children: [
-              Icon(Icons.search, color:Colors.brown, size: HomeStyles.searchIconSize),
+              Icon(Icons.search, color:HomeStyles.charcoal,size: HomeStyles.searchIconSize),
               const SizedBox(width: 10),
               Expanded(
                 child: TextField(

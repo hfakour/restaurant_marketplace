@@ -12,7 +12,7 @@ class SectionHeader extends StatelessWidget {
     padding: const EdgeInsets.only(left: 2, bottom: 8),
     child: Row(
       children: [
-        Icon(icon, color: Colors.brown, size: 22),
+        Icon(icon, color: HomeStyles.charcoal, size: 22),
         const SizedBox(width: 8),
         Text(
           title,

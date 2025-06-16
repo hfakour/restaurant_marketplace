@@ -2,6 +2,7 @@
 // List tile for each action on the profile.
 
 import 'package:flutter/material.dart';
+import '../../../core/theme/home_styles.dart';
 import '../../../core/theme/profile_styles.dart';
 
 class ProfileTile extends StatelessWidget {
@@ -33,7 +34,7 @@ class ProfileTile extends StatelessWidget {
         alignment: Alignment.center,
         child: Icon(
           icon,
-          color:Colors.brown,
+          color:HomeStyles.charcoal,
           size: ProfileStyles.tileIconSize,
         ),
       ),

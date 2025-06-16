@@ -19,7 +19,7 @@ class CategoryCircle extends StatelessWidget {
         child: CircleAvatar(
           backgroundColor: HomeStyles.cardBg,
           radius: HomeStyles.categoryCircleRadius,
-          child: Icon(iconData, color: Colors.brown, size: 24),
+          child: Icon(iconData, color:HomeStyles.charcoal, size: 24),
         ),
       ),
       const SizedBox(height: 6),

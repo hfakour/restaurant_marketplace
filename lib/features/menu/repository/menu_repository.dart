@@ -7,21 +7,21 @@ class MenuRepository {
     await Future.delayed(const Duration(milliseconds: 300));
     return [
       MenuItem(
-        id: '101',
+        id: '1',
         name: 'Truffle Risotto',
         description: 'Creamy risotto with black truffles.',
         price: 29.99,
         imageUrl: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092',
       ),
       MenuItem(
-        id: '102',
+        id: '2',
         name: 'Duck Confit',
         description: 'Slow-cooked duck with red wine glaze.',
         price: 34.50,
         imageUrl: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092',
       ),
       MenuItem(
-        id: '103',
+        id: '3',
         name: 'Vegan Ratatouille',
         description: 'Mediterranean vegetables with herb oil.',
         price: 21.00,

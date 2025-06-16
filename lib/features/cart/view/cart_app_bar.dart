@@ -23,6 +23,6 @@ class CartAppBar extends StatelessWidget implements PreferredSizeWidget {
     ),
     backgroundColor: CartStyles.charcoal,
     foregroundColor: Colors.white,
-    elevation: 0,
+    scrolledUnderElevation: 0,
   );
 }
