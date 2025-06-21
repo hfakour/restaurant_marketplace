@@ -31,7 +31,7 @@ class CarouselSection extends StatelessWidget {
       children: [
         SectionHeader(title: title, icon: icon),
         SizedBox(
-          height: 118,
+          height: 160,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: filtered.length,

@@ -10,7 +10,7 @@ class ProfileSectionLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.only(bottom: 3, top: 12, left: 2),
+    padding: const EdgeInsets.only(bottom: 3, top: 3, left: 2),
     child: Text(
       label,
       style: Theme.of(context).textTheme.titleMedium?.copyWith(

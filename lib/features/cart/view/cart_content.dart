@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import '../../../core/theme/cart_styles.dart';
+import '../../checkout/view/checkout_screen.dart';
 import '../model/cart_model.dart';
 import 'cart_item_row.dart';
 
@@ -60,7 +61,14 @@ class CartContent extends StatelessWidget {
                     borderRadius: BorderRadius.circular(CartStyles.checkoutBtnRadius),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const CheckoutScreen(),
+                    ),
+                  );
+                },
                 child: Text(
                   'Proceed to Checkout • \$${total.toStringAsFixed(2)}',
                   style: const TextStyle(

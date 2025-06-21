@@ -7,6 +7,7 @@ part 'vendor.g.dart';
 class Vendor with _$Vendor {
   const factory Vendor({
     required String name,
+    required String id,
     required String location,
     required String image,
   }) = _Vendor;

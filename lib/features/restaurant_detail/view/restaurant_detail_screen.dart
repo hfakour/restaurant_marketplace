@@ -440,7 +440,7 @@ class RestaurantDetailScreen extends ConsumerWidget {
                           height: 53,
                           child: FilledButton.icon(
                             icon: const Icon(
-                              Icons.event_seat,
+                              Icons.table_bar,
                               size: 22,
                               color: Colors.white,
                             ),

@@ -23,6 +23,7 @@ Food _$FoodFromJson(Map<String, dynamic> json) {
 mixin _$Food {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get restaurantId => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   double get originalPrice => throw _privateConstructorUsedError;
   double get discountPercentage => throw _privateConstructorUsedError;
@@ -53,6 +54,7 @@ abstract class $FoodCopyWith<$Res> {
   $Res call({
     String id,
     String name,
+    String restaurantId,
     String description,
     double originalPrice,
     double discountPercentage,
@@ -87,6 +89,7 @@ class _$FoodCopyWithImpl<$Res, $Val extends Food>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? restaurantId = null,
     Object? description = null,
     Object? originalPrice = null,
     Object? discountPercentage = null,
@@ -111,6 +114,11 @@ class _$FoodCopyWithImpl<$Res, $Val extends Food>
                 null == name
                     ? _value.name
                     : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            restaurantId:
+                null == restaurantId
+                    ? _value.restaurantId
+                    : restaurantId // ignore: cast_nullable_to_non_nullable
                         as String,
             description:
                 null == description
@@ -199,6 +207,7 @@ abstract class _$$FoodImplCopyWith<$Res> implements $FoodCopyWith<$Res> {
   $Res call({
     String id,
     String name,
+    String restaurantId,
     String description,
     double originalPrice,
     double discountPercentage,
@@ -231,6 +240,7 @@ class __$$FoodImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? restaurantId = null,
     Object? description = null,
     Object? originalPrice = null,
     Object? discountPercentage = null,
@@ -255,6 +265,11 @@ class __$$FoodImplCopyWithImpl<$Res>
             null == name
                 ? _value.name
                 : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+        restaurantId:
+            null == restaurantId
+                ? _value.restaurantId
+                : restaurantId // ignore: cast_nullable_to_non_nullable
                     as String,
         description:
             null == description
@@ -327,6 +342,7 @@ class _$FoodImpl implements _Food {
   const _$FoodImpl({
     required this.id,
     required this.name,
+    required this.restaurantId,
     required this.description,
     required this.originalPrice,
     required this.discountPercentage,
@@ -351,6 +367,8 @@ class _$FoodImpl implements _Food {
   final String id;
   @override
   final String name;
+  @override
+  final String restaurantId;
   @override
   final String description;
   @override
@@ -402,7 +420,7 @@ class _$FoodImpl implements _Food {
 
   @override
   String toString() {
-    return 'Food(id: $id, name: $name, description: $description, originalPrice: $originalPrice, discountPercentage: $discountPercentage, imageUrl: $imageUrl, category: $category, tags: $tags, ingredients: $ingredients, allergens: $allergens, rating: $rating, reviewsCount: $reviewsCount, vendor: $vendor, reviews: $reviews)';
+    return 'Food(id: $id, name: $name, restaurantId: $restaurantId, description: $description, originalPrice: $originalPrice, discountPercentage: $discountPercentage, imageUrl: $imageUrl, category: $category, tags: $tags, ingredients: $ingredients, allergens: $allergens, rating: $rating, reviewsCount: $reviewsCount, vendor: $vendor, reviews: $reviews)';
   }
 
   @override
@@ -412,6 +430,8 @@ class _$FoodImpl implements _Food {
             other is _$FoodImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.restaurantId, restaurantId) ||
+                other.restaurantId == restaurantId) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.originalPrice, originalPrice) ||
@@ -444,6 +464,7 @@ class _$FoodImpl implements _Food {
     runtimeType,
     id,
     name,
+    restaurantId,
     description,
     originalPrice,
     discountPercentage,
@@ -476,6 +497,7 @@ abstract class _Food implements Food {
   const factory _Food({
     required final String id,
     required final String name,
+    required final String restaurantId,
     required final String description,
     required final double originalPrice,
     required final double discountPercentage,
@@ -496,6 +518,8 @@ abstract class _Food implements Food {
   String get id;
   @override
   String get name;
+  @override
+  String get restaurantId;
   @override
   String get description;
   @override

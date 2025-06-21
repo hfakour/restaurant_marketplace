@@ -8,6 +8,7 @@ part of 'vendor.dart';
 
 _$VendorImpl _$$VendorImplFromJson(Map<String, dynamic> json) => _$VendorImpl(
   name: json['name'] as String,
+  id: json['id'] as String,
   location: json['location'] as String,
   image: json['image'] as String,
 );
@@ -15,6 +16,7 @@ _$VendorImpl _$$VendorImplFromJson(Map<String, dynamic> json) => _$VendorImpl(
 Map<String, dynamic> _$$VendorImplToJson(_$VendorImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'id': instance.id,
       'location': instance.location,
       'image': instance.image,
     };

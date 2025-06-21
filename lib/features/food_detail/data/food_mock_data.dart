@@ -3,6 +3,7 @@ import '../model/review.dart';
 import '../model/vendor.dart';
 
 final mockVendor = Vendor(
+  id: "1",
   name: 'Gourmet Bistro',
   location: 'Downtown Branch',
   image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5',
@@ -29,6 +30,7 @@ final mockFoods = [
   Food(
     id: '1',
     name: 'Grilled Chicken Salad',
+    restaurantId:'1',
     description: 'Enjoy a rich blend of seasoned grilled chicken, arugula, baby greens, and a gourmet vinaigrette.',
     originalPrice: 24.99,
     discountPercentage: 20,
@@ -43,6 +45,7 @@ final mockFoods = [
     reviews: mockReviews,
   ),Food(
     id: '2',
+    restaurantId:'2',
     name: 'Grilled Chicken Salad',
     description: 'Enjoy a rich blend of seasoned grilled chicken, arugula, baby greens, and a gourmet vinaigrette.',
     originalPrice: 24.99,
@@ -58,6 +61,7 @@ final mockFoods = [
     reviews: mockReviews,
   ),Food(
     id: '3',
+    restaurantId:'3',
     name: 'Grilled Chicken Salad',
     description: 'Enjoy a rich blend of seasoned grilled chicken, arugula, baby greens, and a gourmet vinaigrette.',
     originalPrice: 24.99,

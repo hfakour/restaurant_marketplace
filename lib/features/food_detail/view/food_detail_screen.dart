@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../restaurant_detail/view/restaurant_detail_screen.dart';
 import '../provider/food_detail_provider.dart';
 import '../widgets/add_to_cart_button.dart';
 import '../widgets/food_image_banner.dart';
@@ -47,8 +48,16 @@ class FoodDetailScreen extends ConsumerWidget {
                       vendorLocation: food.vendor.location,
                       rating: food.rating,
                       reviewsCount: food.reviewsCount,
-                      onViewRestaurant: () {},
-                      padding: const EdgeInsets.all(16),
+                      onViewRestaurant: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => RestaurantDetailScreen(
+                              restaurantId: food.restaurantId, // Use correct id property!
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     DetailsCard(
                       food: food,

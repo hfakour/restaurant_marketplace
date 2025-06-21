@@ -9,6 +9,7 @@ class Food with _$Food {
   const factory Food({
     required String id,
     required String name,
+    required String restaurantId,
     required String description,
     required double originalPrice,
     required double discountPercentage,

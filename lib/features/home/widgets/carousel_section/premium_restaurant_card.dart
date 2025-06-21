@@ -11,17 +11,10 @@ class PremiumRestaurantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-    width: 250,
+    width: 280,
     decoration: BoxDecoration(
       color: HomeStyles.cardBg,
       borderRadius: BorderRadius.circular(17),
-      boxShadow: [
-        BoxShadow(
-          color: HomeStyles.charcoal.withOpacity(0.10),
-          blurRadius: HomeStyles.cardShadowBlur,
-          offset: const Offset(0, 5),
-        ),
-      ],
       border: Border.all(color: HomeStyles.subtleGray, width: 1.1),
     ),
     child: Padding(

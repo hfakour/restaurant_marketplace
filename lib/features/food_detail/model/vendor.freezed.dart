@@ -22,6 +22,7 @@ Vendor _$VendorFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Vendor {
   String get name => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
 
@@ -39,7 +40,7 @@ abstract class $VendorCopyWith<$Res> {
   factory $VendorCopyWith(Vendor value, $Res Function(Vendor) then) =
       _$VendorCopyWithImpl<$Res, Vendor>;
   @useResult
-  $Res call({String name, String location, String image});
+  $Res call({String name, String id, String location, String image});
 }
 
 /// @nodoc
@@ -58,6 +59,7 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
   @override
   $Res call({
     Object? name = null,
+    Object? id = null,
     Object? location = null,
     Object? image = null,
   }) {
@@ -67,6 +69,11 @@ class _$VendorCopyWithImpl<$Res, $Val extends Vendor>
                 null == name
                     ? _value.name
                     : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
                         as String,
             location:
                 null == location
@@ -92,7 +99,7 @@ abstract class _$$VendorImplCopyWith<$Res> implements $VendorCopyWith<$Res> {
   ) = __$$VendorImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String location, String image});
+  $Res call({String name, String id, String location, String image});
 }
 
 /// @nodoc
@@ -110,6 +117,7 @@ class __$$VendorImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? id = null,
     Object? location = null,
     Object? image = null,
   }) {
@@ -119,6 +127,11 @@ class __$$VendorImplCopyWithImpl<$Res>
             null == name
                 ? _value.name
                 : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
                     as String,
         location:
             null == location
@@ -140,6 +153,7 @@ class __$$VendorImplCopyWithImpl<$Res>
 class _$VendorImpl implements _Vendor {
   const _$VendorImpl({
     required this.name,
+    required this.id,
     required this.location,
     required this.image,
   });
@@ -150,13 +164,15 @@ class _$VendorImpl implements _Vendor {
   @override
   final String name;
   @override
+  final String id;
+  @override
   final String location;
   @override
   final String image;
 
   @override
   String toString() {
-    return 'Vendor(name: $name, location: $location, image: $image)';
+    return 'Vendor(name: $name, id: $id, location: $location, image: $image)';
   }
 
   @override
@@ -165,6 +181,7 @@ class _$VendorImpl implements _Vendor {
         (other.runtimeType == runtimeType &&
             other is _$VendorImpl &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.location, location) ||
                 other.location == location) &&
             (identical(other.image, image) || other.image == image));
@@ -172,7 +189,7 @@ class _$VendorImpl implements _Vendor {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, location, image);
+  int get hashCode => Object.hash(runtimeType, name, id, location, image);
 
   /// Create a copy of Vendor
   /// with the given fields replaced by the non-null parameter values.
@@ -191,6 +208,7 @@ class _$VendorImpl implements _Vendor {
 abstract class _Vendor implements Vendor {
   const factory _Vendor({
     required final String name,
+    required final String id,
     required final String location,
     required final String image,
   }) = _$VendorImpl;
@@ -199,6 +217,8 @@ abstract class _Vendor implements Vendor {
 
   @override
   String get name;
+  @override
+  String get id;
   @override
   String get location;
   @override
