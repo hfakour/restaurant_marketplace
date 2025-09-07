@@ -1,0 +1,68 @@
+// lib/features/profile/data/mappers/user_profile_mapper.dart
+import 'package:restaurant_marketplace/core/domain_refs/domain_refs.dart';
+import '../../domain/entities/user_profile.dart';
+import '../models/user_profile_dto.dart';
+
+UserRole _roleFromString(String s) {
+  switch (s) {
+    case 'customer':
+      return UserRole.customer;
+    case 'restaurantOwner':
+      return UserRole.restaurantOwner;
+    case 'deliveryPerson':
+      return UserRole.deliveryPerson;
+    default:
+      return UserRole.customer;
+  }
+}
+
+extension UserProfileDtoMapper on UserProfileDto {
+  UserProfile toDomain() {
+    final created = createdAtIso != null ? DateTime.parse(createdAtIso!) : null;
+    final updated = updatedAtIso != null ? DateTime.parse(updatedAtIso!) : null;
+
+    return UserProfile(
+      id: id,
+      roles: roles.map(_roleFromString).toSet(),
+
+      // identity
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      contactNumber: contactNumber,
+      avatarUrl: avatarUrl,
+
+      // 🔧 Refs: use NAMED parameters (match your Ref classes)
+      addressRefs: addressIds
+          .map((e) => AddressRef(addressId: e)) // was AddressRef(e)
+          .toList(),
+      walletRef: walletId != null
+          ? WalletRef(
+        walletId: walletId!, // was WalletRef(walletId!, ...)
+        // include snapshot fields only if your WalletRef supports them:
+        // balanceSnapshot: walletBalanceSnapshot?.toDouble(),
+        // currencyCode: walletCurrencyCode,
+        // snapshotAt: walletSnapshotAtIso != null
+        //     ? DateTime.parse(walletSnapshotAtIso!)
+        //     : null,
+      )
+          : null,
+      reservationRefs: reservationIds
+          .map((e) => ReservationRef(reservationId: e)) // was ReservationRef(e)
+          .toList(),
+      paymentMethodRefs: paymentMethodIds
+          .map((e) => PaymentMethodRef(paymentMethodId: e)) // was PaymentMethodRef(e)
+          .toList(),
+
+      // flags
+      isEmailVerified: isEmailVerified,
+      isPhoneVerified: isPhoneVerified,
+
+      // auditing
+      createdAt: created,
+      updatedAt: updated,
+
+      roleMetadata: roleMetadata,
+    );
+  }
+}
