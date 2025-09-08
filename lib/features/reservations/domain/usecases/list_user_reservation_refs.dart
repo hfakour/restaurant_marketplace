@@ -6,8 +6,6 @@ class ListUserReservationRefs {
   final ReservationRepository _repo;
   const ListUserReservationRefs(this._repo);
 
-  /// Paged list of lightweight refs for a user's list screen.
-  /// Pass back the returned nextCursor to fetch subsequent pages.
   Future<ReservationRefPage> call({
     required String userId,
     ReservationStatus? status,

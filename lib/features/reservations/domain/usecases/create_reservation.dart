@@ -1,7 +1,5 @@
 import '../entities/reservation.dart';
 import '../repositories/reservation_repository.dart';
-
-// Optional VO helpers – keep if you use VOs; otherwise remove these two lines.
 import '../value_objects/reservation_vos.dart';
 import '../value_objects/reservation_vo_adapters.dart';
 
@@ -9,13 +7,13 @@ class CreateReservation {
   final ReservationRepository _repo;
   const CreateReservation(this._repo);
 
-  /// Path 1: pass a fully built domain entity
+  /// Path 1: pass a fully built domain entity (already VO-based).
   Future<String> call(Reservation reservation) {
-    _validateEntity(reservation);
+    _validate(reservation);
     return _repo.create(reservation);
   }
 
-  /// Path 2: build from Value Objects (if you’re using them)
+  /// Path 2: build from Value Objects (recommended at boundary).
   Future<String> fromVOs({
     required ReservationId id,
     required UserId userId,
@@ -23,6 +21,7 @@ class CreateReservation {
     required UtcDateTime scheduledAt,
     required PartySize partySize,
     SpecialRequest? specialRequest,
+    bool mustBeInFuture = false,
   }) {
     final entity = makeReservationFromVOs(
       id: id,
@@ -31,19 +30,19 @@ class CreateReservation {
       scheduledAt: scheduledAt,
       partySize: partySize,
       specialRequest: specialRequest,
+      mustBeInFuture: mustBeInFuture,
     );
-    _validateEntity(entity);
+    _validate(entity);
     return _repo.create(entity);
   }
 
-  // ------ local private validator (this is the missing method) ------
-  void _validateEntity(Reservation r) {
-    if (r.partySize <= 0) {
-      throw ArgumentError.value(r.partySize, 'partySize', 'Must be > 0');
+  void _validate(Reservation r) {
+    if (r.partySize.value <= 0) {
+      throw ArgumentError.value(r.partySize.value, 'partySize', 'Must be > 0');
     }
-    // Optional: enforce future times
-    // if (r.scheduledAt.isBefore(DateTime.now())) {
-    //   throw ArgumentError.value(r.scheduledAt, 'scheduledAt', 'Must be in the future');
+    // Optional cross-field rule example:
+    // if (!r.scheduledAt.value.isAfter(DateTime.now().toUtc())) {
+    //   throw ArgumentError.value(r.scheduledAt.value, 'scheduledAt', 'Must be in the future');
     // }
   }
 }

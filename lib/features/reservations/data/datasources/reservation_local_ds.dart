@@ -2,11 +2,10 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:restaurant_marketplace/core/domain_refs/reservation_ref.dart';
+import 'package:restaurant_marketplace/features/reservations/domain/entities/reservation.dart';
 import 'package:restaurant_marketplace/features/reservations/data/mappers/reservation_mapper.dart';
-
-import '../../../../core/domain_refs/reservation_ref.dart';
-import '../../domain/entities/reservation.dart';
-import '../models/reservation_model.dart';
+import 'package:restaurant_marketplace/features/reservations/data/models/reservation_model.dart';
 
 /// Local persistence contract for a **client** app.
 abstract class ReservationLocalDataSource {
@@ -159,14 +158,16 @@ class ReservationLocalDataSourceImpl implements ReservationLocalDataSource {
   @override
   Future<void> upsert(Reservation reservation) async {
     final map = await _load();
-    final existing = map[reservation.id];
+    final id = reservation.id.value; // <-- unwrap VO
+    final uid = reservation.userId.value; // <-- unwrap VO
 
-    map[reservation.id] = reservation.toModel();
+    final existing = map[id];
+    map[id] = reservation.toModel(); // mapper unwraps VOs as needed
     await _save(map);
 
     // Notify the affected user(s)
-    _userChanges.add(reservation.userId);
-    if (existing != null && existing.userId != reservation.userId) {
+    _userChanges.add(uid);
+    if (existing != null && existing.userId != uid) {
       _userChanges.add(existing.userId);
     }
   }

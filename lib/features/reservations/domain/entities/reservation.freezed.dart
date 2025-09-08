@@ -17,12 +17,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Reservation {
-  String get id => throw _privateConstructorUsedError;
-  String get userId => throw _privateConstructorUsedError;
-  String get restaurantId => throw _privateConstructorUsedError;
-  DateTime get scheduledAt => throw _privateConstructorUsedError;
-  int get partySize => throw _privateConstructorUsedError;
-  String? get specialRequest => throw _privateConstructorUsedError;
+  ReservationId get id => throw _privateConstructorUsedError;
+  UserId get userId => throw _privateConstructorUsedError;
+  RestaurantId get restaurantId => throw _privateConstructorUsedError;
+  UtcDateTime get scheduledAt => throw _privateConstructorUsedError;
+  PartySize get partySize => throw _privateConstructorUsedError;
+  SpecialRequest? get specialRequest => throw _privateConstructorUsedError;
   ReservationStatus get status => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
@@ -42,16 +42,23 @@ abstract class $ReservationCopyWith<$Res> {
   ) = _$ReservationCopyWithImpl<$Res, Reservation>;
   @useResult
   $Res call({
-    String id,
-    String userId,
-    String restaurantId,
-    DateTime scheduledAt,
-    int partySize,
-    String? specialRequest,
+    ReservationId id,
+    UserId userId,
+    RestaurantId restaurantId,
+    UtcDateTime scheduledAt,
+    PartySize partySize,
+    SpecialRequest? specialRequest,
     ReservationStatus status,
     DateTime? createdAt,
     DateTime? updatedAt,
   });
+
+  $ReservationIdCopyWith<$Res> get id;
+  $UserIdCopyWith<$Res> get userId;
+  $RestaurantIdCopyWith<$Res> get restaurantId;
+  $UtcDateTimeCopyWith<$Res> get scheduledAt;
+  $PartySizeCopyWith<$Res> get partySize;
+  $SpecialRequestCopyWith<$Res>? get specialRequest;
 }
 
 /// @nodoc
@@ -84,27 +91,27 @@ class _$ReservationCopyWithImpl<$Res, $Val extends Reservation>
             id: null == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as ReservationId,
             userId: null == userId
                 ? _value.userId
                 : userId // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as UserId,
             restaurantId: null == restaurantId
                 ? _value.restaurantId
                 : restaurantId // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as RestaurantId,
             scheduledAt: null == scheduledAt
                 ? _value.scheduledAt
                 : scheduledAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime,
+                      as UtcDateTime,
             partySize: null == partySize
                 ? _value.partySize
                 : partySize // ignore: cast_nullable_to_non_nullable
-                      as int,
+                      as PartySize,
             specialRequest: freezed == specialRequest
                 ? _value.specialRequest
                 : specialRequest // ignore: cast_nullable_to_non_nullable
-                      as String?,
+                      as SpecialRequest?,
             status: null == status
                 ? _value.status
                 : status // ignore: cast_nullable_to_non_nullable
@@ -121,6 +128,70 @@ class _$ReservationCopyWithImpl<$Res, $Val extends Reservation>
           as $Val,
     );
   }
+
+  /// Create a copy of Reservation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ReservationIdCopyWith<$Res> get id {
+    return $ReservationIdCopyWith<$Res>(_value.id, (value) {
+      return _then(_value.copyWith(id: value) as $Val);
+    });
+  }
+
+  /// Create a copy of Reservation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserIdCopyWith<$Res> get userId {
+    return $UserIdCopyWith<$Res>(_value.userId, (value) {
+      return _then(_value.copyWith(userId: value) as $Val);
+    });
+  }
+
+  /// Create a copy of Reservation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $RestaurantIdCopyWith<$Res> get restaurantId {
+    return $RestaurantIdCopyWith<$Res>(_value.restaurantId, (value) {
+      return _then(_value.copyWith(restaurantId: value) as $Val);
+    });
+  }
+
+  /// Create a copy of Reservation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UtcDateTimeCopyWith<$Res> get scheduledAt {
+    return $UtcDateTimeCopyWith<$Res>(_value.scheduledAt, (value) {
+      return _then(_value.copyWith(scheduledAt: value) as $Val);
+    });
+  }
+
+  /// Create a copy of Reservation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PartySizeCopyWith<$Res> get partySize {
+    return $PartySizeCopyWith<$Res>(_value.partySize, (value) {
+      return _then(_value.copyWith(partySize: value) as $Val);
+    });
+  }
+
+  /// Create a copy of Reservation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SpecialRequestCopyWith<$Res>? get specialRequest {
+    if (_value.specialRequest == null) {
+      return null;
+    }
+
+    return $SpecialRequestCopyWith<$Res>(_value.specialRequest!, (value) {
+      return _then(_value.copyWith(specialRequest: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -133,16 +204,29 @@ abstract class _$$ReservationImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String id,
-    String userId,
-    String restaurantId,
-    DateTime scheduledAt,
-    int partySize,
-    String? specialRequest,
+    ReservationId id,
+    UserId userId,
+    RestaurantId restaurantId,
+    UtcDateTime scheduledAt,
+    PartySize partySize,
+    SpecialRequest? specialRequest,
     ReservationStatus status,
     DateTime? createdAt,
     DateTime? updatedAt,
   });
+
+  @override
+  $ReservationIdCopyWith<$Res> get id;
+  @override
+  $UserIdCopyWith<$Res> get userId;
+  @override
+  $RestaurantIdCopyWith<$Res> get restaurantId;
+  @override
+  $UtcDateTimeCopyWith<$Res> get scheduledAt;
+  @override
+  $PartySizeCopyWith<$Res> get partySize;
+  @override
+  $SpecialRequestCopyWith<$Res>? get specialRequest;
 }
 
 /// @nodoc
@@ -174,27 +258,27 @@ class __$$ReservationImplCopyWithImpl<$Res>
         id: null == id
             ? _value.id
             : id // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as ReservationId,
         userId: null == userId
             ? _value.userId
             : userId // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as UserId,
         restaurantId: null == restaurantId
             ? _value.restaurantId
             : restaurantId // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as RestaurantId,
         scheduledAt: null == scheduledAt
             ? _value.scheduledAt
             : scheduledAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime,
+                  as UtcDateTime,
         partySize: null == partySize
             ? _value.partySize
             : partySize // ignore: cast_nullable_to_non_nullable
-                  as int,
+                  as PartySize,
         specialRequest: freezed == specialRequest
             ? _value.specialRequest
             : specialRequest // ignore: cast_nullable_to_non_nullable
-                  as String?,
+                  as SpecialRequest?,
         status: null == status
             ? _value.status
             : status // ignore: cast_nullable_to_non_nullable
@@ -214,7 +298,7 @@ class __$$ReservationImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ReservationImpl implements _Reservation {
+class _$ReservationImpl extends _Reservation {
   const _$ReservationImpl({
     required this.id,
     required this.userId,
@@ -225,20 +309,20 @@ class _$ReservationImpl implements _Reservation {
     this.status = ReservationStatus.pending,
     this.createdAt,
     this.updatedAt,
-  });
+  }) : super._();
 
   @override
-  final String id;
+  final ReservationId id;
   @override
-  final String userId;
+  final UserId userId;
   @override
-  final String restaurantId;
+  final RestaurantId restaurantId;
   @override
-  final DateTime scheduledAt;
+  final UtcDateTime scheduledAt;
   @override
-  final int partySize;
+  final PartySize partySize;
   @override
-  final String? specialRequest;
+  final SpecialRequest? specialRequest;
   @override
   @JsonKey()
   final ReservationStatus status;
@@ -297,31 +381,32 @@ class _$ReservationImpl implements _Reservation {
       __$$ReservationImplCopyWithImpl<_$ReservationImpl>(this, _$identity);
 }
 
-abstract class _Reservation implements Reservation {
+abstract class _Reservation extends Reservation {
   const factory _Reservation({
-    required final String id,
-    required final String userId,
-    required final String restaurantId,
-    required final DateTime scheduledAt,
-    required final int partySize,
-    final String? specialRequest,
+    required final ReservationId id,
+    required final UserId userId,
+    required final RestaurantId restaurantId,
+    required final UtcDateTime scheduledAt,
+    required final PartySize partySize,
+    final SpecialRequest? specialRequest,
     final ReservationStatus status,
     final DateTime? createdAt,
     final DateTime? updatedAt,
   }) = _$ReservationImpl;
+  const _Reservation._() : super._();
 
   @override
-  String get id;
+  ReservationId get id;
   @override
-  String get userId;
+  UserId get userId;
   @override
-  String get restaurantId;
+  RestaurantId get restaurantId;
   @override
-  DateTime get scheduledAt;
+  UtcDateTime get scheduledAt;
   @override
-  int get partySize;
+  PartySize get partySize;
   @override
-  String? get specialRequest;
+  SpecialRequest? get specialRequest;
   @override
   ReservationStatus get status;
   @override

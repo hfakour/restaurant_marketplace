@@ -1,17 +1,34 @@
+// domain/value_objects/reservation_vos.dart
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'reservation_vos.freezed.dart';
 
-/// ---------- ID VOs (type-safety over raw strings) ----------
+/// (Optional) Common ID rules you may want to enforce
+class IdRules {
+  // Example ULID pattern (uppercase Crockford base32, len 26)
+  static final RegExp ulid = RegExp(r'^[0-9A-HJKMNP-TV-Z]{26}$');
+}
+
+/// ---------- ID VOs ----------
 @freezed
 class ReservationId with _$ReservationId {
   const ReservationId._();
   const factory ReservationId({required String value}) = _ReservationId;
-  factory ReservationId.create(String raw) {
+
+  factory ReservationId.create(String raw, {RegExp? pattern}) {
     final v = raw.trim();
     if (v.isEmpty) throw ArgumentError('ReservationId cannot be empty');
+    if (pattern != null && !pattern.hasMatch(v)) {
+      throw ArgumentError('ReservationId does not match required pattern');
+    }
     return ReservationId(value: v);
   }
+
+  /// Safe constructor that returns null instead of throwing.
+  static ReservationId? tryCreate(String raw, {RegExp? pattern}) {
+    try { return ReservationId.create(raw, pattern: pattern); } catch (_) { return null; }
+  }
+
   @override
   String toString() => value;
 }
@@ -20,11 +37,17 @@ class ReservationId with _$ReservationId {
 class UserId with _$UserId {
   const UserId._();
   const factory UserId({required String value}) = _UserId;
+
   factory UserId.create(String raw) {
     final v = raw.trim();
     if (v.isEmpty) throw ArgumentError('UserId cannot be empty');
     return UserId(value: v);
   }
+
+  static UserId? tryCreate(String raw) {
+    try { return UserId.create(raw); } catch (_) { return null; }
+  }
+
   @override
   String toString() => value;
 }
@@ -33,11 +56,17 @@ class UserId with _$UserId {
 class RestaurantId with _$RestaurantId {
   const RestaurantId._();
   const factory RestaurantId({required String value}) = _RestaurantId;
+
   factory RestaurantId.create(String raw) {
     final v = raw.trim();
     if (v.isEmpty) throw ArgumentError('RestaurantId cannot be empty');
     return RestaurantId(value: v);
   }
+
+  static RestaurantId? tryCreate(String raw) {
+    try { return RestaurantId.create(raw); } catch (_) { return null; }
+  }
+
   @override
   String toString() => value;
 }
@@ -48,11 +77,19 @@ class PartySize with _$PartySize {
   const PartySize._();
   const factory PartySize({required int value}) = _PartySize;
 
-  /// Business rule: 1..20 (adjust to your needs)
+  static const int min = 1;
+  static const int max = 20; // tweak per business
+
   factory PartySize.create(int raw) {
-    if (raw < 1) throw RangeError('PartySize must be >= 1');
-    if (raw > 20) throw RangeError('PartySize must be <= 20');
+    if (raw < min) throw RangeError('PartySize must be >= $min');
+    if (raw > max) throw RangeError('PartySize must be <= $max');
     return PartySize(value: raw);
+  }
+
+  /// If you prefer not to throw, clamp into range.
+  factory PartySize.clamped(int raw) {
+    final v = raw.clamp(min, max);
+    return PartySize(value: v);
   }
 }
 
@@ -82,4 +119,6 @@ class UtcDateTime with _$UtcDateTime {
 
   factory UtcDateTime.create(DateTime dt) =>
       UtcDateTime(value: dt.isUtc ? dt : dt.toUtc());
+
+  factory UtcDateTime.now() => UtcDateTime(value: DateTime.now().toUtc());
 }

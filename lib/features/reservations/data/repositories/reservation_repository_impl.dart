@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:restaurant_marketplace/core/domain_refs/reservation_ref.dart';
 import 'package:restaurant_marketplace/features/reservations/domain/entities/reservation.dart';
 import 'package:restaurant_marketplace/features/reservations/domain/repositories/reservation_repository.dart';
+import 'package:restaurant_marketplace/features/reservations/data/mappers/reservation_mapper.dart';
 
 /// In-memory implementation for client app (tests, early wiring).
 /// - Lists/streams use lightweight ReservationRef
@@ -11,16 +12,16 @@ import 'package:restaurant_marketplace/features/reservations/domain/repositories
 class ReservationRepositoryImpl implements ReservationRepository {
   // ---------------- Storage ----------------
 
-  // Full entities by id
+  // Full entities by id (key = reservationId string)
   final Map<String, Reservation> _byId = {};
 
-  // Index: userId -> {reservationId}
+  // Index: userId string -> {reservationId string}
   final Map<String, Set<String>> _byUser = {};
 
-  // Lightweight refs per user: userId -> (reservationId -> ref)
+  // Lightweight refs per user: userId string -> (reservationId string -> ref)
   final Map<String, Map<String, ReservationRef>> _refsByUser = {};
 
-  // Change stream: emits userId whose list changed
+  // Change stream: emits userId (string) whose list changed
   final _userChanges = StreamController<String>.broadcast();
 
   ReservationRepositoryImpl({Iterable<Reservation>? seed}) {
@@ -34,18 +35,11 @@ class ReservationRepositoryImpl implements ReservationRepository {
 
   // ---------------- Helpers ----------------
 
-  // Entity -> Ref snapshot (kept private; same shape as discussed)
-  ReservationRef _toRef(Reservation r) => ReservationRef(
-    reservationId: r.id,
-    statusSnapshot: r.status.name,
-    scheduledAt: r.scheduledAt,
-    restaurantId: r.restaurantId,
-    partySize: r.partySize,
-  );
-
   void _insertIndexes(Reservation r) {
-    _byId[r.id] = r;
-    _byUser.putIfAbsent(r.userId, () => <String>{}).add(r.id);
+    final id = r.id.value;
+    final uid = r.userId.value;
+    _byId[id] = r;
+    _byUser.putIfAbsent(uid, () => <String>{}).add(id);
   }
 
   void _removeFromUserIndex(String userId, String reservationId) {
@@ -58,22 +52,30 @@ class ReservationRepositoryImpl implements ReservationRepository {
     if (m != null && m.isEmpty) _refsByUser.remove(userId);
   }
 
-  void _reindexIfUserChanged(Reservation old, Reservation newer) {
-    if (old.userId == newer.userId) return;
-    _removeFromUserIndex(old.userId, old.id);
-    _byUser.putIfAbsent(newer.userId, () => <String>{}).add(newer.id);
+  void _reindexIfUserChanged(Reservation oldR, Reservation newR) {
+    // Freezed VOs compare by value, so this is safe.
+    if (oldR.userId == newR.userId) return;
 
-    // Move ref to new user
-    final oldBucket = _refsByUser.putIfAbsent(old.userId, () => <String, ReservationRef>{});
-    final ref = oldBucket.remove(old.id);
+    final oldUid = oldR.userId.value;
+    final newUid = newR.userId.value;
+    final rid = oldR.id.value;
+
+    _removeFromUserIndex(oldUid, rid);
+    _byUser.putIfAbsent(newUid, () => <String>{}).add(rid);
+
+    // Move ref bucket entry
+    final oldBucket = _refsByUser.putIfAbsent(oldUid, () => <String, ReservationRef>{});
+    final ref = oldBucket.remove(rid);
     if (ref != null) {
-      _refsByUser.putIfAbsent(newer.userId, () => <String, ReservationRef>{})[newer.id] = ref;
+      _refsByUser.putIfAbsent(newUid, () => <String, ReservationRef>{})[rid] = ref;
     }
   }
 
   void _upsertRefForUser(Reservation r) {
-    final bucket = _refsByUser.putIfAbsent(r.userId, () => <String, ReservationRef>{});
-    bucket[r.id] = _toRef(r);
+    final uid = r.userId.value;
+    final rid = r.id.value;
+    final bucket = _refsByUser.putIfAbsent(uid, () => <String, ReservationRef>{});
+    bucket[rid] = reservationToRef(r); // use the mapper
   }
 
   DateTime _now(DateTime? n) => n ?? DateTime.now();
@@ -140,35 +142,41 @@ class ReservationRepositoryImpl implements ReservationRepository {
 
   @override
   Future<String> create(Reservation reservation) async {
-    if (_byId.containsKey(reservation.id)) {
-      throw StateError('Reservation with id ${reservation.id} already exists');
+    final rid = reservation.id.value;
+    final uid = reservation.userId.value;
+
+    if (_byId.containsKey(rid)) {
+      throw StateError('Reservation with id $rid already exists');
     }
     _insertIndexes(reservation);
     _upsertRefForUser(reservation);
-    _userChanges.add(reservation.userId);
-    return reservation.id;
+    _userChanges.add(uid);
+    return rid;
   }
 
   @override
   Future<void> update(Reservation reservation) async {
-    final current = _byId[reservation.id];
+    final rid = reservation.id.value;
+    final uid = reservation.userId.value;
+
+    final current = _byId[rid];
     if (current == null) {
       // upsert semantics for safety
       _insertIndexes(reservation);
       _upsertRefForUser(reservation);
-      _userChanges.add(reservation.userId);
+      _userChanges.add(uid);
       return;
     }
 
     _reindexIfUserChanged(current, reservation);
-    _byId[reservation.id] = reservation;
+    _byId[rid] = reservation;
 
     // refresh snapshot
     _upsertRefForUser(reservation);
 
     // notify both old and new user buckets if user moved
-    _userChanges.add(current.userId);
-    _userChanges.add(reservation.userId);
+    _userChanges.add(current.userId.value);
+    _userChanges.add(uid);
   }
 
   @override
@@ -181,7 +189,7 @@ class ReservationRepositoryImpl implements ReservationRepository {
 
     _byId[reservationId] = cancelled;
     _upsertRefForUser(cancelled);
-    _userChanges.add(cancelled.userId);
+    _userChanges.add(cancelled.userId.value);
   }
 
   // ---------------- Dispose (for tests) ----------------
