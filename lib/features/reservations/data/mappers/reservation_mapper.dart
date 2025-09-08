@@ -1,11 +1,15 @@
+// data/mappers/reservation_mappers.dart
 import '../../domain/entities/reservation.dart';
 import '../models/reservation_model.dart';
+import '../../../../core/domain_refs/reservation_ref.dart';
+
+/// --------------------
+/// Model ↔ Domain
+/// --------------------
 
 ReservationStatus _statusFromString(String s) {
-  return ReservationStatus.values.firstWhere(
-        (e) => e.name == s,
-    orElse: () => ReservationStatus.pending,
-  );
+  final i = ReservationStatus.values.indexWhere((e) => e.name == s);
+  return i == -1 ? ReservationStatus.pending : ReservationStatus.values[i];
 }
 
 extension ReservationModelX on ReservationModel {
@@ -38,4 +42,18 @@ extension ReservationDomainX on Reservation {
       updatedAt: updatedAt,
     );
   }
+}
+
+/// --------------------
+/// Domain → Ref
+/// --------------------
+
+ReservationRef reservationToRef(Reservation r) {
+  return ReservationRef(
+    reservationId: r.id,
+    statusSnapshot: r.status.name,
+    scheduledAt: r.scheduledAt,
+    restaurantId: r.restaurantId,
+    partySize: r.partySize,
+  );
 }

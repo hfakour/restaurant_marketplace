@@ -2,65 +2,49 @@
 import '../../../../core/domain_refs/reservation_ref.dart';
 import '../entities/reservation.dart';
 
-/// Contract for reading/writing reservations for CLIENT app.
+/// Client-facing contract for reservations.
+/// Optimized for lightweight list UIs + detail fetch on demand.
 abstract class ReservationRepository {
   // ----- Reads -----
 
-  /// Full entity by ID (details screen).
+  /// Load a full reservation by ID (details screen).
   Future<Reservation?> getById(String id);
 
-  /// Lightweight page of user's reservations (for lists).
+  /// Paged, lightweight list of a user's reservations.
+  /// Filtering is by [status] only, which matches the app's UX.
   Future<ReservationRefPage> listRefsForUser({
     required String userId,
-    ReservationStatus? status, // optional filter
-    int limit = 50,
-    String? cursor, // opaque paging token
+    ReservationStatus? status, // optional filter for simple search
+    int limit = 10,
+    String? cursor, // opaque paging token (offset, doc anchor, etc.)
   });
 
-  /// Full page when you explicitly need entities (e.g., exporting).
-  Future<ReservationSearchPage> listForUser({
-    required String userId,
-    ReservationStatus? status,
-    int limit = 50,
-    String? cursor,
-  });
-
-  /// Live lightweight updates for user's list UIs.
+  /// Live, lightweight updates for user's list UIs.
+  /// Emits the full current set for the applied filter.
   Stream<List<ReservationRef>> watchRefsForUser({
     required String userId,
-    ReservationStatus? status,
-  });
-
-  /// Live full entities (detail screens / deep observers).
-  Stream<List<Reservation>> watchForUser({
-    required String userId,
-    ReservationStatus? status,
+    ReservationStatus? status, // filter matches listRefsForUser
   });
 
   // ----- Writes -----
 
-  /// Create a reservation. Returns its ID.
+  /// Create a reservation. Returns its generated ID.
   ///
-  /// Implementations MUST also upsert the corresponding ReservationRef
-  /// into the user's ref collection so lists update immediately.
+  /// Implementations MUST:
+  ///  - persist the full Reservation
+  ///  - upsert its ReservationRef snapshot for the user (entity -> ref)
   Future<String> create(Reservation reservation);
 
-  /// Update mutable fields (reschedule, partySize, specialRequest, etc.).
+  /// Update user-editable fields (time, partySize, specialRequest, etc.).
   ///
-  /// Implementations MUST also refresh the user's ReservationRef snapshot.
+  /// Implementations MUST refresh the corresponding ReservationRef snapshot.
   Future<void> update(Reservation reservation);
 
-  /// Client action that we keep: cancel.
+  /// Cancel a reservation (client action).
   ///
-  /// (Admin-only actions like confirm/complete/noShow were removed.)
+  /// Implementations MUST set entity.status = cancelled AND
+  /// update the ReservationRef.statusSnapshot accordingly.
   Future<void> cancel(String reservationId, {DateTime? now});
-}
-
-/// Page container for full entities (kept for completeness).
-class ReservationSearchPage {
-  final List<Reservation> items;
-  final String? nextCursor;
-  const ReservationSearchPage({required this.items, this.nextCursor});
 }
 
 /// Page container for lightweight refs (used by list screens).

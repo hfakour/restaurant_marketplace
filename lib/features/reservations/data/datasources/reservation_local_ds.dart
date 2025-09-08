@@ -1,67 +1,50 @@
+// data/datasources/reservation_local_data_source.dart
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:restaurant_marketplace/features/reservations/data/mappers/reservation_mapper.dart';
+
+import '../../../../core/domain_refs/reservation_ref.dart';
 import '../../domain/entities/reservation.dart';
-import '../mappers/reservation_mapper.dart';
 import '../models/reservation_model.dart';
 
-/// Local persistence contract for Reservations.
-/// The repository can do pagination on top of these list methods.
+/// Local persistence contract for a **client** app.
 abstract class ReservationLocalDataSource {
   Future<Reservation?> getById(String id);
 
-  Future<List<Reservation>> listForUser({
+  /// Returns lightweight refs (no paging here; repository can page)
+  Future<List<ReservationRef>> listRefsForUser({
     required String userId,
     ReservationStatus? status,
   });
 
-  Future<List<Reservation>> listForRestaurant({
-    required String restaurantId,
-    DateTime? start,
-    DateTime? end,
-    ReservationStatus? status,
-  });
-
-  Stream<List<Reservation>> watchForUser({
+  /// Live lightweight refs for list UIs
+  Stream<List<ReservationRef>> watchRefsForUser({
     required String userId,
     ReservationStatus? status,
   });
 
-  Stream<List<Reservation>> watchForRestaurant({
-    required String restaurantId,
-    DateTime? start,
-    DateTime? end,
-    ReservationStatus? status,
-  });
-
-  /// Insert or update the whole reservation.
+  /// Insert or update the whole reservation (used by create/update).
   Future<void> upsert(Reservation reservation);
 
-  /// Status transitions.
-  Future<void> updateStatus(String reservationId, ReservationStatus status, {DateTime? now});
-  Future<void> confirm(String reservationId, {DateTime? now});
+  /// Client action: cancel
   Future<void> cancel(String reservationId, {DateTime? now});
-  Future<void> complete(String reservationId, {DateTime? now});
-  Future<void> markNoShow(String reservationId, {DateTime? now});
-
-  /// Basic conflict search (same restaurant & exact scheduledAt).
-  Future<List<Reservation>> findExactConflicts({
-    required String restaurantId,
-    required DateTime scheduledAt,
-  });
 }
 
 /// Minimal key-value store so you can plug SharedPreferences/Hive/Isar later.
 abstract class LocalStore {
   Future<String?> readString(String key);
+
   Future<void> writeString(String key, String value);
 }
 
 /// Simple in-memory store for tests/dev.
 class InMemoryLocalStore implements LocalStore {
   final Map<String, String> _kv = {};
+
   @override
   Future<String?> readString(String key) async => _kv[key];
+
   @override
   Future<void> writeString(String key, String value) async {
     _kv[key] = value;
@@ -78,9 +61,6 @@ class ReservationLocalDataSourceImpl implements ReservationLocalDataSource {
   /// Emits userId on user changes.
   final _userChanges = StreamController<String>.broadcast();
 
-  /// Emits restaurantId on restaurant changes.
-  final _restaurantChanges = StreamController<String>.broadcast();
-
   ReservationLocalDataSourceImpl(this._store);
 
   // ---------------- Storage helpers ----------------
@@ -88,9 +68,11 @@ class ReservationLocalDataSourceImpl implements ReservationLocalDataSource {
   Future<Map<String, ReservationModel>> _load() async {
     final raw = await _store.readString(_kCollectionKey);
     if (raw == null || raw.isEmpty) return {};
-    final Map<String, dynamic> decoded = jsonDecode(raw) as Map<String, dynamic>;
+    final Map<String, dynamic> decoded =
+        jsonDecode(raw) as Map<String, dynamic>;
     return decoded.map(
-          (k, v) => MapEntry(k, ReservationModel.fromJson(Map<String, dynamic>.from(v))),
+      (k, v) =>
+          MapEntry(k, ReservationModel.fromJson(Map<String, dynamic>.from(v))),
     );
   }
 
@@ -107,33 +89,19 @@ class ReservationLocalDataSourceImpl implements ReservationLocalDataSource {
     return res;
   }
 
-  Map<String, Set<String>> _indexByRestaurant(Map<String, ReservationModel> map) {
-    final res = <String, Set<String>>{};
-    for (final r in map.values) {
-      res.putIfAbsent(r.restaurantId, () => <String>{}).add(r.id);
-    }
-    return res;
-  }
-
   DateTime _now(DateTime? n) => n ?? DateTime.now();
 
-  int _cmpNewFirst(Reservation a, Reservation b) {
-    final sa = a.scheduledAt.millisecondsSinceEpoch;
-    final sb = b.scheduledAt.millisecondsSinceEpoch;
+  int _cmpRefNewFirst(ReservationRef a, ReservationRef b) {
+    final sa = a.scheduledAt?.millisecondsSinceEpoch ?? 0;
+    final sb = b.scheduledAt?.millisecondsSinceEpoch ?? 0;
     final scmp = sb.compareTo(sa);
     if (scmp != 0) return scmp;
-
-    final ca = a.createdAt?.millisecondsSinceEpoch ?? 0;
-    final cb = b.createdAt?.millisecondsSinceEpoch ?? 0;
-    final ccmp = cb.compareTo(ca);
-    if (ccmp != 0) return ccmp;
-
-    return b.id.compareTo(a.id);
+    return b.reservationId.compareTo(a.reservationId);
   }
 
   // ---------------- Query helpers ----------------
 
-  List<Reservation> _selectUser({
+  List<ReservationRef> _selectUserRefs({
     required Map<String, ReservationModel> map,
     required String userId,
     ReservationStatus? status,
@@ -141,30 +109,18 @@ class ReservationLocalDataSourceImpl implements ReservationLocalDataSource {
     final ids = _indexByUser(map)[userId];
     if (ids == null || ids.isEmpty) return const [];
 
-    Iterable<ReservationModel> it = ids.map((id) => map[id]!).where((m) => m != null);
-    if (status != null) it = it.where((m) => m.status == status.name);
+    // map -> domain -> ref (so ref always mirrors the entity)
+    Iterable<ReservationRef> it = ids
+        .map((id) => map[id]!)
+        .map((m) => m.toDomain())
+        .map(reservationToRef);
 
-    final list = it.map((m) => m.toDomain()).toList()..sort(_cmpNewFirst);
-    return list;
-  }
+    if (status != null) {
+      final wanted = status.name;
+      it = it.where((ref) => ref.statusSnapshot == wanted);
+    }
 
-  List<Reservation> _selectRestaurant({
-    required Map<String, ReservationModel> map,
-    required String restaurantId,
-    DateTime? start,
-    DateTime? end,
-    ReservationStatus? status,
-  }) {
-    final ids = _indexByRestaurant(map)[restaurantId];
-    if (ids == null || ids.isEmpty) return const [];
-
-    Iterable<ReservationModel> it = ids.map((id) => map[id]!).where((m) => m != null);
-
-    if (start != null) it = it.where((m) => !m.scheduledAt.isBefore(start));
-    if (end != null) it = it.where((m) => !m.scheduledAt.isAfter(end));
-    if (status != null) it = it.where((m) => m.status == status.name);
-
-    final list = it.map((m) => m.toDomain()).toList()..sort(_cmpNewFirst);
+    final list = it.toList()..sort(_cmpRefNewFirst);
     return list;
   }
 
@@ -178,68 +134,25 @@ class ReservationLocalDataSourceImpl implements ReservationLocalDataSource {
   }
 
   @override
-  Future<List<Reservation>> listForUser({
+  Future<List<ReservationRef>> listRefsForUser({
     required String userId,
     ReservationStatus? status,
   }) async {
     final map = await _load();
-    return _selectUser(map: map, userId: userId, status: status);
+    return _selectUserRefs(map: map, userId: userId, status: status);
   }
 
   @override
-  Future<List<Reservation>> listForRestaurant({
-    required String restaurantId,
-    DateTime? start,
-    DateTime? end,
-    ReservationStatus? status,
-  }) async {
-    final map = await _load();
-    return _selectRestaurant(
-      map: map,
-      restaurantId: restaurantId,
-      start: start,
-      end: end,
-      status: status,
-    );
-  }
-
-  @override
-  Stream<List<Reservation>> watchForUser({
+  Stream<List<ReservationRef>> watchRefsForUser({
     required String userId,
     ReservationStatus? status,
   }) async* {
     // initial snapshot
-    yield await listForUser(userId: userId, status: status);
+    yield await listRefsForUser(userId: userId, status: status);
 
     await for (final changedUserId in _userChanges.stream) {
       if (changedUserId != userId) continue;
-      yield await listForUser(userId: userId, status: status);
-    }
-  }
-
-  @override
-  Stream<List<Reservation>> watchForRestaurant({
-    required String restaurantId,
-    DateTime? start,
-    DateTime? end,
-    ReservationStatus? status,
-  }) async* {
-    // initial snapshot
-    yield await listForRestaurant(
-      restaurantId: restaurantId,
-      start: start,
-      end: end,
-      status: status,
-    );
-
-    await for (final changedRestaurantId in _restaurantChanges.stream) {
-      if (changedRestaurantId != restaurantId) continue;
-      yield await listForRestaurant(
-        restaurantId: restaurantId,
-        start: start,
-        end: end,
-        status: status,
-      );
+      yield await listRefsForUser(userId: userId, status: status);
     }
   }
 
@@ -248,26 +161,18 @@ class ReservationLocalDataSourceImpl implements ReservationLocalDataSource {
     final map = await _load();
     final existing = map[reservation.id];
 
-    // If userId/restaurantId changed, we don't need to maintain indexes here,
-    // indexes are rebuilt from the map on demand. Just overwrite the record.
     map[reservation.id] = reservation.toModel();
     await _save(map);
 
-    // Emit change events
-    final u = reservation.userId;
-    final r = reservation.restaurantId;
-    _userChanges.add(u);
-    _restaurantChanges.add(r);
-
-    // If we had an existing record with different foreign keys, notify those too.
-    if (existing != null) {
-      if (existing.userId != u) _userChanges.add(existing.userId);
-      if (existing.restaurantId != r) _restaurantChanges.add(existing.restaurantId);
+    // Notify the affected user(s)
+    _userChanges.add(reservation.userId);
+    if (existing != null && existing.userId != reservation.userId) {
+      _userChanges.add(existing.userId);
     }
   }
 
   @override
-  Future<void> updateStatus(String reservationId, ReservationStatus status, {DateTime? now}) async {
+  Future<void> cancel(String reservationId, {DateTime? now}) async {
     final map = await _load();
     final m = map[reservationId];
     if (m == null) return;
@@ -280,7 +185,7 @@ class ReservationLocalDataSourceImpl implements ReservationLocalDataSource {
       scheduledAt: m.scheduledAt,
       partySize: m.partySize,
       specialRequest: m.specialRequest,
-      status: status.name,
+      status: ReservationStatus.cancelled.name,
       createdAt: m.createdAt,
       updatedAt: n,
     );
@@ -288,42 +193,10 @@ class ReservationLocalDataSourceImpl implements ReservationLocalDataSource {
     await _save(map);
 
     _userChanges.add(m.userId);
-    _restaurantChanges.add(m.restaurantId);
   }
 
-  @override
-  Future<void> confirm(String reservationId, {DateTime? now}) =>
-      updateStatus(reservationId, ReservationStatus.confirmed, now: now);
-
-  @override
-  Future<void> cancel(String reservationId, {DateTime? now}) =>
-      updateStatus(reservationId, ReservationStatus.cancelled, now: now);
-
-  @override
-  Future<void> complete(String reservationId, {DateTime? now}) =>
-      updateStatus(reservationId, ReservationStatus.completed, now: now);
-
-  @override
-  Future<void> markNoShow(String reservationId, {DateTime? now}) =>
-      updateStatus(reservationId, ReservationStatus.noShow, now: now);
-
-  @override
-  Future<List<Reservation>> findExactConflicts({
-    required String restaurantId,
-    required DateTime scheduledAt,
-  }) async {
-    final map = await _load();
-    final ids = _indexByRestaurant(map)[restaurantId];
-    if (ids == null || ids.isEmpty) return const [];
-    final list = ids
-        .map((id) => map[id]!)
-        .where((m) =>
-    m.restaurantId == restaurantId &&
-        m.scheduledAt.isAtSameMomentAs(scheduledAt) &&
-        m.status != ReservationStatus.cancelled.name)
-        .map((m) => m.toDomain())
-        .toList()
-      ..sort(_cmpNewFirst);
-    return list;
+  // For tests
+  void dispose() {
+    _userChanges.close();
   }
 }

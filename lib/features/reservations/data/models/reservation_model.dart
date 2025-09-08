@@ -1,37 +1,29 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'reservation_model.freezed.dart';
 part 'reservation_model.g.dart';
 
 /// Flat, JSON-friendly DTO stored locally.
-@JsonSerializable()
-class ReservationModel {
-  final String id;
-  final String userId;
-  final String restaurantId;
-  final DateTime scheduledAt;
-  final int partySize;
-  final String? specialRequest;
+///
+/// - Still stringifies [status] as enum name for storage.
+/// - Freezed gives you immutability, copyWith, equality, etc.
+@freezed
+class ReservationModel with _$ReservationModel {
+  const factory ReservationModel({
+    required String id,
+    required String userId,
+    required String restaurantId,
+    required DateTime scheduledAt,
+    required int partySize,
+    String? specialRequest,
 
-  /// Stored as enum name: 'pending' | 'confirmed' | 'cancelled' | 'completed' | 'noShow'
-  final String status;
+    /// Stored as enum name: 'pending' | 'confirmed' | 'cancelled' | 'completed' | 'noShow'
+    required String status,
 
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-
-  const ReservationModel({
-    required this.id,
-    required this.userId,
-    required this.restaurantId,
-    required this.scheduledAt,
-    required this.partySize,
-    this.specialRequest,
-    required this.status,
-    this.createdAt,
-    this.updatedAt,
-  });
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) = _ReservationModel;
 
   factory ReservationModel.fromJson(Map<String, dynamic> json) =>
       _$ReservationModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ReservationModelToJson(this);
 }

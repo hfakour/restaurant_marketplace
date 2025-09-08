@@ -1,165 +1,140 @@
 // data/repositories/reservation_repository_impl.dart
 import 'dart:async';
-import 'package:collection/collection.dart';
 
-import '../../domain/entities/reservation.dart';
-import '../../domain/repositories/reservation_repository.dart';
+import 'package:restaurant_marketplace/core/domain_refs/reservation_ref.dart';
+import 'package:restaurant_marketplace/features/reservations/domain/entities/reservation.dart';
+import 'package:restaurant_marketplace/features/reservations/domain/repositories/reservation_repository.dart';
 
-/// In-memory implementation suitable for tests and early wiring.
-/// Swap this with a Local/Remote DS backed impl without changing callers.
+/// In-memory implementation for client app (tests, early wiring).
+/// - Lists/streams use lightweight ReservationRef
+/// - Details are fetched by id as full Reservation
 class ReservationRepositoryImpl implements ReservationRepository {
-  // Primary store
+  // ---------------- Storage ----------------
+
+  // Full entities by id
   final Map<String, Reservation> _byId = {};
 
-  // Indexes
-  final Map<String, Set<String>> _byUser = {};       // userId -> {reservationId}
-  final Map<String, Set<String>> _byRestaurant = {}; // restaurantId -> {reservationId}
+  // Index: userId -> {reservationId}
+  final Map<String, Set<String>> _byUser = {};
 
-  // Change streams
-  final _userChanges = StreamController<String>.broadcast();        // emits userId
-  final _restaurantChanges = StreamController<String>.broadcast();  // emits restaurantId
+  // Lightweight refs per user: userId -> (reservationId -> ref)
+  final Map<String, Map<String, ReservationRef>> _refsByUser = {};
+
+  // Change stream: emits userId whose list changed
+  final _userChanges = StreamController<String>.broadcast();
 
   ReservationRepositoryImpl({Iterable<Reservation>? seed}) {
     if (seed != null) {
       for (final r in seed) {
         _insertIndexes(r);
+        _upsertRefForUser(r);
       }
     }
   }
 
   // ---------------- Helpers ----------------
 
+  // Entity -> Ref snapshot (kept private; same shape as discussed)
+  ReservationRef _toRef(Reservation r) => ReservationRef(
+    reservationId: r.id,
+    statusSnapshot: r.status.name,
+    scheduledAt: r.scheduledAt,
+    restaurantId: r.restaurantId,
+    partySize: r.partySize,
+  );
+
   void _insertIndexes(Reservation r) {
     _byId[r.id] = r;
     _byUser.putIfAbsent(r.userId, () => <String>{}).add(r.id);
-    _byRestaurant.putIfAbsent(r.restaurantId, () => <String>{}).add(r.id);
   }
 
-  void _reindexIfKeysChanged(Reservation old, Reservation newer) {
-    if (old.userId != newer.userId) {
-      _byUser[old.userId]?.remove(old.id);
-      _byUser.putIfAbsent(newer.userId, () => <String>{}).add(newer.id);
+  void _removeFromUserIndex(String userId, String reservationId) {
+    final s = _byUser[userId];
+    s?.remove(reservationId);
+    if (s != null && s.isEmpty) _byUser.remove(userId);
+
+    final m = _refsByUser[userId];
+    m?.remove(reservationId);
+    if (m != null && m.isEmpty) _refsByUser.remove(userId);
+  }
+
+  void _reindexIfUserChanged(Reservation old, Reservation newer) {
+    if (old.userId == newer.userId) return;
+    _removeFromUserIndex(old.userId, old.id);
+    _byUser.putIfAbsent(newer.userId, () => <String>{}).add(newer.id);
+
+    // Move ref to new user
+    final oldBucket = _refsByUser.putIfAbsent(old.userId, () => <String, ReservationRef>{});
+    final ref = oldBucket.remove(old.id);
+    if (ref != null) {
+      _refsByUser.putIfAbsent(newer.userId, () => <String, ReservationRef>{})[newer.id] = ref;
     }
-    if (old.restaurantId != newer.restaurantId) {
-      _byRestaurant[old.restaurantId]?.remove(old.id);
-      _byRestaurant.putIfAbsent(newer.restaurantId, () => <String>{}).add(newer.id);
-    }
+  }
+
+  void _upsertRefForUser(Reservation r) {
+    final bucket = _refsByUser.putIfAbsent(r.userId, () => <String, ReservationRef>{});
+    bucket[r.id] = _toRef(r);
   }
 
   DateTime _now(DateTime? n) => n ?? DateTime.now();
 
-  int _cmpNewFirst(Reservation a, Reservation b) {
-    // Sort by scheduledAt desc, then createdAt desc, then id desc
-    final sa = a.scheduledAt.millisecondsSinceEpoch;
-    final sb = b.scheduledAt.millisecondsSinceEpoch;
+  // Sort refs: scheduledAt desc, then id desc (stable + deterministic)
+  int _cmpRefNewFirst(ReservationRef a, ReservationRef b) {
+    final sa = a.scheduledAt?.millisecondsSinceEpoch ?? 0;
+    final sb = b.scheduledAt?.millisecondsSinceEpoch ?? 0;
     final scmp = sb.compareTo(sa);
     if (scmp != 0) return scmp;
-
-    final ca = a.createdAt?.millisecondsSinceEpoch ?? 0;
-    final cb = b.createdAt?.millisecondsSinceEpoch ?? 0;
-    final ccmp = cb.compareTo(ca);
-    if (ccmp != 0) return ccmp;
-
-    return b.id.compareTo(a.id);
+    return (b.reservationId).compareTo(a.reservationId);
   }
 
-  List<Reservation> _filterUser(String userId, {ReservationStatus? status}) {
-    final ids = _byUser[userId];
-    if (ids == null || ids.isEmpty) return const [];
-    Iterable<Reservation> it = ids.map((id) => _byId[id]).whereNotNull();
-    if (status != null) it = it.where((r) => r.status == status);
-    final list = it.toList()..sort(_cmpNewFirst);
-    return list;
-  }
-
-  List<Reservation> _filterRestaurant(
-      String restaurantId, {
-        DateTime? start,
-        DateTime? end,
+  List<ReservationRef> _filterRefsForUser(
+      String userId, {
         ReservationStatus? status,
       }) {
-    final ids = _byRestaurant[restaurantId];
-    if (ids == null || ids.isEmpty) return const [];
-    Iterable<Reservation> it = ids.map((id) => _byId[id]).whereNotNull();
+    final map = _refsByUser[userId];
+    if (map == null || map.isEmpty) return const [];
+    Iterable<ReservationRef> it = map.values;
 
-    if (start != null) it = it.where((r) => !r.scheduledAt.isBefore(start));
-    if (end != null) it = it.where((r) => !r.scheduledAt.isAfter(end));
-    if (status != null) it = it.where((r) => r.status == status);
+    if (status != null) {
+      final wanted = status.name;
+      it = it.where((ref) => ref.statusSnapshot == wanted);
+    }
 
-    final list = it.toList()..sort(_cmpNewFirst);
+    final list = it.toList()..sort(_cmpRefNewFirst);
     return list;
   }
 
-  Reservation _setStatus(Reservation r, ReservationStatus s, DateTime n) =>
-      r.copyWith(status: s, updatedAt: n);
-
-  // --------------- Contract ----------------
+  // ---------------- Contract ----------------
 
   @override
   Future<Reservation?> getById(String id) async => _byId[id];
 
   @override
-  Future<ReservationSearchPage> listForUser({
+  Future<ReservationRefPage> listRefsForUser({
     required String userId,
     ReservationStatus? status,
     int limit = 50,
     String? cursor,
   }) async {
     final start = int.tryParse(cursor ?? '0') ?? 0;
-    final all = _filterUser(userId, status: status);
+    final all = _filterRefsForUser(userId, status: status);
     final page = all.skip(start).take(limit).toList();
-    final next = (start + page.length) < all.length ? '${start + limit}' : null;
-    return ReservationSearchPage(items: page, nextCursor: next);
+    final hasMore = (start + page.length) < all.length;
+    final next = hasMore ? '${start + page.length}' : null;
+    return ReservationRefPage(items: page, nextCursor: next);
   }
 
   @override
-  Future<ReservationSearchPage> listForRestaurant({
-    required String restaurantId,
-    DateTime? start,
-    DateTime? end,
-    ReservationStatus? status,
-    int limit = 50,
-    String? cursor,
-  }) async {
-    final off = int.tryParse(cursor ?? '0') ?? 0;
-    final all = _filterRestaurant(
-      restaurantId,
-      start: start,
-      end: end,
-      status: status,
-    );
-    final page = all.skip(off).take(limit).toList();
-    final next = (off + page.length) < all.length ? '${off + limit}' : null;
-    return ReservationSearchPage(items: page, nextCursor: next);
-  }
-
-  @override
-  Stream<List<Reservation>> watchForUser({
+  Stream<List<ReservationRef>> watchRefsForUser({
     required String userId,
     ReservationStatus? status,
   }) async* {
     // initial
-    yield _filterUser(userId, status: status);
+    yield _filterRefsForUser(userId, status: status);
 
     await for (final changedUser in _userChanges.stream) {
       if (changedUser != userId) continue;
-      yield _filterUser(userId, status: status);
-    }
-  }
-
-  @override
-  Stream<List<Reservation>> watchForRestaurant({
-    required String restaurantId,
-    DateTime? start,
-    DateTime? end,
-    ReservationStatus? status,
-  }) async* {
-    // initial
-    yield _filterRestaurant(restaurantId, start: start, end: end, status: status);
-
-    await for (final changedRestaurant in _restaurantChanges.stream) {
-      if (changedRestaurant != restaurantId) continue;
-      yield _filterRestaurant(restaurantId, start: start, end: end, status: status);
+      yield _filterRefsForUser(userId, status: status);
     }
   }
 
@@ -169,8 +144,8 @@ class ReservationRepositoryImpl implements ReservationRepository {
       throw StateError('Reservation with id ${reservation.id} already exists');
     }
     _insertIndexes(reservation);
+    _upsertRefForUser(reservation);
     _userChanges.add(reservation.userId);
-    _restaurantChanges.add(reservation.restaurantId);
     return reservation.id;
   }
 
@@ -178,60 +153,40 @@ class ReservationRepositoryImpl implements ReservationRepository {
   Future<void> update(Reservation reservation) async {
     final current = _byId[reservation.id];
     if (current == null) {
-      // upsert semantics
+      // upsert semantics for safety
       _insertIndexes(reservation);
+      _upsertRefForUser(reservation);
       _userChanges.add(reservation.userId);
-      _restaurantChanges.add(reservation.restaurantId);
       return;
     }
-    _reindexIfKeysChanged(current, reservation);
+
+    _reindexIfUserChanged(current, reservation);
     _byId[reservation.id] = reservation;
+
+    // refresh snapshot
+    _upsertRefForUser(reservation);
+
+    // notify both old and new user buckets if user moved
+    _userChanges.add(current.userId);
     _userChanges.add(reservation.userId);
-    _restaurantChanges.add(reservation.restaurantId);
   }
 
   @override
-  Future<void> updateStatus(String reservationId, ReservationStatus status, {DateTime? now}) async {
+  Future<void> cancel(String reservationId, {DateTime? now}) async {
     final r = _byId[reservationId];
     if (r == null) return;
+
     final n = _now(now);
-    final updated = _setStatus(r, status, n);
-    _byId[reservationId] = updated;
-    _userChanges.add(updated.userId);
-    _restaurantChanges.add(updated.restaurantId);
+    final cancelled = r.copyWith(status: ReservationStatus.cancelled, updatedAt: n);
+
+    _byId[reservationId] = cancelled;
+    _upsertRefForUser(cancelled);
+    _userChanges.add(cancelled.userId);
   }
 
-  @override
-  Future<void> confirm(String reservationId, {DateTime? now}) =>
-      updateStatus(reservationId, ReservationStatus.confirmed, now: now);
+  // ---------------- Dispose (for tests) ----------------
 
-  @override
-  Future<void> cancel(String reservationId, {DateTime? now}) =>
-      updateStatus(reservationId, ReservationStatus.cancelled, now: now);
-
-  @override
-  Future<void> complete(String reservationId, {DateTime? now}) =>
-      updateStatus(reservationId, ReservationStatus.completed, now: now);
-
-  @override
-  Future<void> markNoShow(String reservationId, {DateTime? now}) =>
-      updateStatus(reservationId, ReservationStatus.noShow, now: now);
-
-  @override
-  Future<List<Reservation>> findExactConflicts({
-    required String restaurantId,
-    required DateTime scheduledAt,
-  }) async {
-    final ids = _byRestaurant[restaurantId];
-    if (ids == null || ids.isEmpty) return const [];
-    return ids
-        .map((id) => _byId[id])
-        .whereNotNull()
-        .where((r) =>
-    r.restaurantId == restaurantId &&
-        r.scheduledAt.isAtSameMomentAs(scheduledAt) &&
-        r.status != ReservationStatus.cancelled)
-        .toList()
-      ..sort(_cmpNewFirst);
+  void dispose() {
+    _userChanges.close();
   }
 }

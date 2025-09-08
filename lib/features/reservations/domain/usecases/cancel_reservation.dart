@@ -4,6 +4,9 @@ class CancelReservation {
   final ReservationRepository _repo;
   const CancelReservation(this._repo);
 
-  Future<void> call(String reservationId, {DateTime? now}) =>
-      _repo.cancel(reservationId, now: now);
+  /// Cancels a reservation.
+  /// Repository updates entity.status and the ReservationRef snapshot.
+  Future<void> call(String reservationId) {
+    return _repo.cancel(reservationId);
+  }
 }
