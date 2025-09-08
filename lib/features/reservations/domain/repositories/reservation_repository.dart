@@ -1,69 +1,71 @@
 // domain/repositories/reservation_repository.dart
+import '../../../../core/domain_refs/reservation_ref.dart';
 import '../entities/reservation.dart';
 
-/// Contract for reading/writing reservations.
+/// Contract for reading/writing reservations for CLIENT app.
 abstract class ReservationRepository {
-  /// Get by ID.
+  // ----- Reads -----
+
+  /// Full entity by ID (details screen).
   Future<Reservation?> getById(String id);
 
-  /// List reservations for a user (newest first).
-  Future<ReservationSearchPage> listForUser({
+  /// Lightweight page of user's reservations (for lists).
+  Future<ReservationRefPage> listRefsForUser({
     required String userId,
     ReservationStatus? status, // optional filter
     int limit = 50,
-    String? cursor, // opaque numeric offset for in-memory impls
+    String? cursor, // opaque paging token
   });
 
-  /// List reservations for a restaurant within a time window (inclusive).
-  Future<ReservationSearchPage> listForRestaurant({
-    required String restaurantId,
-    DateTime? start, // if null -> all past/future
-    DateTime? end,   // if null -> all past/future
+  /// Full page when you explicitly need entities (e.g., exporting).
+  Future<ReservationSearchPage> listForUser({
+    required String userId,
     ReservationStatus? status,
     int limit = 50,
     String? cursor,
   });
 
-  /// Live updates for a user's reservations.
+  /// Live lightweight updates for user's list UIs.
+  Stream<List<ReservationRef>> watchRefsForUser({
+    required String userId,
+    ReservationStatus? status,
+  });
+
+  /// Live full entities (detail screens / deep observers).
   Stream<List<Reservation>> watchForUser({
     required String userId,
     ReservationStatus? status,
   });
 
-  /// Live updates for a restaurant's reservations within a time window.
-  Stream<List<Reservation>> watchForRestaurant({
-    required String restaurantId,
-    DateTime? start,
-    DateTime? end,
-    ReservationStatus? status,
-  });
+  // ----- Writes -----
 
-  /// Create a reservation. Returns its ID (caller may pre-generate).
+  /// Create a reservation. Returns its ID.
+  ///
+  /// Implementations MUST also upsert the corresponding ReservationRef
+  /// into the user's ref collection so lists update immediately.
   Future<String> create(Reservation reservation);
 
-  /// Update all mutable fields (reschedule, partySize, specialRequest, etc.).
+  /// Update mutable fields (reschedule, partySize, specialRequest, etc.).
+  ///
+  /// Implementations MUST also refresh the user's ReservationRef snapshot.
   Future<void> update(Reservation reservation);
 
-  /// Update only the status.
-  Future<void> updateStatus(String reservationId, ReservationStatus status, {DateTime? now});
-
-  /// Convenience helpers.
-  Future<void> confirm(String reservationId, {DateTime? now});
+  /// Client action that we keep: cancel.
+  ///
+  /// (Admin-only actions like confirm/complete/noShow were removed.)
   Future<void> cancel(String reservationId, {DateTime? now});
-  Future<void> complete(String reservationId, {DateTime? now});
-  Future<void> markNoShow(String reservationId, {DateTime? now});
-
-  /// Very basic conflict lookup:
-  /// same restaurant and scheduledAt matching exactly (you can extend to ranges).
-  Future<List<Reservation>> findExactConflicts({
-    required String restaurantId,
-    required DateTime scheduledAt,
-  });
 }
 
-/// Simple page container.
+/// Page container for full entities (kept for completeness).
 class ReservationSearchPage {
   final List<Reservation> items;
   final String? nextCursor;
   const ReservationSearchPage({required this.items, this.nextCursor});
+}
+
+/// Page container for lightweight refs (used by list screens).
+class ReservationRefPage {
+  final List<ReservationRef> items;
+  final String? nextCursor;
+  const ReservationRefPage({required this.items, this.nextCursor});
 }
