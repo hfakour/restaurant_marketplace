@@ -202,7 +202,6 @@ class _ProfileBody extends StatelessWidget {
                         _InfoRow(
                           icon: Icons.email_outlined,
                           label: 'Email',
-                          value: user.email,
                           trailing: user.isEmailVerified
                               ? const _VerifiedChip()
                               : const _UnverifiedChip(),
@@ -430,13 +429,13 @@ class _InfoRow extends StatelessWidget {
   const _InfoRow({
     required this.icon,
     required this.label,
-    required this.value,
+    this.value,
     this.trailing,
   });
 
   final IconData icon;
   final String label;
-  final String value;
+  final String? value;
   final Widget? trailing;
 
   @override

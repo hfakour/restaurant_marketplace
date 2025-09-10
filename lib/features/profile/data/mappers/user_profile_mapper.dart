@@ -3,18 +3,6 @@ import 'package:restaurant_marketplace/core/domain_refs/domain_refs.dart';
 import '../../domain/entities/user_profile.dart';
 import '../models/user_profile_dto.dart';
 
-UserRole _roleFromString(String s) {
-  switch (s) {
-    case 'customer':
-      return UserRole.customer;
-    case 'restaurantOwner':
-      return UserRole.restaurantOwner;
-    case 'deliveryPerson':
-      return UserRole.deliveryPerson;
-    default:
-      return UserRole.customer;
-  }
-}
 
 extension UserProfileDtoMapper on UserProfileDto {
   UserProfile toDomain() {
@@ -23,7 +11,6 @@ extension UserProfileDtoMapper on UserProfileDto {
 
     return UserProfile(
       id: id,
-      roles: roles.map(_roleFromString).toSet(),
 
       // identity
       firstName: firstName,

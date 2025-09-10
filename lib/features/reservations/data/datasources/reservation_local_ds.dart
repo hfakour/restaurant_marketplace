@@ -108,7 +108,7 @@ class ReservationLocalDataSourceImpl implements ReservationLocalDataSource {
     final ids = _indexByUser(map)[userId];
     if (ids == null || ids.isEmpty) return const [];
 
-    // map -> domain -> ref (so ref always mirrors the entity)
+    // map -> domain -> ref (so ref always mirrors the entities)
     Iterable<ReservationRef> it = ids
         .map((id) => map[id]!)
         .map((m) => m.toDomain())

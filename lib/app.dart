@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-// 👇 adjust this path to where your ProfileScreen.dart lives
+// Adjust paths as needed:
 import 'package:restaurant_marketplace/features/profile/presentation/screens/profile_screen.dart';
+import 'package:restaurant_marketplace/features/reservations/domain/value_objects/reservation_vos.dart';
+import 'package:restaurant_marketplace/features/reservations/presentation/screens/reservations_list_screen.dart';
 
-import 'features/wallet/presentation/screens/wallet_screen.dart';
+import 'features/wallet/presentation/screens/wallet_screen.dart'; // (still imported in your file; unused here)
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -33,24 +35,36 @@ class _DemoPageState extends State<DemoPage> {
 
   int _selectedIndex = 2;
 
-  final _pages = const [
-    Center(child: Text('Cart')),
-    Center(child: Text('History')),
-    Center(child: Text('Home')),
-    Center(child: Text('Search')),
-    Center(child: Text('Profile')), // placeholder, Profile opens via push
-  ];
+  // Use a VO for the current user (replace with your auth user id)
+  late final UserId _currentUserId;
+
+  // Pages aren’t const anymore because Home is a real screen
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // TODO: replace 'demo-user-1' with your signed-in user id
+    _currentUserId = UserId.create('demo-user-1');
+
+    _pages = [
+      const Center(child: Text('Cart')),
+      const Center(child: Text('History')),
+      ReservationsListScreen(userId: _currentUserId), // <-- Home tab
+      const Center(child: Text('Search')),
+      const Center(child: Text('Profile')), // placeholder, opens via push
+    ];
+  }
 
   void _handleTap(int index) {
-    // Profile tab => open Profile
+    // Profile tab => open Profile screen
     if (index == 4) {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (_) => const ProfileScreen()),
       );
       return;
     }
-    // Search tab no longer opens wallet. Simply update the selected index to display
-    // a placeholder page. The actual search feature can be implemented later.
     setState(() => _selectedIndex = index);
   }
 
@@ -90,6 +104,10 @@ class _DemoPageState extends State<DemoPage> {
     );
   }
 }
+
+/* ------------- your existing nav bar classes remain unchanged below ------------- */
+// HillNavBarItem, HillBottomNavBar, painters, etc. (no changes)
+
 
 /* ───────────────────────────── NAV BAR API ───────────────────────────── */
 

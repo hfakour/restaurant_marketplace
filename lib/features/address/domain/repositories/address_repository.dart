@@ -10,10 +10,10 @@ abstract class AddressRepository {
   /// Returns the list of addresses for the given user.
   Future<List<Address>> getAddresses(String userId);
 
-  /// Persists a new address and returns the updated entity.
+  /// Persists a new address and returns the updated entities.
   Future<Address> addAddress(Address address);
 
-  /// Updates an existing address and returns the updated entity.
+  /// Updates an existing address and returns the updated entities.
   Future<Address> updateAddress(Address address);
 
   /// Deletes an address by its id.

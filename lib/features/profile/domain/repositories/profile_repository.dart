@@ -3,7 +3,7 @@ import '../entities/user_profile.dart';
 abstract class ProfileRepository {
   Future<UserProfile> getMe();
 
-  /// Update the user's first & last name (reflects your entity).
+  /// Update the user's first & last name (reflects your entities).
   Future<UserProfile> updateName({
     required String firstName,
     required String lastName,

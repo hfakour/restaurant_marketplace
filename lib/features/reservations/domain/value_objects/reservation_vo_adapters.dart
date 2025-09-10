@@ -4,7 +4,7 @@ import 'reservation_vos.dart';
 
 typedef Now = DateTime Function();
 
-/// Build a Reservation entity from VOs (non-breaking integration).
+/// Build a Reservation entities from VOs (non-breaking integration).
 Reservation makeReservationFromVOs({
   required ReservationId id,
   required UserId userId,

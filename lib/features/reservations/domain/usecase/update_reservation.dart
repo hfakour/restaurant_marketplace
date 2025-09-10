@@ -12,7 +12,7 @@ class UpdateReservation {
     return _repo.update(reservation);
   }
 
-  /// Optional VO-friendly path if you rebuild the entity at the boundary.
+  /// Optional VO-friendly path if you rebuild the entities at the boundary.
   Future<void> fromVOs({
     required ReservationId id,
     required UserId userId,

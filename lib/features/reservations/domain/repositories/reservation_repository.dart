@@ -32,7 +32,7 @@ abstract class ReservationRepository {
   ///
   /// Implementations MUST:
   ///  - persist the full Reservation
-  ///  - upsert its ReservationRef snapshot for the user (entity -> ref)
+  ///  - upsert its ReservationRef snapshot for the user (entities -> ref)
   Future<String> create(Reservation reservation);
 
   /// Update user-editable fields (time, partySize, specialRequest, etc.).
@@ -42,7 +42,7 @@ abstract class ReservationRepository {
 
   /// Cancel a reservation (client action).
   ///
-  /// Implementations MUST set entity.status = cancelled AND
+  /// Implementations MUST set entities.status = cancelled AND
   /// update the ReservationRef.statusSnapshot accordingly.
   Future<void> cancel(String reservationId, {DateTime? now});
 }

@@ -7,7 +7,7 @@ class CreateReservation {
   final ReservationRepository _repo;
   const CreateReservation(this._repo);
 
-  /// Path 1: pass a fully built domain entity (already VO-based).
+  /// Path 1: pass a fully built domain entities (already VO-based).
   Future<String> call(Reservation reservation) {
     _validate(reservation);
     return _repo.create(reservation);
