@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "316148858002",
+    "project_id": "restaurant-marketplace-11f8e",
+    "storage_bucket": "restaurant-marketplace-11f8e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316148858002:android:91a55660a8ba8909027a4b",
+        "android_client_info": {
+          "package_name": "com.example.restaurant_marketplace"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTBzhOvExU16hn5WytFjDUuRwsgJhwO1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
