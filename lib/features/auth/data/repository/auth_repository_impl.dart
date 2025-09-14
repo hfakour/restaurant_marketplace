@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../domain/entities/auth_entities.dart';
+import '../../domain/entities/auth_account.dart';
 import '../../domain/repositories/auth_repository.dart';
 
 import 'package:restaurant_marketplace/features/profile/domain/entities/user_profile.dart';

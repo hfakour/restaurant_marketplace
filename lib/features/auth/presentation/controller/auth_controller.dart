@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/repository/auth_repository_impl.dart';
-import '../../domain/repositories/auth_repository.dart';
-import '../../domain/entities/auth_entities.dart';
+import '../../domain/entities/auth_account.dart';
 
 final authAccountProvider = StreamProvider<AuthAccount?>((ref) {
   return ref.read(authRepositoryProvider).authState();

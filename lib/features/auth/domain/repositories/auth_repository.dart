@@ -1,7 +1,8 @@
 // features/auth/domain/repositories/auth_repository.dart
-import '../entities/auth_entities.dart';
 import 'package:restaurant_marketplace/core/domain_refs/domain_refs.dart'; // for UserProfileRef if you have it
 import 'package:restaurant_marketplace/features/profile/domain/entities/user_profile.dart';
+
+import '../entities/auth_account.dart';
 
 abstract class AuthRepository {
   Stream<AuthAccount?> authState(); // null when signed out

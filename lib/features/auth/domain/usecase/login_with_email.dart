@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/repository/auth_repository_impl.dart';
+import '../entities/auth_account.dart';
 import '../repositories/auth_repository.dart';
-import '../entities/auth_entities.dart';
 
 final loginWithEmailUC =
 Provider.autoDispose((ref) => LoginWithEmailUseCase(ref));

@@ -6,3 +6,4 @@ export 'profile_ref.dart';
 export 'order_ref.dart';
 export 'favorite_ref.dart';
 export 'discount_ref.dart';
+export 'auth_refs.dart';

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'auth_entities.dart';
+part of 'auth_account.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -16,209 +16,29 @@ final _privateConstructorUsedError = UnsupportedError(
 );
 
 /// @nodoc
-mixin _$AuthTokens {
-  String get accessToken => throw _privateConstructorUsedError;
-  String? get refreshToken => throw _privateConstructorUsedError;
-  DateTime? get accessTokenExpiry => throw _privateConstructorUsedError;
-
-  /// Create a copy of AuthTokens
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $AuthTokensCopyWith<AuthTokens> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $AuthTokensCopyWith<$Res> {
-  factory $AuthTokensCopyWith(
-    AuthTokens value,
-    $Res Function(AuthTokens) then,
-  ) = _$AuthTokensCopyWithImpl<$Res, AuthTokens>;
-  @useResult
-  $Res call({
-    String accessToken,
-    String? refreshToken,
-    DateTime? accessTokenExpiry,
-  });
-}
-
-/// @nodoc
-class _$AuthTokensCopyWithImpl<$Res, $Val extends AuthTokens>
-    implements $AuthTokensCopyWith<$Res> {
-  _$AuthTokensCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of AuthTokens
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? accessToken = null,
-    Object? refreshToken = freezed,
-    Object? accessTokenExpiry = freezed,
-  }) {
-    return _then(
-      _value.copyWith(
-            accessToken: null == accessToken
-                ? _value.accessToken
-                : accessToken // ignore: cast_nullable_to_non_nullable
-                      as String,
-            refreshToken: freezed == refreshToken
-                ? _value.refreshToken
-                : refreshToken // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            accessTokenExpiry: freezed == accessTokenExpiry
-                ? _value.accessTokenExpiry
-                : accessTokenExpiry // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
-          )
-          as $Val,
-    );
-  }
-}
-
-/// @nodoc
-abstract class _$$AuthTokensImplCopyWith<$Res>
-    implements $AuthTokensCopyWith<$Res> {
-  factory _$$AuthTokensImplCopyWith(
-    _$AuthTokensImpl value,
-    $Res Function(_$AuthTokensImpl) then,
-  ) = __$$AuthTokensImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    String accessToken,
-    String? refreshToken,
-    DateTime? accessTokenExpiry,
-  });
-}
-
-/// @nodoc
-class __$$AuthTokensImplCopyWithImpl<$Res>
-    extends _$AuthTokensCopyWithImpl<$Res, _$AuthTokensImpl>
-    implements _$$AuthTokensImplCopyWith<$Res> {
-  __$$AuthTokensImplCopyWithImpl(
-    _$AuthTokensImpl _value,
-    $Res Function(_$AuthTokensImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AuthTokens
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? accessToken = null,
-    Object? refreshToken = freezed,
-    Object? accessTokenExpiry = freezed,
-  }) {
-    return _then(
-      _$AuthTokensImpl(
-        accessToken: null == accessToken
-            ? _value.accessToken
-            : accessToken // ignore: cast_nullable_to_non_nullable
-                  as String,
-        refreshToken: freezed == refreshToken
-            ? _value.refreshToken
-            : refreshToken // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        accessTokenExpiry: freezed == accessTokenExpiry
-            ? _value.accessTokenExpiry
-            : accessTokenExpiry // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$AuthTokensImpl extends _AuthTokens {
-  const _$AuthTokensImpl({
-    required this.accessToken,
-    this.refreshToken,
-    this.accessTokenExpiry,
-  }) : super._();
-
-  @override
-  final String accessToken;
-  @override
-  final String? refreshToken;
-  @override
-  final DateTime? accessTokenExpiry;
-
-  @override
-  String toString() {
-    return 'AuthTokens(accessToken: $accessToken, refreshToken: $refreshToken, accessTokenExpiry: $accessTokenExpiry)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuthTokensImpl &&
-            (identical(other.accessToken, accessToken) ||
-                other.accessToken == accessToken) &&
-            (identical(other.refreshToken, refreshToken) ||
-                other.refreshToken == refreshToken) &&
-            (identical(other.accessTokenExpiry, accessTokenExpiry) ||
-                other.accessTokenExpiry == accessTokenExpiry));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, accessToken, refreshToken, accessTokenExpiry);
-
-  /// Create a copy of AuthTokens
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AuthTokensImplCopyWith<_$AuthTokensImpl> get copyWith =>
-      __$$AuthTokensImplCopyWithImpl<_$AuthTokensImpl>(this, _$identity);
-}
-
-abstract class _AuthTokens extends AuthTokens {
-  const factory _AuthTokens({
-    required final String accessToken,
-    final String? refreshToken,
-    final DateTime? accessTokenExpiry,
-  }) = _$AuthTokensImpl;
-  const _AuthTokens._() : super._();
-
-  @override
-  String get accessToken;
-  @override
-  String? get refreshToken;
-  @override
-  DateTime? get accessTokenExpiry;
-
-  /// Create a copy of AuthTokens
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AuthTokensImplCopyWith<_$AuthTokensImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
 mixin _$AuthAccount {
-  String get id => throw _privateConstructorUsedError; // Firebase UID
-  String? get email =>
-      throw _privateConstructorUsedError; // may be null for anonymous
+  /// Firebase UID (stable id)
+  String get id => throw _privateConstructorUsedError;
+
+  /// May be null for anonymous/phone flows
+  String? get email => throw _privateConstructorUsedError;
   String? get displayName => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
   bool get isEmailVerified => throw _privateConstructorUsedError;
   bool get isPhoneVerified => throw _privateConstructorUsedError;
+
+  /// Linked providers (password/google/apple/phone/anonymous)
   Set<AuthProvider> get providers => throw _privateConstructorUsedError;
-  String get profileId =>
-      throw _privateConstructorUsedError; // = UserProfile.id (we use uid)
+
+  /// 1:1 mapping to your UserProfile.id (we use UID)
+  String get profileId => throw _privateConstructorUsedError;
+
+  /// Auditing
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   DateTime? get lastLoginAt => throw _privateConstructorUsedError;
+
+  /// Provider/backend-specific metadata (safe to store)
   Map<String, dynamic> get providerMetadata =>
       throw _privateConstructorUsedError;
 
@@ -462,12 +282,13 @@ class _$AuthAccountImpl implements _AuthAccount {
   }) : _providers = providers,
        _providerMetadata = providerMetadata;
 
+  /// Firebase UID (stable id)
   @override
   final String id;
-  // Firebase UID
+
+  /// May be null for anonymous/phone flows
   @override
   final String? email;
-  // may be null for anonymous
   @override
   final String? displayName;
   @override
@@ -478,7 +299,11 @@ class _$AuthAccountImpl implements _AuthAccount {
   @override
   @JsonKey()
   final bool isPhoneVerified;
+
+  /// Linked providers (password/google/apple/phone/anonymous)
   final Set<AuthProvider> _providers;
+
+  /// Linked providers (password/google/apple/phone/anonymous)
   @override
   @JsonKey()
   Set<AuthProvider> get providers {
@@ -487,16 +312,22 @@ class _$AuthAccountImpl implements _AuthAccount {
     return EqualUnmodifiableSetView(_providers);
   }
 
+  /// 1:1 mapping to your UserProfile.id (we use UID)
   @override
   final String profileId;
-  // = UserProfile.id (we use uid)
+
+  /// Auditing
   @override
   final DateTime? createdAt;
   @override
   final DateTime? updatedAt;
   @override
   final DateTime? lastLoginAt;
+
+  /// Provider/backend-specific metadata (safe to store)
   final Map<String, dynamic> _providerMetadata;
+
+  /// Provider/backend-specific metadata (safe to store)
   @override
   @JsonKey()
   Map<String, dynamic> get providerMetadata {
@@ -585,10 +416,13 @@ abstract class _AuthAccount implements AuthAccount {
     final Map<String, dynamic> providerMetadata,
   }) = _$AuthAccountImpl;
 
+  /// Firebase UID (stable id)
   @override
-  String get id; // Firebase UID
+  String get id;
+
+  /// May be null for anonymous/phone flows
   @override
-  String? get email; // may be null for anonymous
+  String? get email;
   @override
   String? get displayName;
   @override
@@ -597,16 +431,24 @@ abstract class _AuthAccount implements AuthAccount {
   bool get isEmailVerified;
   @override
   bool get isPhoneVerified;
+
+  /// Linked providers (password/google/apple/phone/anonymous)
   @override
   Set<AuthProvider> get providers;
+
+  /// 1:1 mapping to your UserProfile.id (we use UID)
   @override
-  String get profileId; // = UserProfile.id (we use uid)
+  String get profileId;
+
+  /// Auditing
   @override
   DateTime? get createdAt;
   @override
   DateTime? get updatedAt;
   @override
   DateTime? get lastLoginAt;
+
+  /// Provider/backend-specific metadata (safe to store)
   @override
   Map<String, dynamic> get providerMetadata;
 
@@ -615,211 +457,5 @@ abstract class _AuthAccount implements AuthAccount {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AuthAccountImplCopyWith<_$AuthAccountImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$AuthSession {
-  AuthAccount get account => throw _privateConstructorUsedError;
-  AuthTokens get tokens => throw _privateConstructorUsedError;
-  AuthStatus get status => throw _privateConstructorUsedError;
-
-  /// Create a copy of AuthSession
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $AuthSessionCopyWith<AuthSession> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $AuthSessionCopyWith<$Res> {
-  factory $AuthSessionCopyWith(
-    AuthSession value,
-    $Res Function(AuthSession) then,
-  ) = _$AuthSessionCopyWithImpl<$Res, AuthSession>;
-  @useResult
-  $Res call({AuthAccount account, AuthTokens tokens, AuthStatus status});
-
-  $AuthAccountCopyWith<$Res> get account;
-  $AuthTokensCopyWith<$Res> get tokens;
-}
-
-/// @nodoc
-class _$AuthSessionCopyWithImpl<$Res, $Val extends AuthSession>
-    implements $AuthSessionCopyWith<$Res> {
-  _$AuthSessionCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of AuthSession
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? account = null,
-    Object? tokens = null,
-    Object? status = null,
-  }) {
-    return _then(
-      _value.copyWith(
-            account: null == account
-                ? _value.account
-                : account // ignore: cast_nullable_to_non_nullable
-                      as AuthAccount,
-            tokens: null == tokens
-                ? _value.tokens
-                : tokens // ignore: cast_nullable_to_non_nullable
-                      as AuthTokens,
-            status: null == status
-                ? _value.status
-                : status // ignore: cast_nullable_to_non_nullable
-                      as AuthStatus,
-          )
-          as $Val,
-    );
-  }
-
-  /// Create a copy of AuthSession
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AuthAccountCopyWith<$Res> get account {
-    return $AuthAccountCopyWith<$Res>(_value.account, (value) {
-      return _then(_value.copyWith(account: value) as $Val);
-    });
-  }
-
-  /// Create a copy of AuthSession
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AuthTokensCopyWith<$Res> get tokens {
-    return $AuthTokensCopyWith<$Res>(_value.tokens, (value) {
-      return _then(_value.copyWith(tokens: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$AuthSessionImplCopyWith<$Res>
-    implements $AuthSessionCopyWith<$Res> {
-  factory _$$AuthSessionImplCopyWith(
-    _$AuthSessionImpl value,
-    $Res Function(_$AuthSessionImpl) then,
-  ) = __$$AuthSessionImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({AuthAccount account, AuthTokens tokens, AuthStatus status});
-
-  @override
-  $AuthAccountCopyWith<$Res> get account;
-  @override
-  $AuthTokensCopyWith<$Res> get tokens;
-}
-
-/// @nodoc
-class __$$AuthSessionImplCopyWithImpl<$Res>
-    extends _$AuthSessionCopyWithImpl<$Res, _$AuthSessionImpl>
-    implements _$$AuthSessionImplCopyWith<$Res> {
-  __$$AuthSessionImplCopyWithImpl(
-    _$AuthSessionImpl _value,
-    $Res Function(_$AuthSessionImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AuthSession
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? account = null,
-    Object? tokens = null,
-    Object? status = null,
-  }) {
-    return _then(
-      _$AuthSessionImpl(
-        account: null == account
-            ? _value.account
-            : account // ignore: cast_nullable_to_non_nullable
-                  as AuthAccount,
-        tokens: null == tokens
-            ? _value.tokens
-            : tokens // ignore: cast_nullable_to_non_nullable
-                  as AuthTokens,
-        status: null == status
-            ? _value.status
-            : status // ignore: cast_nullable_to_non_nullable
-                  as AuthStatus,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$AuthSessionImpl extends _AuthSession {
-  const _$AuthSessionImpl({
-    required this.account,
-    required this.tokens,
-    this.status = AuthStatus.authenticated,
-  }) : super._();
-
-  @override
-  final AuthAccount account;
-  @override
-  final AuthTokens tokens;
-  @override
-  @JsonKey()
-  final AuthStatus status;
-
-  @override
-  String toString() {
-    return 'AuthSession(account: $account, tokens: $tokens, status: $status)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuthSessionImpl &&
-            (identical(other.account, account) || other.account == account) &&
-            (identical(other.tokens, tokens) || other.tokens == tokens) &&
-            (identical(other.status, status) || other.status == status));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, account, tokens, status);
-
-  /// Create a copy of AuthSession
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AuthSessionImplCopyWith<_$AuthSessionImpl> get copyWith =>
-      __$$AuthSessionImplCopyWithImpl<_$AuthSessionImpl>(this, _$identity);
-}
-
-abstract class _AuthSession extends AuthSession {
-  const factory _AuthSession({
-    required final AuthAccount account,
-    required final AuthTokens tokens,
-    final AuthStatus status,
-  }) = _$AuthSessionImpl;
-  const _AuthSession._() : super._();
-
-  @override
-  AuthAccount get account;
-  @override
-  AuthTokens get tokens;
-  @override
-  AuthStatus get status;
-
-  /// Create a copy of AuthSession
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AuthSessionImplCopyWith<_$AuthSessionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

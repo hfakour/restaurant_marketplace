@@ -1,6 +1,7 @@
 // features/auth/data/mappers/auth_mappers.dart
 import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
-import '../../domain/entities/auth_entities.dart';
+import '../../domain/entities/auth_account.dart';
+import '../../domain/entities/auth_provider.dart';
 
 Set<AuthProvider> _providersFromUser(User user) {
   final p = <AuthProvider>{};
