@@ -4,8 +4,9 @@ import 'package:restaurant_marketplace/features/profile/presentation/screens/pro
 import 'package:restaurant_marketplace/features/reservations/domain/value_objects/reservation_vos.dart';
 import 'package:restaurant_marketplace/features/reservations/presentation/screens/reservations_list_screen.dart';
 
+import 'features/auth/presentation/screen/auth_gate.dart';
 import 'features/wallet/presentation/screens/wallet_screen.dart'; // (still imported in your file; unused here)
-
+import 'package:flutter/material.dart';
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         brightness: Brightness.light,
       ),
-      home: const DemoPage(),
+        home: const AuthGate(),
     );
   }
 }

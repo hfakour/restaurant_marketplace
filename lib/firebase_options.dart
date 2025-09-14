@@ -66,4 +66,5 @@ class DefaultFirebaseOptions {
     projectId: 'restaurant-marketplace-11f8e',
     storageBucket: 'restaurant-marketplace-11f8e.firebasestorage.app',
   );
+
 }

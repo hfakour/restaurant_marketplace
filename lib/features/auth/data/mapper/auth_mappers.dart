@@ -1,0 +1,35 @@
+// features/auth/data/mappers/auth_mappers.dart
+import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
+import '../../domain/entities/auth_entities.dart';
+
+Set<AuthProvider> _providersFromUser(User user) {
+  final p = <AuthProvider>{};
+  for (final i in user.providerData) {
+    switch (i.providerId) {
+      case 'password': p.add(AuthProvider.password); break;
+      case 'google.com': p.add(AuthProvider.google); break;
+      case 'apple.com': p.add(AuthProvider.apple); break;
+      case 'phone': p.add(AuthProvider.phone); break;
+      case 'anonymous': p.add(AuthProvider.anonymous); break;
+      default: break;
+    }
+  }
+  if (user.isAnonymous) p.add(AuthProvider.anonymous);
+  return p;
+}
+
+AuthAccount authAccountFromFirebaseUser(User u) {
+  return AuthAccount(
+    id: u.uid,
+    email: u.email,
+    displayName: u.displayName,
+    avatarUrl: u.photoURL,
+    isEmailVerified: u.emailVerified,
+    isPhoneVerified: u.phoneNumber != null, // naive flag
+    providers: _providersFromUser(u),
+    profileId: u.uid, // 1:1 profile = uid
+    createdAt: u.metadata.creationTime?.toUtc(),
+    updatedAt: DateTime.now().toUtc(),
+    lastLoginAt: u.metadata.lastSignInTime?.toUtc(),
+  );
+}

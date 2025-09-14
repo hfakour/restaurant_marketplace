@@ -28,14 +28,12 @@ mixin _$Restaurant {
   String? get coverUrl => throw _privateConstructorUsedError;
   List<String> get galleryUrls =>
       throw _privateConstructorUsedError; // Cross-feature refs (user-facing)
-  List<MenuRef> get menuRefs =>
-      throw _privateConstructorUsedError; // NEW: menus
+  List<MenuRef> get menuRefs => throw _privateConstructorUsedError;
   List<ReservationRef> get reservationRefs =>
       throw _privateConstructorUsedError;
   List<OrderRef> get orderRefs => throw _privateConstructorUsedError;
   List<ReviewRef> get reviewRefs =>
-      throw _privateConstructorUsedError; // user reviews
-  // Taxonomy / tags
+      throw _privateConstructorUsedError; // Taxonomy / tags
   List<String> get cuisines =>
       throw _privateConstructorUsedError; // e.g., ["Italian", "Vegan"]
   // Ratings / aggregates
@@ -440,9 +438,7 @@ class _$RestaurantImpl implements _Restaurant {
     return EqualUnmodifiableListView(_menuRefs);
   }
 
-  // NEW: menus
   final List<ReservationRef> _reservationRefs;
-  // NEW: menus
   @override
   @JsonKey()
   List<ReservationRef> get reservationRefs {
@@ -469,10 +465,8 @@ class _$RestaurantImpl implements _Restaurant {
     return EqualUnmodifiableListView(_reviewRefs);
   }
 
-  // user reviews
   // Taxonomy / tags
   final List<String> _cuisines;
-  // user reviews
   // Taxonomy / tags
   @override
   @JsonKey()
@@ -632,14 +626,13 @@ abstract class _Restaurant implements Restaurant {
   @override
   List<String> get galleryUrls; // Cross-feature refs (user-facing)
   @override
-  List<MenuRef> get menuRefs; // NEW: menus
+  List<MenuRef> get menuRefs;
   @override
   List<ReservationRef> get reservationRefs;
   @override
   List<OrderRef> get orderRefs;
   @override
-  List<ReviewRef> get reviewRefs; // user reviews
-  // Taxonomy / tags
+  List<ReviewRef> get reviewRefs; // Taxonomy / tags
   @override
   List<String> get cuisines; // e.g., ["Italian", "Vegan"]
   // Ratings / aggregates
