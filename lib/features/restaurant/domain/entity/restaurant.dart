@@ -1,8 +1,10 @@
 // domain/entities/restaurant.dart
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:restaurant_marketplace/core/domain_refs/domain_refs.dart';
 
+import '../../../address/domain/entities/refs/address_ref.dart';
 import '../../../menu/domain/entities/refs/menu_ref.dart';
+import '../../../order/domain/entities/refs/order_ref.dart';
+import '../../../reservations/domain/entities/refs/reservation_ref.dart';
 import '../../../reviews/domain/entities/refs/review_ref.dart';
 
 part 'restaurant.freezed.dart';

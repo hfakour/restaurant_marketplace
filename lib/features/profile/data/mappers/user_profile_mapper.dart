@@ -1,5 +1,8 @@
 // lib/features/profile/data/mappers/user_profile_mapper.dart
-import 'package:restaurant_marketplace/core/domain_refs/domain_refs.dart';
+import '../../../address/domain/entities/refs/address_ref.dart';
+import '../../../reservations/domain/entities/refs/reservation_ref.dart';
+import '../../../wallet/domain/entities/refs/payment_method_ref.dart';
+import '../../../wallet/domain/entities/refs/wallet_ref.dart';
 import '../../domain/entities/user_profile.dart';
 import '../models/user_profile_dto.dart';
 

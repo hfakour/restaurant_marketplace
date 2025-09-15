@@ -1,5 +1,4 @@
 // features/auth/domain/repositories/auth_repository.dart
-import 'package:restaurant_marketplace/core/domain_refs/domain_refs.dart'; // for UserProfileRef if you have it
 import 'package:restaurant_marketplace/features/profile/domain/entities/user_profile.dart';
 
 import '../entities/auth_account.dart';
@@ -41,4 +40,12 @@ abstract class AuthRepository {
     required String phoneNumber,
     String? email,
   });
+
+  Future<void> resetPassword({required String email});
+  Future<void> sendEmailVerification();
+
+  Future<void> reauthenticateWithPassword(String email, String password);
+  Future<void> updateEmail(String newEmail);
+  Future<void> updatePassword(String newPassword);
+  Future<void> deleteAccount();
 }

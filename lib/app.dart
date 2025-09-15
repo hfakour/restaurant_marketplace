@@ -1,65 +1,92 @@
+// app.dart
 import 'package:flutter/material.dart';
-// Adjust paths as needed:
-import 'package:restaurant_marketplace/features/profile/presentation/screens/profile_screen.dart';
-import 'package:restaurant_marketplace/features/reservations/domain/value_objects/reservation_vos.dart';
-import 'package:restaurant_marketplace/features/reservations/presentation/screens/reservations_list_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'features/profile/presentation/screens/profile_screen.dart';
+import 'features/reservations/domain/value_objects/reservation_vos.dart';
+import 'features/reservations/presentation/screens/reservations_list_screen.dart';
+import 'injection.dart';
 
+import 'features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'features/auth/presentation/bloc/login/login_bloc.dart';
+import 'features/auth/presentation/bloc/signup/signup_bloc.dart';
 import 'features/auth/presentation/screen/auth_gate.dart';
-import 'features/wallet/presentation/screens/wallet_screen.dart'; // (still imported in your file; unused here)
-import 'package:flutter/material.dart';
+import 'features/auth/presentation/screen/login_page.dart';
+import 'features/auth/presentation/screen/signup_page.dart';
+
+// DemoPage را از app.dart خارج کن تا حلقه import نشود.
+// مثلا ببرش به: features/shell/presentation/demo_page.dart
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorSchemeSeed: const Color(0xFFBFEA3C), // lemon green
-        useMaterial3: true,
-        brightness: Brightness.light,
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<AuthBloc>()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: const AuthGate(),
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case '/login':
+              return MaterialPageRoute(
+                builder: (_) => BlocProvider(
+                  create: (_) => getIt<LoginBloc>(),
+                  child: const LoginPage(),
+                ),
+              );
+            case '/signup':
+              return MaterialPageRoute(
+                builder: (_) => BlocProvider(
+                  create: (_) => getIt<SignUpBloc>(),
+                  child: const SignUpPage(),
+                ),
+              );
+            case '/home':
+              return MaterialPageRoute(
+                builder: (_) => const DemoPage(), // حالا خارج از app.dart تعریف شده
+              );
+            default:
+              return null;
+          }
+        },
+      ),
     );
   }
 }
 
+/// If your AuthGate navigates to a signed-in shell, keep using DemoPage.
 class DemoPage extends StatefulWidget {
   const DemoPage({super.key});
-
   @override
   State<DemoPage> createState() => _DemoPageState();
 }
 
 class _DemoPageState extends State<DemoPage> {
   static const _lemon = Color(0xFFBFEA3C);
-
   int _selectedIndex = 2;
 
-  // Use a VO for the current user (replace with your auth user id)
   late final UserId _currentUserId;
-
-  // Pages aren’t const anymore because Home is a real screen
   late final List<Widget> _pages;
 
   @override
   void initState() {
     super.initState();
-
-    // TODO: replace 'demo-user-1' with your signed-in user id
+    // TODO: replace with real signed-in user id from your domain (AuthBloc state's account.uid)
     _currentUserId = UserId.create('demo-user-1');
 
     _pages = [
       const Center(child: Text('Cart')),
       const Center(child: Text('History')),
-      ReservationsListScreen(userId: _currentUserId), // <-- Home tab
+      ReservationsListScreen(userId: _currentUserId), // Home tab
       const Center(child: Text('Search')),
       const Center(child: Text('Profile')), // placeholder, opens via push
     ];
   }
 
   void _handleTap(int index) {
-    // Profile tab => open Profile screen
     if (index == 4) {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (_) => const ProfileScreen()),

@@ -1,6 +1,12 @@
 // lib/features/auth/data/mapper/user_profile_mappers.dart
 import 'package:restaurant_marketplace/features/profile/domain/entities/user_profile.dart';
-import 'package:restaurant_marketplace/core/domain_refs/domain_refs.dart';
+
+import '../../../address/domain/entities/refs/address_ref.dart';
+import '../../../discount/domain/entities/refs/discount_ref.dart';
+import '../../../favorite/domain/entities/refs/favorite_ref.dart';
+import '../../../order/domain/entities/refs/order_ref.dart';
+import '../../../reservations/domain/entities/refs/reservation_ref.dart';
+import '../../../wallet/domain/entities/refs/payment_method_ref.dart';
 
 /// Minimal write payload for Firestore during auth/signup.
 /// We intentionally skip complex refs (addresses, orders, etc.) here.

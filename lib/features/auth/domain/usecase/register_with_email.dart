@@ -1,14 +1,10 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:restaurant_marketplace/features/auth/domain/entities/auth_account.dart';
-
-import '../../data/repository/auth_repository_impl.dart';
-
-final registerWithEmailUC = Provider.autoDispose((ref) => RegisterWithEmailUseCase(ref));
+// auth/domain/usecase/register_with_email.dart
+import '../repositories/auth_repository.dart';
+import '../entities/auth_account.dart';
 
 class RegisterWithEmailUseCase {
-  RegisterWithEmailUseCase(this.ref);
-  final Ref ref;
+  RegisterWithEmailUseCase(this._repo);
+  final AuthRepository _repo;
 
   Future<AuthAccount> call({
     required String firstName,
@@ -17,7 +13,7 @@ class RegisterWithEmailUseCase {
     String? email,
     required String password,
   }) {
-    return ref.read(authRepositoryProvider).registerWithEmail(
+    return _repo.registerWithEmail(
       firstName: firstName,
       lastName: lastName,
       phoneNumber: phoneNumber,
