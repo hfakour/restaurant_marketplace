@@ -1,4 +1,5 @@
 // lib/features/auth/data/mapper/user_profile_mappers.dart
+import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:restaurant_marketplace/features/profile/domain/entities/user_profile.dart';
 
 import '../../../address/domain/entities/refs/address_ref.dart';
@@ -9,7 +10,7 @@ import '../../../reservations/domain/entities/refs/reservation_ref.dart';
 import '../../../wallet/domain/entities/refs/payment_method_ref.dart';
 
 /// Minimal write payload for Firestore during auth/signup.
-/// We intentionally skip complex refs (addresses, orders, etc.) here.
+/// ما عمداً فقط داده‌های پایه رو ذخیره می‌کنیم؛ ریفرنس‌های پیچیده (آدرس، سفارش، ...) توسط فیچر خودشون مدیریت می‌شن.
 Map<String, dynamic> userProfileToFirestore(UserProfile p) => {
   'id': p.id,
   'firstName': p.firstName,
@@ -17,7 +18,7 @@ Map<String, dynamic> userProfileToFirestore(UserProfile p) => {
   'contactNumber': p.contactNumber,
   'email': p.email,
   'avatarUrl': p.avatarUrl,
-  // Write empty arrays for cross-feature refs — they’ll be managed by their features.
+  // Write empty arrays for cross-feature refs — managed later by each feature
   'addressRefs': <Map<String, dynamic>>[],
   'walletRef': null,
   'reservationRefs': <Map<String, dynamic>>[],
@@ -27,6 +28,7 @@ Map<String, dynamic> userProfileToFirestore(UserProfile p) => {
   'discountRefs': <Map<String, dynamic>>[],
   'isEmailVerified': p.isEmailVerified,
   'isPhoneVerified': p.isPhoneVerified,
+  // هنگام نوشتن می‌تونی DateTime بذاری؛ Firestore خودش به Timestamp تبدیل می‌کنه.
   'createdAt': p.createdAt,
   'updatedAt': p.updatedAt,
   'roleMetadata': p.roleMetadata,
@@ -41,7 +43,7 @@ UserProfile firestoreToUserProfile(Map<String, dynamic> json) => UserProfile(
   contactNumber: json['contactNumber'] as String,
   email: json['email'] as String?,
   avatarUrl: json['avatarUrl'] as String?,
-  // Return typed empty lists; avoids List<dynamic> -> List<T> errors.
+  // Typed empty lists for safety
   addressRefs: const <AddressRef>[],
   walletRef: null,
   reservationRefs: const <ReservationRef>[],
@@ -51,8 +53,16 @@ UserProfile firestoreToUserProfile(Map<String, dynamic> json) => UserProfile(
   discountRefs: const <DiscountRef>[],
   isEmailVerified: (json['isEmailVerified'] as bool?) ?? false,
   isPhoneVerified: (json['isPhoneVerified'] as bool?) ?? false,
-  // If you stored server timestamps, they may come back as Timestamp; keep null-safe.
-  createdAt: json['createdAt'] is DateTime ? json['createdAt'] as DateTime? : null,
-  updatedAt: json['updatedAt'] is DateTime ? json['updatedAt'] as DateTime? : null,
+  // ✅ هندل کردن Timestamp یا DateTime
+  createdAt: json['createdAt'] is fs.Timestamp
+      ? (json['createdAt'] as fs.Timestamp).toDate()
+      : json['createdAt'] is DateTime
+      ? json['createdAt'] as DateTime?
+      : null,
+  updatedAt: json['updatedAt'] is fs.Timestamp
+      ? (json['updatedAt'] as fs.Timestamp).toDate()
+      : json['updatedAt'] is DateTime
+      ? json['updatedAt'] as DateTime?
+      : null,
   roleMetadata: (json['roleMetadata'] as Map<String, dynamic>?) ?? const {},
 );

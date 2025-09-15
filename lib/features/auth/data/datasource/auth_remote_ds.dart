@@ -11,12 +11,25 @@ class AuthRemoteDataSource {
 
   AuthRemoteDataSource(this._auth, this._firestore);
 
-  // کاربر فعلی
+  // کاربر فعلی (ممکن است null باشد)
   fa.User? get currentUser => _auth.currentUser;
+
+  // --- Helper: گرفتن user الزامی ---
+  fa.User _requireUser() {
+    final u = _auth.currentUser;
+    if (u == null) {
+      throw fa.FirebaseAuthException(
+        code: 'user-not-logged-in',
+        message: 'No authenticated user',
+      );
+    }
+    return u;
+  }
 
   // ------------------- AUTH -------------------
 
-  Stream<fa.User?> onAuthState() => _auth.idTokenChanges();
+  /// استریم تغییرات کاربر (login/logout + profile/reload changes)
+  Stream<fa.User?> onAuthState() => _auth.userChanges();
 
   Future<fa.UserCredential> createEmailUser({
     required String email,
@@ -35,10 +48,16 @@ class AuthRemoteDataSource {
   }
 
   // سازگاری با امضاهای قدیمی پروژه (اختیاری)
-  Future<fa.UserCredential> loginEmail({required String email, required String password}) =>
+  Future<fa.UserCredential> loginEmail({
+    required String email,
+    required String password,
+  }) =>
       loginWithEmail(email: email, password: password);
 
-  Future<fa.UserCredential> registerWithEmail({required String email, required String password}) =>
+  Future<fa.UserCredential> registerWithEmail({
+    required String email,
+    required String password,
+  }) =>
       createEmailUser(email: email, password: password);
 
   Future<fa.UserCredential> loginAnonymous() => _auth.signInAnonymously();
@@ -60,13 +79,7 @@ class AuthRemoteDataSource {
     required String email,
     required String password,
   }) async {
-    final user = _auth.currentUser;
-    if (user == null) {
-      throw fa.FirebaseAuthException(
-        code: 'user-not-logged-in',
-        message: 'No authenticated user to link.',
-      );
-    }
+    final user = _requireUser();
     final cred = fa.EmailAuthProvider.credential(
       email: email.trim(),
       password: password,
@@ -79,40 +92,37 @@ class AuthRemoteDataSource {
   Future<void> sendPasswordResetEmail(String email) =>
       _auth.sendPasswordResetEmail(email: email.trim());
 
-  // ------------------- SENSITIVE OPS -------------------
+  // ------------------- REAUTH -------------------
 
   Future<void> reauthWithPassword(String email, String password) async {
-    final user = _auth.currentUser;
-    if (user == null) {
-      throw fa.FirebaseAuthException(code: 'user-not-logged-in', message: 'No authenticated user');
-    }
-    final cred = fa.EmailAuthProvider.credential(email: email.trim(), password: password);
+    final user = _requireUser();
+    final cred =
+    fa.EmailAuthProvider.credential(email: email.trim(), password: password);
     await user.reauthenticateWithCredential(cred);
   }
 
-  // ✅ به‌جای updateEmail از verifyBeforeUpdateEmail استفاده شد
+  /// ری‌اُث با هر Provider/OAuth (google.com, apple.com, facebook.com, ...)
+  Future<void> reauthWithCredential(fa.AuthCredential cred) async {
+    final user = _requireUser();
+    await user.reauthenticateWithCredential(cred);
+  }
+
+  // ------------------- SENSITIVE OPS -------------------
+
+  // ✅ از verifyBeforeUpdateEmail استفاده می‌کنیم؛ بعد از تأیید لینک، با reload اعمال می‌شود
   Future<void> updateEmail(String newEmail) async {
-    final user = _auth.currentUser;
-    if (user == null) {
-      throw fa.FirebaseAuthException(code: 'user-not-logged-in', message: 'No authenticated user');
-    }
+    final user = _requireUser();
     await user.verifyBeforeUpdateEmail(newEmail.trim());
-    await user.reload(); // پس از تأیید لینک، ایمیل بروز می‌شود
+    await user.reload();
   }
 
   Future<void> updatePassword(String newPassword) async {
-    final user = _auth.currentUser;
-    if (user == null) {
-      throw fa.FirebaseAuthException(code: 'user-not-logged-in', message: 'No authenticated user');
-    }
+    final user = _requireUser();
     await user.updatePassword(newPassword);
   }
 
   Future<void> deleteAccount() async {
-    final user = _auth.currentUser;
-    if (user == null) {
-      throw fa.FirebaseAuthException(code: 'user-not-logged-in', message: 'No authenticated user');
-    }
+    final user = _requireUser();
     await user.delete();
   }
 
@@ -132,7 +142,10 @@ class AuthRemoteDataSource {
   }
 
   // ساخت/به‌روزرسانی پروفایل با داده‌های پیش‌فرض
-  Future<void> ensureUserProfile(fa.User user, {Map<String, dynamic> extra = const {}}) async {
+  Future<void> ensureUserProfile(
+      fa.User user, {
+        Map<String, dynamic> extra = const {},
+      }) async {
     final base = {
       'uid': user.uid,
       'email': user.email,

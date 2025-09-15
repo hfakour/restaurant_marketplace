@@ -18,12 +18,71 @@ class AuthRepositoryImpl implements AuthRepository {
 
   final AuthRemoteDataSource _remote;
 
-  // ✅ دو مپِر تزریقی/پیش‌فرض
+  // مپرهای تزریقی/پیش‌فرض
   final AuthAccount Function(User) _userMapper;
   final AuthFailure Function(FirebaseAuthException) _errorMapper;
 
   String _fullName(String first, String last) =>
       [first.trim(), last.trim()].where((s) => s.isNotEmpty).join(' ');
+
+  // ======================= Helper: Sensitive Ops (Reauth + Retry pattern) =======================
+  Future<T> _sensitive<T>(Future<T> Function() op) async {
+    try {
+      return await op();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        throw const AuthFailure.reauthRequired();
+      }
+      if (e.code == 'user-token-expired') {
+        throw const AuthFailure.sessionExpired();
+      }
+      throw _errorMapper(e);
+    }
+  }
+
+  // ======================= جدیدها (هم‌راستا با AuthRepository) =======================
+
+  /// آخرین کاربر موجود (ممکن است null باشد). از ریموت می‌خوانیم و مپ می‌کنیم.
+  @override
+  AuthAccount? get currentUser {
+    final u = _remote.currentUser;
+    return u == null ? null : _userMapper(u);
+  }
+
+  /// نسخه‌ی تازه‌ی کاربر فعلی (با ریلود)؛ اگر لاگین نیست، خطا می‌دهیم.
+  @override
+  Future<AuthAccount> currentAccount() async {
+    final u = _remote.currentUser;
+    if (u == null) {
+      throw const AuthFailure.unknown('No authenticated user.');
+    }
+    try {
+      await u.reload();
+      final fresh = _remote.currentUser;
+      if (fresh == null) {
+        throw const AuthFailure.unknown('User signed out during refresh.');
+      }
+      return _userMapper(fresh);
+    } on FirebaseAuthException catch (e) {
+      throw _errorMapper(e);
+    }
+  }
+
+  /// ریلود کاربر فعلی و برگرداندن وضعیت وریفای ایمیل
+  @override
+  Future<bool> reloadAndEmailVerified() async {
+    final u = _remote.currentUser;
+    if (u == null) return false;
+    try {
+      await u.reload();
+      final refreshed = _remote.currentUser;
+      return refreshed?.emailVerified ?? false;
+    } on FirebaseAuthException catch (e) {
+      throw _errorMapper(e);
+    }
+  }
+
+  // ======================= قبلی‌ها =======================
 
   @override
   Stream<AuthAccount?> authState() {
@@ -37,7 +96,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String firstName,
     required String lastName,
     required String phoneNumber,
-    String? email,
+    String? email, // optional
     required String password,
   }) async {
     if (email == null || email.trim().isEmpty) {
@@ -91,7 +150,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final user = cred.user!;
       await user.reload();
 
-      // ✅ enforce: فقط کاربرهای ایمیل-وریفای اجازه ورود دارند
+      // enforce: فقط کاربرهای ایمیل-وریفای اجازه ورود دارند
       if (!user.emailVerified) {
         await _remote.sendEmailVerification(user);
         await _remote.signOut();
@@ -130,16 +189,15 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> linkEmailPassword({
     required String email,
     required String password,
-  }) {
-    return _remote.linkEmailPassword(email: email, password: password);
-  }
+  }) =>
+      _sensitive(() => _remote.linkEmailPassword(email: email, password: password));
 
   @override
   Future<void> resetPassword({required String email}) {
     return _remote.sendPasswordResetEmail(email);
   }
 
-  // ✅ اضافه‌شده: ارسال ایمیل وریفای از طریق کاربر فعلی دیتاسورس
+  // ارسال ایمیل وریفای با کاربر فعلی دیتاسورس
   @override
   Future<void> sendEmailVerification() async {
     final user = _remote.currentUser;
@@ -148,8 +206,6 @@ class AuthRepositoryImpl implements AuthRepository {
     }
     await _remote.sendEmailVerification(user);
   }
-
-  // ✅ اضافه‌شده‌ها مطابق درخواستی که دادی
 
   @override
   Future<void> reauthenticateWithPassword(String email, String password) async {
@@ -160,32 +216,78 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
+  /// ری‌اُث با Provider/OAuth (Google/Apple/Facebook/…)
   @override
-  Future<void> updateEmail(String newEmail) async {
+  Future<void> reauthenticateWithProvider({
+    required String providerId,
+    String? idToken,
+    String? accessToken,
+    String? rawNonce,
+    String? authCode, // ممکنه برای برخی Providerها لازم نباشه
+  }) async {
     try {
-      await _remote.updateEmail(newEmail);
+      late AuthCredential cred;
+
+      switch (providerId) {
+        case 'google.com':
+          cred = GoogleAuthProvider.credential(
+            idToken: idToken,
+            accessToken: accessToken,
+          );
+          break;
+
+        case 'facebook.com':
+        // برای فیس‌بوک accessToken ضروریه
+          cred = FacebookAuthProvider.credential(accessToken!);
+          break;
+
+        case 'apple.com':
+        // Apple اغلب به rawNonce و idToken نیاز داره (authCode بعضی فلوها)
+          final provider = OAuthProvider('apple.com');
+          cred = provider.credential(
+            idToken: idToken,
+            accessToken: accessToken,
+            rawNonce: rawNonce,
+            // بعضی نسخه‌های SDK پارامتر authorizationCode رو ندارن؛
+            // اگر پکیج/نسخه‌ات نداره، این پارامتر رو حذف کن.
+            // authorizationCode: authCode, // در صورت پشتیبانی
+          );
+          break;
+
+        default:
+        // سایر Providerها (microsoft.com, yahoo.com, github.com, ...)
+          final provider = OAuthProvider(providerId);
+          cred = provider.credential(
+            idToken: idToken,
+            accessToken: accessToken,
+            rawNonce: rawNonce,
+          );
+          break;
+      }
+
+      await _remote.reauthWithCredential(cred);
     } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        throw const AuthFailure.reauthRequired();
+      }
+      if (e.code == 'user-token-expired') {
+        throw const AuthFailure.sessionExpired();
+      }
       throw _errorMapper(e);
     }
   }
 
   @override
-  Future<void> updatePassword(String newPassword) async {
-    try {
-      await _remote.updatePassword(newPassword);
-    } on FirebaseAuthException catch (e) {
-      throw _errorMapper(e);
-    }
-  }
+  Future<void> updateEmail(String newEmail) =>
+      _sensitive(() => _remote.updateEmail(newEmail));
 
   @override
-  Future<void> deleteAccount() async {
-    try {
-      await _remote.deleteAccount();
-    } on FirebaseAuthException catch (e) {
-      throw _errorMapper(e);
-    }
-  }
+  Future<void> updatePassword(String newPassword) =>
+      _sensitive(() => _remote.updatePassword(newPassword));
+
+  @override
+  Future<void> deleteAccount() =>
+      _sensitive(() => _remote.deleteAccount());
 
   @override
   Future<UserProfile> ensureUserProfile({
@@ -229,6 +331,7 @@ class AuthRepositoryImpl implements AuthRepository {
       roleMetadata: (data['roleMetadata'] as Map<String, dynamic>?) ?? const {},
       isEmailVerified: (data['isEmailVerified'] as bool?) ?? false,
       isPhoneVerified: (data['isPhoneVerified'] as bool?) ?? false,
+      // createdAt/updatedAt را اگر خواستی می‌تونی در Mapper تبدیل کنی (Timestamp -> DateTime)
       createdAt: data['createdAt'] is DateTime ? data['createdAt'] as DateTime? : null,
       updatedAt: data['updatedAt'] is DateTime ? data['updatedAt'] as DateTime? : null,
     );
@@ -237,6 +340,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> signOut() => _remote.signOut();
 
+  /// فقط داده‌های دامنه را پاس می‌دهیم؛
+  /// ثبت زمان به‌صورت serverTimestamp در DataSource انجام می‌شود.
   Future<void> _ensureProfile({
     required String uid,
     required String firstName,
@@ -244,7 +349,6 @@ class AuthRepositoryImpl implements AuthRepository {
     required String phoneNumber,
     String? email,
   }) async {
-    final now = DateTime.now().toUtc(); // DataSource روی سرور override می‌کند
     final data = {
       'id': uid,
       'firstName': firstName,
@@ -253,8 +357,6 @@ class AuthRepositoryImpl implements AuthRepository {
       'email': email,
       'isEmailVerified': email != null,
       'isPhoneVerified': false,
-      'createdAt': now,
-      'updatedAt': now,
       'avatarUrl': null,
       'addressRefs': <Map<String, dynamic>>[],
       'walletRef': null,
@@ -264,6 +366,7 @@ class AuthRepositoryImpl implements AuthRepository {
       'favoriteRefs': <Map<String, dynamic>>[],
       'discountRefs': <Map<String, dynamic>>[],
       'roleMetadata': <String, dynamic>{},
+      // createdAt/updatedAt عمداً اینجا ست نمی‌شود
     };
     await _remote.upsertProfile(uid, data);
   }

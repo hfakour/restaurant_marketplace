@@ -1,17 +1,23 @@
+// lib/features/auth/domain/entities/auth_failures.dart
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth_failures.freezed.dart';
 
 @freezed
 class AuthFailure with _$AuthFailure {
-  const factory AuthFailure.invalidCredentials() = _InvalidCredentials;
-  const factory AuthFailure.userDisabled() = _UserDisabled;
-  const factory AuthFailure.emailNotVerified() = _EmailNotVerified;
-  const factory AuthFailure.tokenExpired() = _TokenExpired;
-  const factory AuthFailure.networkIssue() = _NetworkIssue;
-  /// کد سرور اختیاری است (برای لاگ یا نمایش)
-  const factory AuthFailure.serverIssue([String? code]) = _ServerIssue;
-  const factory AuthFailure.reauthRequired() = _ReauthRequired;
-  const factory AuthFailure.unknown([String? message]) = _Unknown;
-  const factory AuthFailure.tooManyRequests({int? retryAfterSeconds}) = _TooManyRequests;
+  const factory AuthFailure.invalidCredentials() = InvalidCredentials;
+  const factory AuthFailure.userDisabled() = UserDisabled;
+  const factory AuthFailure.emailNotVerified() = EmailNotVerified;
+  const factory AuthFailure.tokenExpired() = TokenExpired;
+  const factory AuthFailure.networkIssue() = NetworkIssue;
+  const factory AuthFailure.serverIssue({int? statusCode}) = ServerIssue;
+  const factory AuthFailure.unknown([String? message]) = UnknownAuthFailure;
+
+  // 👇 اضافه‌های جدید
+  const factory AuthFailure.emailAlreadyInUse() = EmailAlreadyInUse;
+  const factory AuthFailure.providerAlreadyLinked() = ProviderAlreadyLinked;
+  const factory AuthFailure.invalidOtp() = InvalidOtp;
+  const factory AuthFailure.reauthRequired() = ReauthRequired;
+  const factory AuthFailure.sessionExpired() = SessionExpired;
+  const factory AuthFailure.tooManyRequests({int? retryAfterSeconds}) = TooManyRequests;
 }
