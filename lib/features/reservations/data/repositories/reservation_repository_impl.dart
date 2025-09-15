@@ -1,7 +1,7 @@
 // data/repositories/reservation_repository_impl.dart
 import 'dart:async';
 
-import 'package:restaurant_marketplace/core/domain_refs/reservation_ref.dart';
+import 'package:restaurant_marketplace/features/reservations/domain/entities/refs/reservation_ref.dart';
 import 'package:restaurant_marketplace/features/reservations/domain/entities/reservation.dart';
 import 'package:restaurant_marketplace/features/reservations/domain/repositories/reservation_repository.dart';
 import 'package:restaurant_marketplace/features/reservations/data/mappers/reservation_mapper.dart';

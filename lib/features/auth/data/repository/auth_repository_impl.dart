@@ -1,34 +1,41 @@
-// features/auth/data/repositories/auth_repository_impl.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../domain/entities/auth_account.dart';
+import '../../../profile/domain/entities/user_profile.dart';
 import '../../domain/repositories/auth_repository.dart';
-
-import 'package:restaurant_marketplace/features/profile/domain/entities/user_profile.dart';
+import '../../domain/entities/auth_account.dart';
 import '../datasource/auth_remote_ds.dart';
 import '../mapper/auth_mappers.dart';
-import '../mapper/user_profile_mappers.dart';
 
+// ---- Low-level providers (Firebase + datasource) ----
 final firebaseAuthProvider = Provider<FirebaseAuth>((_) => FirebaseAuth.instance);
-final firestoreProvider = Provider<FirebaseFirestore>((_) => FirebaseFirestore.instance);
+final firestoreProvider   = Provider<FirebaseFirestore>((_) => FirebaseFirestore.instance);
 
 final authRemoteProvider = Provider<AuthRemoteDataSource>((ref) {
-  return AuthRemoteDataSource(ref.read(firebaseAuthProvider), ref.read(firestoreProvider));
+  return AuthRemoteDataSource(
+    ref.read(firebaseAuthProvider),
+    ref.read(firestoreProvider),
+  );
 });
 
+// ---- The repository provider you want to read everywhere ----
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepositoryImpl(ref.read(authRemoteProvider));
 });
 
+// ---- Concrete repo implementation ----
 class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._remote);
   final AuthRemoteDataSource _remote;
 
+  String _fullName(String first, String last) =>
+      [first.trim(), last.trim()].where((s) => s.isNotEmpty).join(' ');
+
   @override
-  Stream<AuthAccount?> authState() =>
-      _remote.onAuthState().map((u) => u == null ? null : authAccountFromFirebaseUser(u));
+  Stream<AuthAccount?> authState() {
+    return _remote.onAuthState().map((u) => u == null ? null : authAccountFromFirebaseUser(u));
+  }
 
   @override
   Future<AuthAccount> registerWithEmail({
@@ -39,26 +46,30 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
   }) async {
     if (email == null || email.trim().isEmpty) {
-      // fallback to anonymous if email omitted
       final cred = await _remote.loginAnonymous();
       final u = cred.user!;
+      final dn = _fullName(firstName, lastName);
+      if (dn.isNotEmpty) {
+        await _remote.updateDisplayName(user: u, displayName: dn);
+      }
       await _ensureProfile(uid: u.uid, firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: null);
       return authAccountFromFirebaseUser(u);
     }
 
     final cred = await _remote.createEmailUser(email: email.trim(), password: password);
     final u = cred.user!;
+    final dn = _fullName(firstName, lastName);
+    if (dn.isNotEmpty) {
+      await _remote.updateDisplayName(user: u, displayName: dn);
+    }
     await _remote.sendEmailVerification(u);
     await _ensureProfile(uid: u.uid, firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email.trim());
     return authAccountFromFirebaseUser(u);
   }
 
   @override
-  Future<AuthAccount> loginWithEmail({
-    required String email,
-    required String password,
-  }) async {
-    final cred = await _remote.loginEmail(email: email.trim(), password: password);
+  Future<AuthAccount> loginWithEmail({required String email, required String password}) async {
+    final cred = await _remote.loginEmail(email: email, password: password);
     return authAccountFromFirebaseUser(cred.user!);
   }
 
@@ -70,17 +81,18 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     final cred = await _remote.loginAnonymous();
     final u = cred.user!;
+    final dn = _fullName(firstName, lastName);
+    if (dn.isNotEmpty) {
+      await _remote.updateDisplayName(user: u, displayName: dn);
+    }
     await _ensureProfile(uid: u.uid, firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: null);
     return authAccountFromFirebaseUser(u);
   }
 
   @override
   Future<void> linkEmailPassword({required String email, required String password}) {
-    return _remote.linkEmailPassword(email: email.trim(), password: password);
+    return _remote.linkEmailPassword(email: email, password: password);
   }
-
-  @override
-  Future<void> signOut() => _remote.signOut();
 
   @override
   Future<UserProfile> ensureUserProfile({
@@ -90,16 +102,10 @@ class AuthRepositoryImpl implements AuthRepository {
     required String phoneNumber,
     String? email,
   }) async {
-    await _ensureProfile(
-      uid: uid,
-      firstName: firstName,
-      lastName: lastName,
-      phoneNumber: phoneNumber,
-      email: email,
-    );
+    await _ensureProfile(uid: uid, firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email);
     final data = await _remote.getProfile(uid);
     if (data == null) {
-      // Shouldn't happen right after ensure; return a minimal in-memory instance
+      // minimal fallback (avoid pulling other feature refs here)
       return UserProfile(
         id: uid,
         firstName: firstName,
@@ -108,8 +114,30 @@ class AuthRepositoryImpl implements AuthRepository {
         email: email,
       );
     }
-    return firestoreToUserProfile(data);
+    return UserProfile(
+      id: (data['id'] ?? uid) as String,
+      firstName: (data['firstName'] ?? firstName) as String,
+      lastName: (data['lastName'] ?? lastName) as String,
+      contactNumber: (data['contactNumber'] ?? phoneNumber) as String,
+      email: data['email'] as String?,
+      avatarUrl: data['avatarUrl'] as String?,
+      addressRefs: const [],
+      walletRef: null,
+      reservationRefs: const [],
+      paymentMethodRefs: const [],
+      orderRefs: const [],
+      favoriteRefs: const [],
+      discountRefs: const [],
+      isEmailVerified: (data['isEmailVerified'] as bool?) ?? false,
+      isPhoneVerified: (data['isPhoneVerified'] as bool?) ?? false,
+      createdAt: data['createdAt'] is DateTime ? data['createdAt'] as DateTime? : null,
+      updatedAt: data['updatedAt'] is DateTime ? data['updatedAt'] as DateTime? : null,
+      roleMetadata: (data['roleMetadata'] as Map<String, dynamic>?) ?? const {},
+    );
   }
+
+  @override
+  Future<void> signOut() => _remote.signOut();
 
   Future<void> _ensureProfile({
     required String uid,
@@ -117,13 +145,18 @@ class AuthRepositoryImpl implements AuthRepository {
     required String lastName,
     required String phoneNumber,
     String? email,
-  }) {
-    final payload = {
+  }) async {
+    final now = DateTime.now().toUtc();
+    final data = {
       'id': uid,
-      'firstName': firstName.trim(),
-      'lastName': lastName.trim(),
-      'contactNumber': phoneNumber.trim(),
-      'email': (email?.trim().isEmpty ?? true) ? null : email!.trim(),
+      'firstName': firstName,
+      'lastName': lastName,
+      'contactNumber': phoneNumber,
+      'email': email,
+      'isEmailVerified': email != null,
+      'isPhoneVerified': false,
+      'createdAt': now,
+      'updatedAt': now,
       'avatarUrl': null,
       'addressRefs': <Map<String, dynamic>>[],
       'walletRef': null,
@@ -132,12 +165,8 @@ class AuthRepositoryImpl implements AuthRepository {
       'orderRefs': <Map<String, dynamic>>[],
       'favoriteRefs': <Map<String, dynamic>>[],
       'discountRefs': <Map<String, dynamic>>[],
-      'isEmailVerified': email != null,
-      'isPhoneVerified': false,
-      'createdAt': FieldValue.serverTimestamp(),
-      'updatedAt': FieldValue.serverTimestamp(),
       'roleMetadata': <String, dynamic>{},
     };
-    return _remote.upsertProfile(uid: uid, payload: payload);
+    await _remote.upsertProfile(uid, data);
   }
 }

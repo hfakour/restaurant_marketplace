@@ -2,7 +2,7 @@
 import '../../domain/entities/reservation.dart';
 import '../../domain/value_objects/reservation_vos.dart';
 import '../models/reservation_model.dart';
-import '../../../../core/domain_refs/reservation_ref.dart';
+import '../../domain/entities/refs/reservation_ref.dart';
 
 /// --------------------
 /// Model ↔ Domain

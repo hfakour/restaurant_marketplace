@@ -12,7 +12,10 @@ class AuthAccount with _$AuthAccount {
     /// May be null for anonymous/phone flows
     String? email,
 
-    String? displayName,
+    /// User’s given name and surname (split for consistency with UserProfile)
+    String? firstName,
+    String? lastName,
+
     String? avatarUrl,
 
     @Default(false) bool isEmailVerified,

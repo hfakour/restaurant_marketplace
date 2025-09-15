@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../data/repository/auth_repository_impl.dart';
-import '../entities/auth_account.dart';
-import '../repositories/auth_repository.dart';
 
-final registerWithEmailUC =
-Provider.autoDispose((ref) => RegisterWithEmailUseCase(ref));
+import 'package:restaurant_marketplace/features/auth/domain/entities/auth_account.dart';
+
+import '../../data/repository/auth_repository_impl.dart';
+
+final registerWithEmailUC = Provider.autoDispose((ref) => RegisterWithEmailUseCase(ref));
 
 class RegisterWithEmailUseCase {
   RegisterWithEmailUseCase(this.ref);

@@ -2,8 +2,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:restaurant_marketplace/core/domain_refs/domain_refs.dart';
 
-import '../../../../core/domain_refs/menu_ref.dart';
-import '../../../../core/domain_refs/review_ref.dart';
+import '../../../menu/domain/entities/refs/menu_ref.dart';
+import '../../../reviews/domain/entities/refs/review_ref.dart';
 
 part 'restaurant.freezed.dart';
 

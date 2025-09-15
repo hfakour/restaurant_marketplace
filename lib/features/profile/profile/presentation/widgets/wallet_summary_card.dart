@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_marketplace/core/domain_refs/wallet_ref.dart';
+import 'package:restaurant_marketplace/features/wallet/domain/entities/refs/wallet_ref.dart';
 
 // Use the Money value object from the wallet domain to format the balance.
 import '../../../../wallet/domain/value_objects/money.dart';

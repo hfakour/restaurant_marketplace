@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_marketplace/core/domain_refs/payment_method_ref.dart';
+import 'package:restaurant_marketplace/features/wallet/domain/entities/refs/payment_method_ref.dart';
 
 class PaymentMethodsList extends StatelessWidget {
   const PaymentMethodsList({

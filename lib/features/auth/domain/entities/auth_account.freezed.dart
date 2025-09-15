@@ -22,7 +22,10 @@ mixin _$AuthAccount {
 
   /// May be null for anonymous/phone flows
   String? get email => throw _privateConstructorUsedError;
-  String? get displayName => throw _privateConstructorUsedError;
+
+  /// User’s given name and surname (split for consistency with UserProfile)
+  String? get firstName => throw _privateConstructorUsedError;
+  String? get lastName => throw _privateConstructorUsedError;
   String? get avatarUrl => throw _privateConstructorUsedError;
   bool get isEmailVerified => throw _privateConstructorUsedError;
   bool get isPhoneVerified => throw _privateConstructorUsedError;
@@ -59,7 +62,8 @@ abstract class $AuthAccountCopyWith<$Res> {
   $Res call({
     String id,
     String? email,
-    String? displayName,
+    String? firstName,
+    String? lastName,
     String? avatarUrl,
     bool isEmailVerified,
     bool isPhoneVerified,
@@ -89,7 +93,8 @@ class _$AuthAccountCopyWithImpl<$Res, $Val extends AuthAccount>
   $Res call({
     Object? id = null,
     Object? email = freezed,
-    Object? displayName = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? avatarUrl = freezed,
     Object? isEmailVerified = null,
     Object? isPhoneVerified = null,
@@ -110,9 +115,13 @@ class _$AuthAccountCopyWithImpl<$Res, $Val extends AuthAccount>
                 ? _value.email
                 : email // ignore: cast_nullable_to_non_nullable
                       as String?,
-            displayName: freezed == displayName
-                ? _value.displayName
-                : displayName // ignore: cast_nullable_to_non_nullable
+            firstName: freezed == firstName
+                ? _value.firstName
+                : firstName // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            lastName: freezed == lastName
+                ? _value.lastName
+                : lastName // ignore: cast_nullable_to_non_nullable
                       as String?,
             avatarUrl: freezed == avatarUrl
                 ? _value.avatarUrl
@@ -168,7 +177,8 @@ abstract class _$$AuthAccountImplCopyWith<$Res>
   $Res call({
     String id,
     String? email,
-    String? displayName,
+    String? firstName,
+    String? lastName,
     String? avatarUrl,
     bool isEmailVerified,
     bool isPhoneVerified,
@@ -197,7 +207,8 @@ class __$$AuthAccountImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? email = freezed,
-    Object? displayName = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? avatarUrl = freezed,
     Object? isEmailVerified = null,
     Object? isPhoneVerified = null,
@@ -218,9 +229,13 @@ class __$$AuthAccountImplCopyWithImpl<$Res>
             ? _value.email
             : email // ignore: cast_nullable_to_non_nullable
                   as String?,
-        displayName: freezed == displayName
-            ? _value.displayName
-            : displayName // ignore: cast_nullable_to_non_nullable
+        firstName: freezed == firstName
+            ? _value.firstName
+            : firstName // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        lastName: freezed == lastName
+            ? _value.lastName
+            : lastName // ignore: cast_nullable_to_non_nullable
                   as String?,
         avatarUrl: freezed == avatarUrl
             ? _value.avatarUrl
@@ -269,7 +284,8 @@ class _$AuthAccountImpl implements _AuthAccount {
   const _$AuthAccountImpl({
     required this.id,
     this.email,
-    this.displayName,
+    this.firstName,
+    this.lastName,
     this.avatarUrl,
     this.isEmailVerified = false,
     this.isPhoneVerified = false,
@@ -289,8 +305,12 @@ class _$AuthAccountImpl implements _AuthAccount {
   /// May be null for anonymous/phone flows
   @override
   final String? email;
+
+  /// User’s given name and surname (split for consistency with UserProfile)
   @override
-  final String? displayName;
+  final String? firstName;
+  @override
+  final String? lastName;
   @override
   final String? avatarUrl;
   @override
@@ -338,7 +358,7 @@ class _$AuthAccountImpl implements _AuthAccount {
 
   @override
   String toString() {
-    return 'AuthAccount(id: $id, email: $email, displayName: $displayName, avatarUrl: $avatarUrl, isEmailVerified: $isEmailVerified, isPhoneVerified: $isPhoneVerified, providers: $providers, profileId: $profileId, createdAt: $createdAt, updatedAt: $updatedAt, lastLoginAt: $lastLoginAt, providerMetadata: $providerMetadata)';
+    return 'AuthAccount(id: $id, email: $email, firstName: $firstName, lastName: $lastName, avatarUrl: $avatarUrl, isEmailVerified: $isEmailVerified, isPhoneVerified: $isPhoneVerified, providers: $providers, profileId: $profileId, createdAt: $createdAt, updatedAt: $updatedAt, lastLoginAt: $lastLoginAt, providerMetadata: $providerMetadata)';
   }
 
   @override
@@ -348,8 +368,10 @@ class _$AuthAccountImpl implements _AuthAccount {
             other is _$AuthAccountImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.displayName, displayName) ||
-                other.displayName == displayName) &&
+            (identical(other.firstName, firstName) ||
+                other.firstName == firstName) &&
+            (identical(other.lastName, lastName) ||
+                other.lastName == lastName) &&
             (identical(other.avatarUrl, avatarUrl) ||
                 other.avatarUrl == avatarUrl) &&
             (identical(other.isEmailVerified, isEmailVerified) ||
@@ -379,7 +401,8 @@ class _$AuthAccountImpl implements _AuthAccount {
     runtimeType,
     id,
     email,
-    displayName,
+    firstName,
+    lastName,
     avatarUrl,
     isEmailVerified,
     isPhoneVerified,
@@ -404,7 +427,8 @@ abstract class _AuthAccount implements AuthAccount {
   const factory _AuthAccount({
     required final String id,
     final String? email,
-    final String? displayName,
+    final String? firstName,
+    final String? lastName,
     final String? avatarUrl,
     final bool isEmailVerified,
     final bool isPhoneVerified,
@@ -423,8 +447,12 @@ abstract class _AuthAccount implements AuthAccount {
   /// May be null for anonymous/phone flows
   @override
   String? get email;
+
+  /// User’s given name and surname (split for consistency with UserProfile)
   @override
-  String? get displayName;
+  String? get firstName;
+  @override
+  String? get lastName;
   @override
   String? get avatarUrl;
   @override

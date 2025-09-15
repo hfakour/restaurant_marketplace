@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_marketplace/core/domain_refs/reservation_ref.dart';
+import 'package:restaurant_marketplace/features/reservations/domain/entities/refs/reservation_ref.dart';
 import 'package:restaurant_marketplace/features/reservations/domain/entities/reservation.dart';
 import 'package:restaurant_marketplace/features/reservations/domain/usecase/watch_user_reservation_refs.dart';
 import 'package:restaurant_marketplace/features/reservations/domain/value_objects/reservation_vos.dart';

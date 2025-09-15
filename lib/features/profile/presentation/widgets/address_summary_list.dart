@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_marketplace/core/domain_refs/address_ref.dart';
+import 'package:restaurant_marketplace/features/address/domain/entities/refs/address_ref.dart';
 
 class AddressSummaryList extends StatelessWidget {
   const AddressSummaryList({

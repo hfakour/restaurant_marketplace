@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:restaurant_marketplace/core/domain_refs/reservation_ref.dart';
+import 'package:restaurant_marketplace/features/reservations/domain/entities/refs/reservation_ref.dart';
 
 class ReservationWatchState extends Equatable {
   final bool isLoading;

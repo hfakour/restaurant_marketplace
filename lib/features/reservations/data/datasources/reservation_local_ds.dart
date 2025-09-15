@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:restaurant_marketplace/core/domain_refs/reservation_ref.dart';
+import 'package:restaurant_marketplace/features/reservations/domain/entities/refs/reservation_ref.dart';
 import 'package:restaurant_marketplace/features/reservations/domain/entities/reservation.dart';
 import 'package:restaurant_marketplace/features/reservations/data/mappers/reservation_mapper.dart';
 import 'package:restaurant_marketplace/features/reservations/data/models/reservation_model.dart';

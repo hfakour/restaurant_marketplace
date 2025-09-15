@@ -1,4 +1,4 @@
-import '../../../../core/domain_refs/reservation_ref.dart';
+import '../entities/refs/reservation_ref.dart';
 import '../entities/reservation.dart';
 import '../repositories/reservation_repository.dart';
 

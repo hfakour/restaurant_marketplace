@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import '../../../../core/domain_refs/reservation_ref.dart';
+import '../entities/refs/reservation_ref.dart';
 import '../entities/reservation.dart';            // for ReservationStatus
 import '../repositories/reservation_repository.dart';
 import '../value_objects/reservation_vos.dart';  // for UserId

@@ -1,7 +1,7 @@
 // domain/entities/food.dart
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../core/domain_refs/review_ref.dart';
+import '../../../reviews/domain/entities/refs/review_ref.dart';
 
 part 'food.freezed.dart';
 
