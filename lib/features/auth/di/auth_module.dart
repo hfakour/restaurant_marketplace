@@ -1,6 +1,8 @@
+// auth/di/auth_module.dart
 import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 // DATA
 import '../data/datasource/auth_remote_ds.dart';
@@ -23,13 +25,23 @@ import '../presentation/bloc/signup/signup_bloc.dart';
 // import '../data/mapper/auth_error_mapper.dart' as errors;
 
 void registerAuthModule(GetIt sl) {
+  // توصیهٔ مهم: قبل از رجیستر ماژول‌های Auth در اپ میزبان انجام بده:
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+
+  // اگر Firebase.initializeApp() فراخوانی نشده باشد، این assertion کمک می‌کند زودتر متوجه شویم.
+  assert(
+  Firebase.apps.isNotEmpty,
+  'Firebase.initializeApp() must be called before registerAuthModule()',
+  );
+
   if (sl.isRegistered<AuthRepository>()) return;
 
-  // 1) Firebase SDKs اول رجیستر شوند
+  // 1) Firebase SDKs
   sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
   sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
 
-  // 2) DataSource فقط یکبار
+  // 2) DataSource
   sl.registerLazySingleton<AuthRemoteDataSource>(
         () => AuthRemoteDataSource(sl<FirebaseAuth>(), sl<FirebaseFirestore>()),
   );
@@ -38,20 +50,36 @@ void registerAuthModule(GetIt sl) {
   sl.registerLazySingleton<AuthRepository>(
         () => AuthRepositoryImpl(
       sl<AuthRemoteDataSource>(),
-      // اگر بخواهی مپِر سفارشی تزریق کنی، این کامنت را باز کن:
+      // در صورت نیاز به مپِر سفارشی:
       // userMapper: mappers.authAccountFromFirebaseUser,
       // errorMapper: errors.mapFirebaseAuthException,
     ),
   );
 
   // 4) UseCases
-  sl.registerFactory<LoginWithEmailUseCase>(() => LoginWithEmailUseCase(sl<AuthRepository>()));
-  sl.registerFactory<RegisterWithEmailUseCase>(() => RegisterWithEmailUseCase(sl<AuthRepository>()));
-  sl.registerFactory<ResetPasswordUseCase>(() => ResetPasswordUseCase(sl<AuthRepository>()));
-  sl.registerFactory<SendEmailVerificationUseCase>(() => SendEmailVerificationUseCase(sl<AuthRepository>()));
+  sl.registerFactory<LoginWithEmailUseCase>(
+        () => LoginWithEmailUseCase(sl<AuthRepository>()),
+  );
+  sl.registerFactory<RegisterWithEmailUseCase>(
+        () => RegisterWithEmailUseCase(sl<AuthRepository>()),
+  );
+  sl.registerFactory<ResetPasswordUseCase>(
+        () => ResetPasswordUseCase(sl<AuthRepository>()),
+  );
+  sl.registerFactory<SendEmailVerificationUseCase>(
+        () => SendEmailVerificationUseCase(sl<AuthRepository>()),
+  );
 
   // 5) Blocs
-  sl.registerFactory<AuthBloc>(() => AuthBloc(sl<AuthRepository>()));
+  //
+  // اگر طول‌عمر اپلیکیشنی برای AuthBloc می‌خواهی (یک استریم مشترک برای کل اپ)،
+  // آن را singleton ثبت کن. حتماً dispose هم بده تا روی reset() آزاد شود.
+  sl.registerSingleton<AuthBloc>(
+    AuthBloc(sl<AuthRepository>()),
+    dispose: (b) => b.close(),
+  );
+
+  // بقیه بلوک‌ها معمولاً صفحه‌ای/کوتاه‌عمر هستند → factory
   sl.registerFactory<LoginBloc>(() => LoginBloc(sl<LoginWithEmailUseCase>()));
   sl.registerFactory<SignUpBloc>(() => SignUpBloc(sl<RegisterWithEmailUseCase>()));
 }

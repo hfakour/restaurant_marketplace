@@ -49,18 +49,19 @@ class AuthRepositoryImpl implements AuthRepository {
     return u == null ? null : _userMapper(u);
   }
 
-  /// نسخه‌ی تازه‌ی کاربر فعلی (با ریلود)؛ اگر لاگین نیست، خطا می‌دهیم.
+  /// نسخه‌ی تازه‌ی کاربر فعلی (با ریلود).
+  /// UX: به‌جای Unknown، Failure مشخص‌تر برای تصمیم‌گیری UI برمی‌گردانیم.
   @override
   Future<AuthAccount> currentAccount() async {
     final u = _remote.currentUser;
     if (u == null) {
-      throw const AuthFailure.unknown('No authenticated user.');
+      throw const AuthFailure.sessionExpired();
     }
     try {
-      await u.reload();
+      await u.reload(); // همگام‌سازی با سرور
       final fresh = _remote.currentUser;
       if (fresh == null) {
-        throw const AuthFailure.unknown('User signed out during refresh.');
+        throw const AuthFailure.sessionExpired();
       }
       return _userMapper(fresh);
     } on FirebaseAuthException catch (e) {
@@ -148,12 +149,13 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
       );
       final user = cred.user!;
-      await user.reload();
+      await user.reload(); // تضمین تازه بودن
 
-      // enforce: فقط کاربرهای ایمیل-وریفای اجازه ورود دارند
+      // سخت‌گیرانه: ورود تنها برای ایمیل وریفای‌شده
       if (!user.emailVerified) {
         await _remote.sendEmailVerification(user);
         await _remote.signOut();
+        // BLoC این Failure را به state.emailVerificationSent ترجمه/هدایت می‌کند
         throw const AuthFailure.emailNotVerified();
       }
 
@@ -202,7 +204,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> sendEmailVerification() async {
     final user = _remote.currentUser;
     if (user == null) {
-      throw const AuthFailure.unknown('No authenticated user to verify.');
+      throw const AuthFailure.sessionExpired();
     }
     await _remote.sendEmailVerification(user);
   }
@@ -223,7 +225,7 @@ class AuthRepositoryImpl implements AuthRepository {
     String? idToken,
     String? accessToken,
     String? rawNonce,
-    String? authCode, // ممکنه برای برخی Providerها لازم نباشه
+    String? authCode, // بسته به SDK/فلو ممکن است استفاده نشود
   }) async {
     try {
       late AuthCredential cred;
@@ -237,25 +239,21 @@ class AuthRepositoryImpl implements AuthRepository {
           break;
 
         case 'facebook.com':
-        // برای فیس‌بوک accessToken ضروریه
           cred = FacebookAuthProvider.credential(accessToken!);
           break;
 
         case 'apple.com':
-        // Apple اغلب به rawNonce و idToken نیاز داره (authCode بعضی فلوها)
           final provider = OAuthProvider('apple.com');
           cred = provider.credential(
             idToken: idToken,
             accessToken: accessToken,
             rawNonce: rawNonce,
-            // بعضی نسخه‌های SDK پارامتر authorizationCode رو ندارن؛
-            // اگر پکیج/نسخه‌ات نداره، این پارامتر رو حذف کن.
-            // authorizationCode: authCode, // در صورت پشتیبانی
+            // authorizationCode در برخی نسخه‌های SDK پشتیبانی می‌شود:
+            // authorizationCode: authCode,
           );
           break;
 
         default:
-        // سایر Providerها (microsoft.com, yahoo.com, github.com, ...)
           final provider = OAuthProvider(providerId);
           cred = provider.credential(
             idToken: idToken,
@@ -331,7 +329,7 @@ class AuthRepositoryImpl implements AuthRepository {
       roleMetadata: (data['roleMetadata'] as Map<String, dynamic>?) ?? const {},
       isEmailVerified: (data['isEmailVerified'] as bool?) ?? false,
       isPhoneVerified: (data['isPhoneVerified'] as bool?) ?? false,
-      // createdAt/updatedAt را اگر خواستی می‌تونی در Mapper تبدیل کنی (Timestamp -> DateTime)
+      // createdAt/updatedAt اگر Timestamp باشد، در mapper پروفایل تبدیل کن
       createdAt: data['createdAt'] is DateTime ? data['createdAt'] as DateTime? : null,
       updatedAt: data['updatedAt'] is DateTime ? data['updatedAt'] as DateTime? : null,
     );
@@ -340,8 +338,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> signOut() => _remote.signOut();
 
-  /// فقط داده‌های دامنه را پاس می‌دهیم؛
-  /// ثبت زمان به‌صورت serverTimestamp در DataSource انجام می‌شود.
+  /// مینیمال‌نویسی پروفایل (بدون آرایه‌های خالی)؛
+  /// زمان‌ها در DataSource با serverTimestamp ست می‌شوند.
   Future<void> _ensureProfile({
     required String uid,
     required String firstName,
@@ -349,24 +347,16 @@ class AuthRepositoryImpl implements AuthRepository {
     required String phoneNumber,
     String? email,
   }) async {
-    final data = {
+    final data = <String, dynamic>{
       'id': uid,
       'firstName': firstName,
       'lastName': lastName,
       'contactNumber': phoneNumber,
-      'email': email,
+      if (email != null) 'email': email,
+      // فلگ‌ها تنها در صورت نیاز
       'isEmailVerified': email != null,
       'isPhoneVerified': false,
-      'avatarUrl': null,
-      'addressRefs': <Map<String, dynamic>>[],
-      'walletRef': null,
-      'reservationRefs': <Map<String, dynamic>>[],
-      'paymentMethodRefs': <Map<String, dynamic>>[],
-      'orderRefs': <Map<String, dynamic>>[],
-      'favoriteRefs': <Map<String, dynamic>>[],
-      'discountRefs': <Map<String, dynamic>>[],
-      'roleMetadata': <String, dynamic>{},
-      // createdAt/updatedAt عمداً اینجا ست نمی‌شود
+      // هیچ آرایه/شیء پیش‌فرض دیگری نمی‌نویسیم تا نویز و ریسک overwrite کم شود
     };
     await _remote.upsertProfile(uid, data);
   }

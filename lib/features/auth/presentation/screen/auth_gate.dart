@@ -46,6 +46,15 @@ class _AuthGateState extends State<AuthGate> {
           // کاربر وریفای شده یا پس از چک پاس شده → برو خانه
             _navigateTo('/home', clearStack: true);
             break;
+
+          case AuthViewStatus.rateLimited:
+          // ریت‌لیمیت: جایی نرو—فقط پیام بده تا UI زمان بده/دکمه‌ها disable بشن
+            final secs = state.retryAfterSeconds;
+            final msg = secs != null
+                ? 'تلاش‌های زیاد. لطفاً $secs ثانیه صبر کنید.'
+                : 'تلاش‌های زیاد. لطفاً کمی بعد دوباره تلاش کنید.';
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+            break;
         }
       },
       child: const Scaffold(

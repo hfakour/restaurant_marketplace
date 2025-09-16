@@ -1,3 +1,4 @@
+// presentation/bloc/login/login_event.dart
 part of 'login_bloc.dart';
 
 abstract class LoginEvent extends Equatable {
@@ -7,10 +8,15 @@ abstract class LoginEvent extends Equatable {
 }
 
 class LoginSubmitted extends LoginEvent {
-  const LoginSubmitted(this.email, this.password);
+  const LoginSubmitted({required this.email, required this.password});
   final String email;
   final String password;
 
   @override
   List<Object?> get props => [email, password];
+}
+
+// رویداد داخلی برای تیک خوردن شمارنده‌ی ریت‌لیمیت
+class _CooldownTicked extends LoginEvent {
+  const _CooldownTicked();
 }

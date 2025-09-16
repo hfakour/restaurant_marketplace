@@ -75,6 +75,7 @@ class AuthRemoteDataSource {
   }
 
   // لینک کردن ایمیل/پسورد روی یوزر فعلی (معمولاً anonymous)
+  // نکته: فقط email را trim می‌کنیم؛ password را دست‌نمی‌زنیم (ممکن است space معتبر باشد).
   Future<void> linkEmailPassword({
     required String email,
     required String password,
@@ -128,26 +129,51 @@ class AuthRemoteDataSource {
 
   // ------------------- FIRESTORE -------------------
 
+  /// upsert پروفایل با اتمیسیتی و merge ایمن.
+  /// - کلید id یکدست با مدل دامنه.
+  /// - createdAt فقط در ایجاد اولیه ست می‌شود؛ در آپدیت‌ها دست‌نخورده می‌ماند.
+  /// - updatedAt همیشه serverTimestamp می‌خورد.
   Future<void> upsertProfile(String uid, Map<String, dynamic> data) async {
     await _firestore.runTransaction((tx) async {
       final ref = _firestore.collection(FsPaths.profiles).doc(uid);
       final snap = await tx.get(ref);
       final now = fs.FieldValue.serverTimestamp();
+
       if (!snap.exists) {
-        tx.set(ref, {...data, 'createdAt': now, 'updatedAt': now});
+        tx.set(
+          ref,
+          {
+            // طرح‌واره یکدست با domain
+            'id': uid,
+            ...data,
+            'createdAt': now,
+            'updatedAt': now,
+          },
+          fs.SetOptions(merge: true),
+        );
       } else {
-        tx.update(ref, {...data, 'updatedAt': now});
+        tx.set(
+          ref,
+          {
+            // اگر data خودش id نداشت، همین‌جا اطمینان می‌دهیم یکدست باشد
+            'id': uid,
+            ...data,
+            'updatedAt': now,
+          },
+          fs.SetOptions(merge: true),
+        );
       }
     });
   }
 
-  // ساخت/به‌روزرسانی پروفایل با داده‌های پیش‌فرض
+  /// ساخت/به‌روزرسانی پروفایل با داده‌های پایه
+  /// نکته: کلید «id» استفاده می‌شود (نه uid) تا با Mapper/Domain یکدست باشد.
   Future<void> ensureUserProfile(
       fa.User user, {
         Map<String, dynamic> extra = const {},
       }) async {
     final base = {
-      'uid': user.uid,
+      'id': user.uid, // ← یکدست با مدل دامنه و مپرها
       'email': user.email,
       'displayName': user.displayName,
       'photoURL': user.photoURL,

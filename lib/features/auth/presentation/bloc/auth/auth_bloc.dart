@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../../domain/entities/auth_account.dart';
 import '../../../domain/repositories/auth_repository.dart';
-import '../../../domain/entities/auth_failures.dart'; // برای تشخیص ReauthRequired
+import '../../../domain/entities/auth_failures.dart'; // ReauthRequired, TooManyRequests, ...
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -94,6 +94,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
 
       emit(AuthState.emailVerificationSent(account: state.account));
+    } on AuthFailure catch (f) {
+      if (f is TooManyRequests) {
+        emit(AuthState.rateLimited(
+          account: state.account,
+          retryAfterSeconds: f.retryAfterSeconds,
+        ));
+        return;
+      }
+      emit(AuthState.error(f.toString()));
     } catch (e) {
       emit(AuthState.error(e.toString()));
     }
@@ -103,6 +112,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ReloadAndCheck event,
       Emitter<AuthState> emit,
       ) async {
+    // تضمین: قبل از currentAccount حتماً reload از repo انجام می‌شود
     emit(AuthState.checkingEmailVerification(account: state.account));
     try {
       final verified = await _repo.reloadAndEmailVerified();
@@ -114,6 +124,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthState.emailVerificationSent(account: state.account));
         return;
       }
+    } on AuthFailure catch (f) {
+      if (f is TooManyRequests) {
+        emit(AuthState.rateLimited(
+          account: state.account,
+          retryAfterSeconds: f.retryAfterSeconds,
+        ));
+        return;
+      }
+      emit(AuthState.error(f.toString()));
     } catch (e) {
       emit(AuthState.error(e.toString()));
     }
@@ -130,7 +149,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthState.emailVerificationSent(account: state.account));
     } on AuthFailure catch (f) {
       if (f is ReauthRequired) {
-        // اپ را برای Reauth آماده کن
         emit(state.copyWith(
           pendingOp: PendingSensitiveOp.updateEmail,
           pendingNewEmail: event.newEmail.trim(),
@@ -138,7 +156,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ));
         return;
       }
-      // سایر خطاها را در همان استیت فعلی نشان بده (بدون تریگر AuthGate)
+      if (f is TooManyRequests) {
+        emit(AuthState.rateLimited(
+          account: state.account,
+          retryAfterSeconds: f.retryAfterSeconds,
+        ));
+        return;
+      }
       emit(state.copyWith(error: f.toString()));
     } catch (e) {
       emit(state.copyWith(error: e.toString()));
@@ -151,7 +175,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ) async {
     try {
       await _repo.updatePassword(event.newPassword);
-      // می‌تونی اکانت را تازه‌سازی کنی (اختیاری)
       final acc = _repo.currentUser ?? await _repo.currentAccount();
       emit(AuthState.authenticated(acc));
     } on AuthFailure catch (f) {
@@ -160,6 +183,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           pendingOp: PendingSensitiveOp.updatePassword,
           pendingNewPassword: event.newPassword,
           clearError: true,
+        ));
+        return;
+      }
+      if (f is TooManyRequests) {
+        emit(AuthState.rateLimited(
+          account: state.account,
+          retryAfterSeconds: f.retryAfterSeconds,
         ));
         return;
       }
@@ -175,12 +205,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ) async {
     try {
       await _repo.deleteAccount();
-      // تغییر وضعیت به unauthenticated از طریق استریم اتفاق می‌افتد
+      // استریم authState خودش unauthenticated را منتشر می‌کند
     } on AuthFailure catch (f) {
       if (f is ReauthRequired) {
         emit(state.copyWith(
           pendingOp: PendingSensitiveOp.deleteAccount,
           clearError: true,
+        ));
+        return;
+      }
+      if (f is TooManyRequests) {
+        emit(AuthState.rateLimited(
+          account: state.account,
+          retryAfterSeconds: f.retryAfterSeconds,
         ));
         return;
       }
@@ -199,7 +236,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         email: event.email.trim(),
         password: event.password,
       );
-      // دیتاسورس بعد از لینک، ایمیل وریفای را ارسال می‌کند
       emit(AuthState.emailVerificationSent(account: state.account));
     } on AuthFailure catch (f) {
       if (f is ReauthRequired) {
@@ -211,6 +247,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ));
         return;
       }
+      if (f is TooManyRequests) {
+        emit(AuthState.rateLimited(
+          account: state.account,
+          retryAfterSeconds: f.retryAfterSeconds,
+        ));
+        return;
+      }
       emit(state.copyWith(error: f.toString()));
     } catch (e) {
       emit(state.copyWith(error: e.toString()));
@@ -218,7 +261,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   // -------- Reauth + Retry (Password / Provider) --------
-
   Future<void> _onReauthenticateWithPasswordRequested(
       ReauthenticateWithPasswordRequested event,
       Emitter<AuthState> emit,
@@ -227,6 +269,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await _repo.reauthenticateWithPassword(event.email.trim(), event.password);
       await _retryPendingOp(emit);
     } on AuthFailure catch (f) {
+      if (f is TooManyRequests) {
+        emit(AuthState.rateLimited(
+          account: state.account,
+          retryAfterSeconds: f.retryAfterSeconds,
+        ));
+        return;
+      }
       emit(state.copyWith(error: f.toString()));
     } catch (e) {
       emit(state.copyWith(error: e.toString()));
@@ -247,6 +296,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
       await _retryPendingOp(emit);
     } on AuthFailure catch (f) {
+      if (f is TooManyRequests) {
+        emit(AuthState.rateLimited(
+          account: state.account,
+          retryAfterSeconds: f.retryAfterSeconds,
+        ));
+        return;
+      }
       emit(state.copyWith(error: f.toString()));
     } catch (e) {
       emit(state.copyWith(error: e.toString()));
@@ -299,6 +355,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       clearPendingLinkEmail: true,
       clearPendingLinkPassword: true,
       clearError: true,
+      clearRetryAfter: true,
     ));
   }
 

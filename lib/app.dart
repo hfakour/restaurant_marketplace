@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                 builder: (_) => BlocProvider(
                   create: (_) => getIt<LoginBloc>(),
-                  child: const LoginPage(),
+                  // child: const LoginPage(),
                 ),
               );
             case '/signup':

@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AuthSession {
   AuthAccount get account => throw _privateConstructorUsedError;
-  AuthTokens get tokens => throw _privateConstructorUsedError;
   AuthStatus get status => throw _privateConstructorUsedError;
 
   /// Create a copy of AuthSession
@@ -35,10 +34,9 @@ abstract class $AuthSessionCopyWith<$Res> {
     $Res Function(AuthSession) then,
   ) = _$AuthSessionCopyWithImpl<$Res, AuthSession>;
   @useResult
-  $Res call({AuthAccount account, AuthTokens tokens, AuthStatus status});
+  $Res call({AuthAccount account, AuthStatus status});
 
   $AuthAccountCopyWith<$Res> get account;
-  $AuthTokensCopyWith<$Res> get tokens;
 }
 
 /// @nodoc
@@ -55,21 +53,13 @@ class _$AuthSessionCopyWithImpl<$Res, $Val extends AuthSession>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? account = null,
-    Object? tokens = null,
-    Object? status = null,
-  }) {
+  $Res call({Object? account = null, Object? status = null}) {
     return _then(
       _value.copyWith(
             account: null == account
                 ? _value.account
                 : account // ignore: cast_nullable_to_non_nullable
                       as AuthAccount,
-            tokens: null == tokens
-                ? _value.tokens
-                : tokens // ignore: cast_nullable_to_non_nullable
-                      as AuthTokens,
             status: null == status
                 ? _value.status
                 : status // ignore: cast_nullable_to_non_nullable
@@ -88,16 +78,6 @@ class _$AuthSessionCopyWithImpl<$Res, $Val extends AuthSession>
       return _then(_value.copyWith(account: value) as $Val);
     });
   }
-
-  /// Create a copy of AuthSession
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AuthTokensCopyWith<$Res> get tokens {
-    return $AuthTokensCopyWith<$Res>(_value.tokens, (value) {
-      return _then(_value.copyWith(tokens: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -109,12 +89,10 @@ abstract class _$$AuthSessionImplCopyWith<$Res>
   ) = __$$AuthSessionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AuthAccount account, AuthTokens tokens, AuthStatus status});
+  $Res call({AuthAccount account, AuthStatus status});
 
   @override
   $AuthAccountCopyWith<$Res> get account;
-  @override
-  $AuthTokensCopyWith<$Res> get tokens;
 }
 
 /// @nodoc
@@ -130,21 +108,13 @@ class __$$AuthSessionImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? account = null,
-    Object? tokens = null,
-    Object? status = null,
-  }) {
+  $Res call({Object? account = null, Object? status = null}) {
     return _then(
       _$AuthSessionImpl(
         account: null == account
             ? _value.account
             : account // ignore: cast_nullable_to_non_nullable
                   as AuthAccount,
-        tokens: null == tokens
-            ? _value.tokens
-            : tokens // ignore: cast_nullable_to_non_nullable
-                  as AuthTokens,
         status: null == status
             ? _value.status
             : status // ignore: cast_nullable_to_non_nullable
@@ -159,21 +129,18 @@ class __$$AuthSessionImplCopyWithImpl<$Res>
 class _$AuthSessionImpl implements _AuthSession {
   const _$AuthSessionImpl({
     required this.account,
-    required this.tokens,
     this.status = AuthStatus.authenticated,
   });
 
   @override
   final AuthAccount account;
   @override
-  final AuthTokens tokens;
-  @override
   @JsonKey()
   final AuthStatus status;
 
   @override
   String toString() {
-    return 'AuthSession(account: $account, tokens: $tokens, status: $status)';
+    return 'AuthSession(account: $account, status: $status)';
   }
 
   @override
@@ -182,12 +149,11 @@ class _$AuthSessionImpl implements _AuthSession {
         (other.runtimeType == runtimeType &&
             other is _$AuthSessionImpl &&
             (identical(other.account, account) || other.account == account) &&
-            (identical(other.tokens, tokens) || other.tokens == tokens) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, account, tokens, status);
+  int get hashCode => Object.hash(runtimeType, account, status);
 
   /// Create a copy of AuthSession
   /// with the given fields replaced by the non-null parameter values.
@@ -201,14 +167,11 @@ class _$AuthSessionImpl implements _AuthSession {
 abstract class _AuthSession implements AuthSession {
   const factory _AuthSession({
     required final AuthAccount account,
-    required final AuthTokens tokens,
     final AuthStatus status,
   }) = _$AuthSessionImpl;
 
   @override
   AuthAccount get account;
-  @override
-  AuthTokens get tokens;
   @override
   AuthStatus get status;
 
