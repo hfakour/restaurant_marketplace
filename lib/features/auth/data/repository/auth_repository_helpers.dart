@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../domain/entities/auth_failures.dart';
 
-/// Build a display name from first/last name with trimming.
+/// Build a display name from first/last name with trimming and single spacing.
 String fullName(String first, String last) =>
     [first.trim(), last.trim()].where((s) => s.isNotEmpty).join(' ');
 
@@ -25,17 +25,16 @@ Future<T> sensitive<T>(
   }
 }
 
-/// Check whether [password] meets minimum complexity requirements.
+/// Basic password strength gate to fail fast before hitting the SDK.
 /// Rules:
 /// - at least 8 characters
-/// - must contain a letter
-/// - must contain a digit
-/// - must contain a special character
+/// - contains a letter
+/// - contains a digit
+/// - contains a special character
 bool isPasswordStrong(String password) {
   final hasMinLength = password.length >= 8;
   final hasLetter = RegExp(r'[A-Za-z]').hasMatch(password);
   final hasDigit = RegExp(r'\d').hasMatch(password);
   final hasSpecial = RegExp(r'[!@#\$%^&*(),.?":{}|<>]').hasMatch(password);
-
   return hasMinLength && hasLetter && hasDigit && hasSpecial;
 }
