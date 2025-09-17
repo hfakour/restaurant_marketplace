@@ -1,30 +1,42 @@
-// features/auth/domain/extensions/auth_failure_x.dart
 import '../entities/auth_failures.dart';
 
 extension AuthFailureX on AuthFailure {
-  String get humanMessage => when(
-    // New
-    wrongPassword: () => 'رمز عبور نادرست است.',
-    userNotFound: () => 'کاربری با این مشخصات یافت نشد.',
-    invalidEmail: () => 'فرمت ایمیل معتبر نیست.',
-    weakPassword: () => 'رمز عبور ضعیف است. رمز قوی‌تری انتخاب کنید.',
+  /// Human-readable message for UI. Uses `maybeWhen` so it stays forward-compatible
+  /// if new failure variants are added to the sealed union.
+  String get humanMessage => maybeWhen(
+    // Credentials & validation
+    wrongPassword: () => 'Incorrect password.',
+    invalidCredentials: () => 'Email or password is incorrect.',
+    invalidEmail: () => 'Email format is invalid.',
+    weakPassword: () => 'Password is too weak. Please choose a stronger one.',
+    emailAlreadyInUse: () => 'This email is already in use.',
 
-    // Existing
-    invalidCredentials: () => 'ایمیل یا رمز عبور نادرست است.',
-    userDisabled: () => 'حساب شما غیرفعال شده است.',
-    emailNotVerified: () => 'ایمیل‌تان تأیید نشده. ایمیل تأیید را چک کنید.',
-    tokenExpired: () => 'نشست شما منقضی شده است. دوباره وارد شوید.',
-    sessionExpired: () => 'نشست شما منقضی شده است. لطفاً دوباره وارد شوید.',
-    networkIssue: () => 'اتصال اینترنت برقرار نیست. لطفاً دوباره تلاش کنید.',
+    // User/account state
+    userNotFound: () => 'No account found with these details.',
+    userDisabled: () => 'Your account has been disabled.',
+    emailNotVerified: () => 'Your email is not verified. Please check your inbox.',
+    reauthRequired: () => 'Please reauthenticate to continue.',
+
+    // Session & tokens
+    tokenExpired: () => 'Your session has expired. Please sign in again.',
+    sessionExpired: () => 'Your session has expired. Please sign in again.',
+
+    // Network / server
+    networkIssue: () => 'No internet connection. Please try again.',
+    networkTimeout: () => 'The request timed out. Please try again.',
     serverIssue: (code) =>
-    'خطای سرور${code != null ? ' ($code)' : ''}. لطفاً بعداً تلاش کنید.',
-    unknown: (msg) => msg ?? 'یک خطای نامشخص رخ داد.',
-    reauthRequired: () => 'برای ادامه، لازم است دوباره وارد شوید.',
-    tooManyRequests: (s) => s != null
-        ? 'تعداد تلاش‌ها زیاد شد. لطفاً ${s} ثانیه صبر کنید.'
-        : 'تعداد تلاش‌ها زیاد شد. لطفاً بعداً دوباره امتحان کنید.',
-    emailAlreadyInUse: () => 'این ایمیل قبلاً استفاده شده است.',
-    providerAlreadyLinked: () => 'این روش ورود قبلاً به حساب شما متصل شده است.',
-    invalidOtp: () => 'کد تأیید واردشده معتبر نیست.',
+    'Server error${code != null ? ' ($code)' : ''}. Please try again later.',
+    tooManyRequests: (seconds) => seconds != null
+        ? 'Too many attempts. Please wait $seconds seconds and try again.'
+        : 'Too many attempts. Please try again later.',
+
+    // Provider / MFA / phone
+    providerAlreadyLinked: () => 'This sign-in method is already linked to your account.',
+    invalidOtp: () => 'The verification code is invalid.',
+    invalidPhone: () => 'The phone number is invalid.',
+
+    // Fallback
+    unknown: (msg) => msg ?? 'An unknown error occurred.',
+    orElse: () => 'An unknown error occurred.',
   );
 }

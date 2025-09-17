@@ -5,26 +5,34 @@ part 'auth_failures.freezed.dart';
 
 @freezed
 class AuthFailure with _$AuthFailure {
-  // Existing
+  // Credentials & validation
   const factory AuthFailure.invalidCredentials() = InvalidCredentials;
-  const factory AuthFailure.userDisabled() = UserDisabled;
-  const factory AuthFailure.emailNotVerified() = EmailNotVerified;
-  const factory AuthFailure.tokenExpired() = TokenExpired;
-  const factory AuthFailure.networkIssue() = NetworkIssue;
-  const factory AuthFailure.serverIssue({int? statusCode}) = ServerIssue;
-  const factory AuthFailure.unknown([String? message]) = UnknownAuthFailure;
-
-  // New (needed by mapper)
   const factory AuthFailure.wrongPassword() = WrongPassword;
   const factory AuthFailure.userNotFound() = UserNotFound;
   const factory AuthFailure.invalidEmail() = InvalidEmail;
   const factory AuthFailure.weakPassword() = WeakPassword;
-
-  // Additions you already had
   const factory AuthFailure.emailAlreadyInUse() = EmailAlreadyInUse;
+
+  // User/account state
+  const factory AuthFailure.userDisabled() = UserDisabled;
+  const factory AuthFailure.emailNotVerified() = EmailNotVerified;
+  const factory AuthFailure.reauthRequired() = ReauthRequired;
+
+  // Session & tokens
+  const factory AuthFailure.tokenExpired() = TokenExpired;
+  const factory AuthFailure.sessionExpired() = SessionExpired;
+
+  // Network / server
+  const factory AuthFailure.networkIssue() = NetworkIssue;
+  const factory AuthFailure.networkTimeout() = NetworkTimeout;
+  const factory AuthFailure.serverIssue({int? statusCode}) = ServerIssue;
+  const factory AuthFailure.tooManyRequests({int? retryAfterSeconds}) = TooManyRequests;
+
+  // Provider / MFA / phone
   const factory AuthFailure.providerAlreadyLinked() = ProviderAlreadyLinked;
   const factory AuthFailure.invalidOtp() = InvalidOtp;
-  const factory AuthFailure.reauthRequired() = ReauthRequired;
-  const factory AuthFailure.sessionExpired() = SessionExpired;
-  const factory AuthFailure.tooManyRequests({int? retryAfterSeconds}) = TooManyRequests;
+  const factory AuthFailure.invalidPhone() = InvalidPhone;
+
+  // Fallback
+  const factory AuthFailure.unknown([String? message]) = UnknownAuthFailure;
 }

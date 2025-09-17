@@ -1,3 +1,4 @@
+// auth/data/mapper/auth_mappers.dart
 import 'package:firebase_auth/firebase_auth.dart' as fb show User;
 
 import '../../domain/entities/auth_account.dart';
@@ -27,8 +28,9 @@ Set<AuthProvider> _providersFromUser(fb.User user) {
   return p;
 }
 
+/// Splits a full display name into [first, last] using whitespace.
+/// If only one token exists, returns [first] only.
 List<String> _splitName(String raw) {
-  // استفاده‌ی صحیح از \s برای همه فاصله‌ها (space/tab/newline/…)
   final parts = raw.split(RegExp(r'\s+')).where((s) => s.isNotEmpty).toList();
   if (parts.isEmpty) return const [];
   if (parts.length == 1) return [parts.first];
@@ -57,12 +59,13 @@ AuthAccount authAccountFromFirebaseUser(fb.User u) {
     lastName: lastName,
     avatarUrl: u.photoURL,
     isEmailVerified: u.emailVerified,
+    // NOTE: presence of phoneNumber does not guarantee verification state.
+    // If you need ground truth, store a domain flag in Firestore (profile).
     isPhoneVerified: u.phoneNumber != null,
     providers: _providersFromUser(u),
     profileId: u.uid,
     createdAt: u.metadata.creationTime?.toUtc(),
-    // نکته: برای جلوگیری از ناهمگنی با serverTimestamp فایراستوری،
-    // اینجا updatedAt را ست نمی‌کنیم (null). آن را از منبع معتبر (Firestore) بخوان.
+    // Keep updatedAt null; let Firestore be the source of truth (server timestamps).
     updatedAt: null,
     lastLoginAt: u.metadata.lastSignInTime?.toUtc(),
   );

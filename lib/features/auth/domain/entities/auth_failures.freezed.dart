@@ -20,124 +20,136 @@ mixin _$AuthFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
     required TResult Function() wrongPassword,
     required TResult Function() userNotFound,
     required TResult Function() invalidEmail,
     required TResult Function() weakPassword,
     required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
     required TResult Function() providerAlreadyLinked,
     required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
     TResult? Function()? wrongPassword,
     TResult? Function()? userNotFound,
     TResult? Function()? invalidEmail,
     TResult? Function()? weakPassword,
     TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
     TResult? Function()? providerAlreadyLinked,
     TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
     TResult Function()? wrongPassword,
     TResult Function()? userNotFound,
     TResult Function()? invalidEmail,
     TResult Function()? weakPassword,
     TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
     TResult Function()? providerAlreadyLinked,
     TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
     required TResult Function(WrongPassword value) wrongPassword,
     required TResult Function(UserNotFound value) userNotFound,
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(WeakPassword value) weakPassword,
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
     required TResult Function(ProviderAlreadyLinked value)
     providerAlreadyLinked,
     required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
     TResult? Function(WrongPassword value)? wrongPassword,
     TResult? Function(UserNotFound value)? userNotFound,
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(WeakPassword value)? weakPassword,
     TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
     TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
     TResult Function(WrongPassword value)? wrongPassword,
     TResult Function(UserNotFound value)? userNotFound,
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(WeakPassword value)? weakPassword,
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
     TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
 }
@@ -208,22 +220,24 @@ class _$InvalidCredentialsImpl implements InvalidCredentials {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
     required TResult Function() wrongPassword,
     required TResult Function() userNotFound,
     required TResult Function() invalidEmail,
     required TResult Function() weakPassword,
     required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
     required TResult Function() providerAlreadyLinked,
     required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
   }) {
     return invalidCredentials();
   }
@@ -232,22 +246,24 @@ class _$InvalidCredentialsImpl implements InvalidCredentials {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
     TResult? Function()? wrongPassword,
     TResult? Function()? userNotFound,
     TResult? Function()? invalidEmail,
     TResult? Function()? weakPassword,
     TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
     TResult? Function()? providerAlreadyLinked,
     TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
   }) {
     return invalidCredentials?.call();
   }
@@ -256,22 +272,24 @@ class _$InvalidCredentialsImpl implements InvalidCredentials {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
     TResult Function()? wrongPassword,
     TResult Function()? userNotFound,
     TResult Function()? invalidEmail,
     TResult Function()? weakPassword,
     TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
     TResult Function()? providerAlreadyLinked,
     TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
     required TResult orElse(),
   }) {
     if (invalidCredentials != null) {
@@ -284,23 +302,25 @@ class _$InvalidCredentialsImpl implements InvalidCredentials {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
     required TResult Function(WrongPassword value) wrongPassword,
     required TResult Function(UserNotFound value) userNotFound,
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(WeakPassword value) weakPassword,
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
     required TResult Function(ProviderAlreadyLinked value)
     providerAlreadyLinked,
     required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
   }) {
     return invalidCredentials(this);
   }
@@ -309,22 +329,24 @@ class _$InvalidCredentialsImpl implements InvalidCredentials {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
     TResult? Function(WrongPassword value)? wrongPassword,
     TResult? Function(UserNotFound value)? userNotFound,
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(WeakPassword value)? weakPassword,
     TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
     TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
   }) {
     return invalidCredentials?.call(this);
   }
@@ -333,22 +355,24 @@ class _$InvalidCredentialsImpl implements InvalidCredentials {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
     TResult Function(WrongPassword value)? wrongPassword,
     TResult Function(UserNotFound value)? userNotFound,
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(WeakPassword value)? weakPassword,
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
     TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
     required TResult orElse(),
   }) {
     if (invalidCredentials != null) {
@@ -360,6 +384,1056 @@ class _$InvalidCredentialsImpl implements InvalidCredentials {
 
 abstract class InvalidCredentials implements AuthFailure {
   const factory InvalidCredentials() = _$InvalidCredentialsImpl;
+}
+
+/// @nodoc
+abstract class _$$WrongPasswordImplCopyWith<$Res> {
+  factory _$$WrongPasswordImplCopyWith(
+    _$WrongPasswordImpl value,
+    $Res Function(_$WrongPasswordImpl) then,
+  ) = __$$WrongPasswordImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$WrongPasswordImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$WrongPasswordImpl>
+    implements _$$WrongPasswordImplCopyWith<$Res> {
+  __$$WrongPasswordImplCopyWithImpl(
+    _$WrongPasswordImpl _value,
+    $Res Function(_$WrongPasswordImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$WrongPasswordImpl implements WrongPassword {
+  const _$WrongPasswordImpl();
+
+  @override
+  String toString() {
+    return 'AuthFailure.wrongPassword()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$WrongPasswordImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidCredentials,
+    required TResult Function() wrongPassword,
+    required TResult Function() userNotFound,
+    required TResult Function() invalidEmail,
+    required TResult Function() weakPassword,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() providerAlreadyLinked,
+    required TResult Function() invalidOtp,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
+  }) {
+    return wrongPassword();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? userNotFound,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? weakPassword,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? providerAlreadyLinked,
+    TResult? Function()? invalidOtp,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
+  }) {
+    return wrongPassword?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidCredentials,
+    TResult Function()? wrongPassword,
+    TResult Function()? userNotFound,
+    TResult Function()? invalidEmail,
+    TResult Function()? weakPassword,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? providerAlreadyLinked,
+    TResult Function()? invalidOtp,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
+    required TResult orElse(),
+  }) {
+    if (wrongPassword != null) {
+      return wrongPassword();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(WrongPassword value) wrongPassword,
+    required TResult Function(UserNotFound value) userNotFound,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(WeakPassword value) weakPassword,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ProviderAlreadyLinked value)
+    providerAlreadyLinked,
+    required TResult Function(InvalidOtp value) invalidOtp,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
+  }) {
+    return wrongPassword(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(WrongPassword value)? wrongPassword,
+    TResult? Function(UserNotFound value)? userNotFound,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(WeakPassword value)? weakPassword,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult? Function(InvalidOtp value)? invalidOtp,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
+  }) {
+    return wrongPassword?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(WrongPassword value)? wrongPassword,
+    TResult Function(UserNotFound value)? userNotFound,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(WeakPassword value)? weakPassword,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult Function(InvalidOtp value)? invalidOtp,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (wrongPassword != null) {
+      return wrongPassword(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class WrongPassword implements AuthFailure {
+  const factory WrongPassword() = _$WrongPasswordImpl;
+}
+
+/// @nodoc
+abstract class _$$UserNotFoundImplCopyWith<$Res> {
+  factory _$$UserNotFoundImplCopyWith(
+    _$UserNotFoundImpl value,
+    $Res Function(_$UserNotFoundImpl) then,
+  ) = __$$UserNotFoundImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UserNotFoundImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$UserNotFoundImpl>
+    implements _$$UserNotFoundImplCopyWith<$Res> {
+  __$$UserNotFoundImplCopyWithImpl(
+    _$UserNotFoundImpl _value,
+    $Res Function(_$UserNotFoundImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$UserNotFoundImpl implements UserNotFound {
+  const _$UserNotFoundImpl();
+
+  @override
+  String toString() {
+    return 'AuthFailure.userNotFound()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$UserNotFoundImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidCredentials,
+    required TResult Function() wrongPassword,
+    required TResult Function() userNotFound,
+    required TResult Function() invalidEmail,
+    required TResult Function() weakPassword,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() providerAlreadyLinked,
+    required TResult Function() invalidOtp,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
+  }) {
+    return userNotFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? userNotFound,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? weakPassword,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? providerAlreadyLinked,
+    TResult? Function()? invalidOtp,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
+  }) {
+    return userNotFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidCredentials,
+    TResult Function()? wrongPassword,
+    TResult Function()? userNotFound,
+    TResult Function()? invalidEmail,
+    TResult Function()? weakPassword,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? providerAlreadyLinked,
+    TResult Function()? invalidOtp,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
+    required TResult orElse(),
+  }) {
+    if (userNotFound != null) {
+      return userNotFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(WrongPassword value) wrongPassword,
+    required TResult Function(UserNotFound value) userNotFound,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(WeakPassword value) weakPassword,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ProviderAlreadyLinked value)
+    providerAlreadyLinked,
+    required TResult Function(InvalidOtp value) invalidOtp,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
+  }) {
+    return userNotFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(WrongPassword value)? wrongPassword,
+    TResult? Function(UserNotFound value)? userNotFound,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(WeakPassword value)? weakPassword,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult? Function(InvalidOtp value)? invalidOtp,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
+  }) {
+    return userNotFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(WrongPassword value)? wrongPassword,
+    TResult Function(UserNotFound value)? userNotFound,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(WeakPassword value)? weakPassword,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult Function(InvalidOtp value)? invalidOtp,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (userNotFound != null) {
+      return userNotFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UserNotFound implements AuthFailure {
+  const factory UserNotFound() = _$UserNotFoundImpl;
+}
+
+/// @nodoc
+abstract class _$$InvalidEmailImplCopyWith<$Res> {
+  factory _$$InvalidEmailImplCopyWith(
+    _$InvalidEmailImpl value,
+    $Res Function(_$InvalidEmailImpl) then,
+  ) = __$$InvalidEmailImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvalidEmailImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$InvalidEmailImpl>
+    implements _$$InvalidEmailImplCopyWith<$Res> {
+  __$$InvalidEmailImplCopyWithImpl(
+    _$InvalidEmailImpl _value,
+    $Res Function(_$InvalidEmailImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$InvalidEmailImpl implements InvalidEmail {
+  const _$InvalidEmailImpl();
+
+  @override
+  String toString() {
+    return 'AuthFailure.invalidEmail()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$InvalidEmailImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidCredentials,
+    required TResult Function() wrongPassword,
+    required TResult Function() userNotFound,
+    required TResult Function() invalidEmail,
+    required TResult Function() weakPassword,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() providerAlreadyLinked,
+    required TResult Function() invalidOtp,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
+  }) {
+    return invalidEmail();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? userNotFound,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? weakPassword,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? providerAlreadyLinked,
+    TResult? Function()? invalidOtp,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
+  }) {
+    return invalidEmail?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidCredentials,
+    TResult Function()? wrongPassword,
+    TResult Function()? userNotFound,
+    TResult Function()? invalidEmail,
+    TResult Function()? weakPassword,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? providerAlreadyLinked,
+    TResult Function()? invalidOtp,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidEmail != null) {
+      return invalidEmail();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(WrongPassword value) wrongPassword,
+    required TResult Function(UserNotFound value) userNotFound,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(WeakPassword value) weakPassword,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ProviderAlreadyLinked value)
+    providerAlreadyLinked,
+    required TResult Function(InvalidOtp value) invalidOtp,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
+  }) {
+    return invalidEmail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(WrongPassword value)? wrongPassword,
+    TResult? Function(UserNotFound value)? userNotFound,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(WeakPassword value)? weakPassword,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult? Function(InvalidOtp value)? invalidOtp,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
+  }) {
+    return invalidEmail?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(WrongPassword value)? wrongPassword,
+    TResult Function(UserNotFound value)? userNotFound,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(WeakPassword value)? weakPassword,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult Function(InvalidOtp value)? invalidOtp,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidEmail != null) {
+      return invalidEmail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidEmail implements AuthFailure {
+  const factory InvalidEmail() = _$InvalidEmailImpl;
+}
+
+/// @nodoc
+abstract class _$$WeakPasswordImplCopyWith<$Res> {
+  factory _$$WeakPasswordImplCopyWith(
+    _$WeakPasswordImpl value,
+    $Res Function(_$WeakPasswordImpl) then,
+  ) = __$$WeakPasswordImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$WeakPasswordImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$WeakPasswordImpl>
+    implements _$$WeakPasswordImplCopyWith<$Res> {
+  __$$WeakPasswordImplCopyWithImpl(
+    _$WeakPasswordImpl _value,
+    $Res Function(_$WeakPasswordImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$WeakPasswordImpl implements WeakPassword {
+  const _$WeakPasswordImpl();
+
+  @override
+  String toString() {
+    return 'AuthFailure.weakPassword()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$WeakPasswordImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidCredentials,
+    required TResult Function() wrongPassword,
+    required TResult Function() userNotFound,
+    required TResult Function() invalidEmail,
+    required TResult Function() weakPassword,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() providerAlreadyLinked,
+    required TResult Function() invalidOtp,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
+  }) {
+    return weakPassword();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? userNotFound,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? weakPassword,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? providerAlreadyLinked,
+    TResult? Function()? invalidOtp,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
+  }) {
+    return weakPassword?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidCredentials,
+    TResult Function()? wrongPassword,
+    TResult Function()? userNotFound,
+    TResult Function()? invalidEmail,
+    TResult Function()? weakPassword,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? providerAlreadyLinked,
+    TResult Function()? invalidOtp,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
+    required TResult orElse(),
+  }) {
+    if (weakPassword != null) {
+      return weakPassword();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(WrongPassword value) wrongPassword,
+    required TResult Function(UserNotFound value) userNotFound,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(WeakPassword value) weakPassword,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ProviderAlreadyLinked value)
+    providerAlreadyLinked,
+    required TResult Function(InvalidOtp value) invalidOtp,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
+  }) {
+    return weakPassword(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(WrongPassword value)? wrongPassword,
+    TResult? Function(UserNotFound value)? userNotFound,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(WeakPassword value)? weakPassword,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult? Function(InvalidOtp value)? invalidOtp,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
+  }) {
+    return weakPassword?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(WrongPassword value)? wrongPassword,
+    TResult Function(UserNotFound value)? userNotFound,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(WeakPassword value)? weakPassword,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult Function(InvalidOtp value)? invalidOtp,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (weakPassword != null) {
+      return weakPassword(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class WeakPassword implements AuthFailure {
+  const factory WeakPassword() = _$WeakPasswordImpl;
+}
+
+/// @nodoc
+abstract class _$$EmailAlreadyInUseImplCopyWith<$Res> {
+  factory _$$EmailAlreadyInUseImplCopyWith(
+    _$EmailAlreadyInUseImpl value,
+    $Res Function(_$EmailAlreadyInUseImpl) then,
+  ) = __$$EmailAlreadyInUseImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$EmailAlreadyInUseImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$EmailAlreadyInUseImpl>
+    implements _$$EmailAlreadyInUseImplCopyWith<$Res> {
+  __$$EmailAlreadyInUseImplCopyWithImpl(
+    _$EmailAlreadyInUseImpl _value,
+    $Res Function(_$EmailAlreadyInUseImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$EmailAlreadyInUseImpl implements EmailAlreadyInUse {
+  const _$EmailAlreadyInUseImpl();
+
+  @override
+  String toString() {
+    return 'AuthFailure.emailAlreadyInUse()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$EmailAlreadyInUseImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidCredentials,
+    required TResult Function() wrongPassword,
+    required TResult Function() userNotFound,
+    required TResult Function() invalidEmail,
+    required TResult Function() weakPassword,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() providerAlreadyLinked,
+    required TResult Function() invalidOtp,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
+  }) {
+    return emailAlreadyInUse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? userNotFound,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? weakPassword,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? providerAlreadyLinked,
+    TResult? Function()? invalidOtp,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
+  }) {
+    return emailAlreadyInUse?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidCredentials,
+    TResult Function()? wrongPassword,
+    TResult Function()? userNotFound,
+    TResult Function()? invalidEmail,
+    TResult Function()? weakPassword,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? providerAlreadyLinked,
+    TResult Function()? invalidOtp,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
+    required TResult orElse(),
+  }) {
+    if (emailAlreadyInUse != null) {
+      return emailAlreadyInUse();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(WrongPassword value) wrongPassword,
+    required TResult Function(UserNotFound value) userNotFound,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(WeakPassword value) weakPassword,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ProviderAlreadyLinked value)
+    providerAlreadyLinked,
+    required TResult Function(InvalidOtp value) invalidOtp,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
+  }) {
+    return emailAlreadyInUse(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(WrongPassword value)? wrongPassword,
+    TResult? Function(UserNotFound value)? userNotFound,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(WeakPassword value)? weakPassword,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult? Function(InvalidOtp value)? invalidOtp,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
+  }) {
+    return emailAlreadyInUse?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(WrongPassword value)? wrongPassword,
+    TResult Function(UserNotFound value)? userNotFound,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(WeakPassword value)? weakPassword,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult Function(InvalidOtp value)? invalidOtp,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (emailAlreadyInUse != null) {
+      return emailAlreadyInUse(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EmailAlreadyInUse implements AuthFailure {
+  const factory EmailAlreadyInUse() = _$EmailAlreadyInUseImpl;
 }
 
 /// @nodoc
@@ -406,22 +1480,24 @@ class _$UserDisabledImpl implements UserDisabled {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
     required TResult Function() wrongPassword,
     required TResult Function() userNotFound,
     required TResult Function() invalidEmail,
     required TResult Function() weakPassword,
     required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
     required TResult Function() providerAlreadyLinked,
     required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
   }) {
     return userDisabled();
   }
@@ -430,22 +1506,24 @@ class _$UserDisabledImpl implements UserDisabled {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
     TResult? Function()? wrongPassword,
     TResult? Function()? userNotFound,
     TResult? Function()? invalidEmail,
     TResult? Function()? weakPassword,
     TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
     TResult? Function()? providerAlreadyLinked,
     TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
   }) {
     return userDisabled?.call();
   }
@@ -454,22 +1532,24 @@ class _$UserDisabledImpl implements UserDisabled {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
     TResult Function()? wrongPassword,
     TResult Function()? userNotFound,
     TResult Function()? invalidEmail,
     TResult Function()? weakPassword,
     TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
     TResult Function()? providerAlreadyLinked,
     TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
     required TResult orElse(),
   }) {
     if (userDisabled != null) {
@@ -482,23 +1562,25 @@ class _$UserDisabledImpl implements UserDisabled {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
     required TResult Function(WrongPassword value) wrongPassword,
     required TResult Function(UserNotFound value) userNotFound,
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(WeakPassword value) weakPassword,
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
     required TResult Function(ProviderAlreadyLinked value)
     providerAlreadyLinked,
     required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
   }) {
     return userDisabled(this);
   }
@@ -507,22 +1589,24 @@ class _$UserDisabledImpl implements UserDisabled {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
     TResult? Function(WrongPassword value)? wrongPassword,
     TResult? Function(UserNotFound value)? userNotFound,
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(WeakPassword value)? weakPassword,
     TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
     TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
   }) {
     return userDisabled?.call(this);
   }
@@ -531,22 +1615,24 @@ class _$UserDisabledImpl implements UserDisabled {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
     TResult Function(WrongPassword value)? wrongPassword,
     TResult Function(UserNotFound value)? userNotFound,
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(WeakPassword value)? weakPassword,
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
     TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
     required TResult orElse(),
   }) {
     if (userDisabled != null) {
@@ -604,22 +1690,24 @@ class _$EmailNotVerifiedImpl implements EmailNotVerified {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
     required TResult Function() wrongPassword,
     required TResult Function() userNotFound,
     required TResult Function() invalidEmail,
     required TResult Function() weakPassword,
     required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
     required TResult Function() providerAlreadyLinked,
     required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
   }) {
     return emailNotVerified();
   }
@@ -628,22 +1716,24 @@ class _$EmailNotVerifiedImpl implements EmailNotVerified {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
     TResult? Function()? wrongPassword,
     TResult? Function()? userNotFound,
     TResult? Function()? invalidEmail,
     TResult? Function()? weakPassword,
     TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
     TResult? Function()? providerAlreadyLinked,
     TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
   }) {
     return emailNotVerified?.call();
   }
@@ -652,22 +1742,24 @@ class _$EmailNotVerifiedImpl implements EmailNotVerified {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
     TResult Function()? wrongPassword,
     TResult Function()? userNotFound,
     TResult Function()? invalidEmail,
     TResult Function()? weakPassword,
     TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
     TResult Function()? providerAlreadyLinked,
     TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
     required TResult orElse(),
   }) {
     if (emailNotVerified != null) {
@@ -680,23 +1772,25 @@ class _$EmailNotVerifiedImpl implements EmailNotVerified {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
     required TResult Function(WrongPassword value) wrongPassword,
     required TResult Function(UserNotFound value) userNotFound,
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(WeakPassword value) weakPassword,
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
     required TResult Function(ProviderAlreadyLinked value)
     providerAlreadyLinked,
     required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
   }) {
     return emailNotVerified(this);
   }
@@ -705,22 +1799,24 @@ class _$EmailNotVerifiedImpl implements EmailNotVerified {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
     TResult? Function(WrongPassword value)? wrongPassword,
     TResult? Function(UserNotFound value)? userNotFound,
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(WeakPassword value)? weakPassword,
     TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
     TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
   }) {
     return emailNotVerified?.call(this);
   }
@@ -729,22 +1825,24 @@ class _$EmailNotVerifiedImpl implements EmailNotVerified {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
     TResult Function(WrongPassword value)? wrongPassword,
     TResult Function(UserNotFound value)? userNotFound,
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(WeakPassword value)? weakPassword,
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
     TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
     required TResult orElse(),
   }) {
     if (emailNotVerified != null) {
@@ -756,6 +1854,216 @@ class _$EmailNotVerifiedImpl implements EmailNotVerified {
 
 abstract class EmailNotVerified implements AuthFailure {
   const factory EmailNotVerified() = _$EmailNotVerifiedImpl;
+}
+
+/// @nodoc
+abstract class _$$ReauthRequiredImplCopyWith<$Res> {
+  factory _$$ReauthRequiredImplCopyWith(
+    _$ReauthRequiredImpl value,
+    $Res Function(_$ReauthRequiredImpl) then,
+  ) = __$$ReauthRequiredImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ReauthRequiredImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$ReauthRequiredImpl>
+    implements _$$ReauthRequiredImplCopyWith<$Res> {
+  __$$ReauthRequiredImplCopyWithImpl(
+    _$ReauthRequiredImpl _value,
+    $Res Function(_$ReauthRequiredImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$ReauthRequiredImpl implements ReauthRequired {
+  const _$ReauthRequiredImpl();
+
+  @override
+  String toString() {
+    return 'AuthFailure.reauthRequired()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ReauthRequiredImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidCredentials,
+    required TResult Function() wrongPassword,
+    required TResult Function() userNotFound,
+    required TResult Function() invalidEmail,
+    required TResult Function() weakPassword,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() providerAlreadyLinked,
+    required TResult Function() invalidOtp,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
+  }) {
+    return reauthRequired();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? userNotFound,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? weakPassword,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? providerAlreadyLinked,
+    TResult? Function()? invalidOtp,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
+  }) {
+    return reauthRequired?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidCredentials,
+    TResult Function()? wrongPassword,
+    TResult Function()? userNotFound,
+    TResult Function()? invalidEmail,
+    TResult Function()? weakPassword,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? providerAlreadyLinked,
+    TResult Function()? invalidOtp,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
+    required TResult orElse(),
+  }) {
+    if (reauthRequired != null) {
+      return reauthRequired();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(WrongPassword value) wrongPassword,
+    required TResult Function(UserNotFound value) userNotFound,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(WeakPassword value) weakPassword,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ProviderAlreadyLinked value)
+    providerAlreadyLinked,
+    required TResult Function(InvalidOtp value) invalidOtp,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
+  }) {
+    return reauthRequired(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(WrongPassword value)? wrongPassword,
+    TResult? Function(UserNotFound value)? userNotFound,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(WeakPassword value)? weakPassword,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult? Function(InvalidOtp value)? invalidOtp,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
+  }) {
+    return reauthRequired?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(WrongPassword value)? wrongPassword,
+    TResult Function(UserNotFound value)? userNotFound,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(WeakPassword value)? weakPassword,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult Function(InvalidOtp value)? invalidOtp,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (reauthRequired != null) {
+      return reauthRequired(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ReauthRequired implements AuthFailure {
+  const factory ReauthRequired() = _$ReauthRequiredImpl;
 }
 
 /// @nodoc
@@ -802,22 +2110,24 @@ class _$TokenExpiredImpl implements TokenExpired {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
     required TResult Function() wrongPassword,
     required TResult Function() userNotFound,
     required TResult Function() invalidEmail,
     required TResult Function() weakPassword,
     required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
     required TResult Function() providerAlreadyLinked,
     required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
   }) {
     return tokenExpired();
   }
@@ -826,22 +2136,24 @@ class _$TokenExpiredImpl implements TokenExpired {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
     TResult? Function()? wrongPassword,
     TResult? Function()? userNotFound,
     TResult? Function()? invalidEmail,
     TResult? Function()? weakPassword,
     TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
     TResult? Function()? providerAlreadyLinked,
     TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
   }) {
     return tokenExpired?.call();
   }
@@ -850,22 +2162,24 @@ class _$TokenExpiredImpl implements TokenExpired {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
     TResult Function()? wrongPassword,
     TResult Function()? userNotFound,
     TResult Function()? invalidEmail,
     TResult Function()? weakPassword,
     TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
     TResult Function()? providerAlreadyLinked,
     TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
     required TResult orElse(),
   }) {
     if (tokenExpired != null) {
@@ -878,23 +2192,25 @@ class _$TokenExpiredImpl implements TokenExpired {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
     required TResult Function(WrongPassword value) wrongPassword,
     required TResult Function(UserNotFound value) userNotFound,
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(WeakPassword value) weakPassword,
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
     required TResult Function(ProviderAlreadyLinked value)
     providerAlreadyLinked,
     required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
   }) {
     return tokenExpired(this);
   }
@@ -903,22 +2219,24 @@ class _$TokenExpiredImpl implements TokenExpired {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
     TResult? Function(WrongPassword value)? wrongPassword,
     TResult? Function(UserNotFound value)? userNotFound,
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(WeakPassword value)? weakPassword,
     TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
     TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
   }) {
     return tokenExpired?.call(this);
   }
@@ -927,22 +2245,24 @@ class _$TokenExpiredImpl implements TokenExpired {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
     TResult Function(WrongPassword value)? wrongPassword,
     TResult Function(UserNotFound value)? userNotFound,
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(WeakPassword value)? weakPassword,
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
     TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
     required TResult orElse(),
   }) {
     if (tokenExpired != null) {
@@ -954,6 +2274,216 @@ class _$TokenExpiredImpl implements TokenExpired {
 
 abstract class TokenExpired implements AuthFailure {
   const factory TokenExpired() = _$TokenExpiredImpl;
+}
+
+/// @nodoc
+abstract class _$$SessionExpiredImplCopyWith<$Res> {
+  factory _$$SessionExpiredImplCopyWith(
+    _$SessionExpiredImpl value,
+    $Res Function(_$SessionExpiredImpl) then,
+  ) = __$$SessionExpiredImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SessionExpiredImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$SessionExpiredImpl>
+    implements _$$SessionExpiredImplCopyWith<$Res> {
+  __$$SessionExpiredImplCopyWithImpl(
+    _$SessionExpiredImpl _value,
+    $Res Function(_$SessionExpiredImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SessionExpiredImpl implements SessionExpired {
+  const _$SessionExpiredImpl();
+
+  @override
+  String toString() {
+    return 'AuthFailure.sessionExpired()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SessionExpiredImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidCredentials,
+    required TResult Function() wrongPassword,
+    required TResult Function() userNotFound,
+    required TResult Function() invalidEmail,
+    required TResult Function() weakPassword,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() providerAlreadyLinked,
+    required TResult Function() invalidOtp,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
+  }) {
+    return sessionExpired();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? userNotFound,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? weakPassword,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? providerAlreadyLinked,
+    TResult? Function()? invalidOtp,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
+  }) {
+    return sessionExpired?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidCredentials,
+    TResult Function()? wrongPassword,
+    TResult Function()? userNotFound,
+    TResult Function()? invalidEmail,
+    TResult Function()? weakPassword,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? providerAlreadyLinked,
+    TResult Function()? invalidOtp,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
+    required TResult orElse(),
+  }) {
+    if (sessionExpired != null) {
+      return sessionExpired();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(WrongPassword value) wrongPassword,
+    required TResult Function(UserNotFound value) userNotFound,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(WeakPassword value) weakPassword,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ProviderAlreadyLinked value)
+    providerAlreadyLinked,
+    required TResult Function(InvalidOtp value) invalidOtp,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
+  }) {
+    return sessionExpired(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(WrongPassword value)? wrongPassword,
+    TResult? Function(UserNotFound value)? userNotFound,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(WeakPassword value)? weakPassword,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult? Function(InvalidOtp value)? invalidOtp,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
+  }) {
+    return sessionExpired?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(WrongPassword value)? wrongPassword,
+    TResult Function(UserNotFound value)? userNotFound,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(WeakPassword value)? weakPassword,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult Function(InvalidOtp value)? invalidOtp,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (sessionExpired != null) {
+      return sessionExpired(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SessionExpired implements AuthFailure {
+  const factory SessionExpired() = _$SessionExpiredImpl;
 }
 
 /// @nodoc
@@ -1000,22 +2530,24 @@ class _$NetworkIssueImpl implements NetworkIssue {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
     required TResult Function() wrongPassword,
     required TResult Function() userNotFound,
     required TResult Function() invalidEmail,
     required TResult Function() weakPassword,
     required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
     required TResult Function() providerAlreadyLinked,
     required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
   }) {
     return networkIssue();
   }
@@ -1024,22 +2556,24 @@ class _$NetworkIssueImpl implements NetworkIssue {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
     TResult? Function()? wrongPassword,
     TResult? Function()? userNotFound,
     TResult? Function()? invalidEmail,
     TResult? Function()? weakPassword,
     TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
     TResult? Function()? providerAlreadyLinked,
     TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
   }) {
     return networkIssue?.call();
   }
@@ -1048,22 +2582,24 @@ class _$NetworkIssueImpl implements NetworkIssue {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
     TResult Function()? wrongPassword,
     TResult Function()? userNotFound,
     TResult Function()? invalidEmail,
     TResult Function()? weakPassword,
     TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
     TResult Function()? providerAlreadyLinked,
     TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
     required TResult orElse(),
   }) {
     if (networkIssue != null) {
@@ -1076,23 +2612,25 @@ class _$NetworkIssueImpl implements NetworkIssue {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
     required TResult Function(WrongPassword value) wrongPassword,
     required TResult Function(UserNotFound value) userNotFound,
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(WeakPassword value) weakPassword,
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
     required TResult Function(ProviderAlreadyLinked value)
     providerAlreadyLinked,
     required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
   }) {
     return networkIssue(this);
   }
@@ -1101,22 +2639,24 @@ class _$NetworkIssueImpl implements NetworkIssue {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
     TResult? Function(WrongPassword value)? wrongPassword,
     TResult? Function(UserNotFound value)? userNotFound,
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(WeakPassword value)? weakPassword,
     TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
     TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
   }) {
     return networkIssue?.call(this);
   }
@@ -1125,22 +2665,24 @@ class _$NetworkIssueImpl implements NetworkIssue {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
     TResult Function(WrongPassword value)? wrongPassword,
     TResult Function(UserNotFound value)? userNotFound,
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(WeakPassword value)? weakPassword,
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
     TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
     required TResult orElse(),
   }) {
     if (networkIssue != null) {
@@ -1152,6 +2694,216 @@ class _$NetworkIssueImpl implements NetworkIssue {
 
 abstract class NetworkIssue implements AuthFailure {
   const factory NetworkIssue() = _$NetworkIssueImpl;
+}
+
+/// @nodoc
+abstract class _$$NetworkTimeoutImplCopyWith<$Res> {
+  factory _$$NetworkTimeoutImplCopyWith(
+    _$NetworkTimeoutImpl value,
+    $Res Function(_$NetworkTimeoutImpl) then,
+  ) = __$$NetworkTimeoutImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$NetworkTimeoutImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$NetworkTimeoutImpl>
+    implements _$$NetworkTimeoutImplCopyWith<$Res> {
+  __$$NetworkTimeoutImplCopyWithImpl(
+    _$NetworkTimeoutImpl _value,
+    $Res Function(_$NetworkTimeoutImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$NetworkTimeoutImpl implements NetworkTimeout {
+  const _$NetworkTimeoutImpl();
+
+  @override
+  String toString() {
+    return 'AuthFailure.networkTimeout()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$NetworkTimeoutImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidCredentials,
+    required TResult Function() wrongPassword,
+    required TResult Function() userNotFound,
+    required TResult Function() invalidEmail,
+    required TResult Function() weakPassword,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() providerAlreadyLinked,
+    required TResult Function() invalidOtp,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
+  }) {
+    return networkTimeout();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? userNotFound,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? weakPassword,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? providerAlreadyLinked,
+    TResult? Function()? invalidOtp,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
+  }) {
+    return networkTimeout?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidCredentials,
+    TResult Function()? wrongPassword,
+    TResult Function()? userNotFound,
+    TResult Function()? invalidEmail,
+    TResult Function()? weakPassword,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? providerAlreadyLinked,
+    TResult Function()? invalidOtp,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
+    required TResult orElse(),
+  }) {
+    if (networkTimeout != null) {
+      return networkTimeout();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(WrongPassword value) wrongPassword,
+    required TResult Function(UserNotFound value) userNotFound,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(WeakPassword value) weakPassword,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ProviderAlreadyLinked value)
+    providerAlreadyLinked,
+    required TResult Function(InvalidOtp value) invalidOtp,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
+  }) {
+    return networkTimeout(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(WrongPassword value)? wrongPassword,
+    TResult? Function(UserNotFound value)? userNotFound,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(WeakPassword value)? weakPassword,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult? Function(InvalidOtp value)? invalidOtp,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
+  }) {
+    return networkTimeout?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(WrongPassword value)? wrongPassword,
+    TResult Function(UserNotFound value)? userNotFound,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(WeakPassword value)? weakPassword,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult Function(InvalidOtp value)? invalidOtp,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (networkTimeout != null) {
+      return networkTimeout(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NetworkTimeout implements AuthFailure {
+  const factory NetworkTimeout() = _$NetworkTimeoutImpl;
 }
 
 /// @nodoc
@@ -1226,22 +2978,24 @@ class _$ServerIssueImpl implements ServerIssue {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
     required TResult Function() wrongPassword,
     required TResult Function() userNotFound,
     required TResult Function() invalidEmail,
     required TResult Function() weakPassword,
     required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
     required TResult Function() providerAlreadyLinked,
     required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
   }) {
     return serverIssue(statusCode);
   }
@@ -1250,22 +3004,24 @@ class _$ServerIssueImpl implements ServerIssue {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
     TResult? Function()? wrongPassword,
     TResult? Function()? userNotFound,
     TResult? Function()? invalidEmail,
     TResult? Function()? weakPassword,
     TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
     TResult? Function()? providerAlreadyLinked,
     TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
   }) {
     return serverIssue?.call(statusCode);
   }
@@ -1274,22 +3030,24 @@ class _$ServerIssueImpl implements ServerIssue {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
     TResult Function()? wrongPassword,
     TResult Function()? userNotFound,
     TResult Function()? invalidEmail,
     TResult Function()? weakPassword,
     TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
     TResult Function()? providerAlreadyLinked,
     TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
     required TResult orElse(),
   }) {
     if (serverIssue != null) {
@@ -1302,23 +3060,25 @@ class _$ServerIssueImpl implements ServerIssue {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
     required TResult Function(WrongPassword value) wrongPassword,
     required TResult Function(UserNotFound value) userNotFound,
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(WeakPassword value) weakPassword,
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
     required TResult Function(ProviderAlreadyLinked value)
     providerAlreadyLinked,
     required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
   }) {
     return serverIssue(this);
   }
@@ -1327,22 +3087,24 @@ class _$ServerIssueImpl implements ServerIssue {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
     TResult? Function(WrongPassword value)? wrongPassword,
     TResult? Function(UserNotFound value)? userNotFound,
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(WeakPassword value)? weakPassword,
     TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
     TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
   }) {
     return serverIssue?.call(this);
   }
@@ -1351,22 +3113,24 @@ class _$ServerIssueImpl implements ServerIssue {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
     TResult Function(WrongPassword value)? wrongPassword,
     TResult Function(UserNotFound value)? userNotFound,
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(WeakPassword value)? weakPassword,
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
     TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
     required TResult orElse(),
   }) {
     if (serverIssue != null) {
@@ -1386,2026 +3150,6 @@ abstract class ServerIssue implements AuthFailure {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ServerIssueImplCopyWith<_$ServerIssueImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UnknownAuthFailureImplCopyWith<$Res> {
-  factory _$$UnknownAuthFailureImplCopyWith(
-    _$UnknownAuthFailureImpl value,
-    $Res Function(_$UnknownAuthFailureImpl) then,
-  ) = __$$UnknownAuthFailureImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String? message});
-}
-
-/// @nodoc
-class __$$UnknownAuthFailureImplCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$UnknownAuthFailureImpl>
-    implements _$$UnknownAuthFailureImplCopyWith<$Res> {
-  __$$UnknownAuthFailureImplCopyWithImpl(
-    _$UnknownAuthFailureImpl _value,
-    $Res Function(_$UnknownAuthFailureImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AuthFailure
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? message = freezed}) {
-    return _then(
-      _$UnknownAuthFailureImpl(
-        freezed == message
-            ? _value.message
-            : message // ignore: cast_nullable_to_non_nullable
-                  as String?,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$UnknownAuthFailureImpl implements UnknownAuthFailure {
-  const _$UnknownAuthFailureImpl([this.message]);
-
-  @override
-  final String? message;
-
-  @override
-  String toString() {
-    return 'AuthFailure.unknown(message: $message)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UnknownAuthFailureImpl &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
-
-  /// Create a copy of AuthFailure
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UnknownAuthFailureImplCopyWith<_$UnknownAuthFailureImpl> get copyWith =>
-      __$$UnknownAuthFailureImplCopyWithImpl<_$UnknownAuthFailureImpl>(
-        this,
-        _$identity,
-      );
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
-    required TResult Function() wrongPassword,
-    required TResult Function() userNotFound,
-    required TResult Function() invalidEmail,
-    required TResult Function() weakPassword,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() providerAlreadyLinked,
-    required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
-  }) {
-    return unknown(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? userNotFound,
-    TResult? Function()? invalidEmail,
-    TResult? Function()? weakPassword,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? providerAlreadyLinked,
-    TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
-  }) {
-    return unknown?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
-    TResult Function()? wrongPassword,
-    TResult Function()? userNotFound,
-    TResult Function()? invalidEmail,
-    TResult Function()? weakPassword,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? providerAlreadyLinked,
-    TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (unknown != null) {
-      return unknown(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
-    required TResult Function(WrongPassword value) wrongPassword,
-    required TResult Function(UserNotFound value) userNotFound,
-    required TResult Function(InvalidEmail value) invalidEmail,
-    required TResult Function(WeakPassword value) weakPassword,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(ProviderAlreadyLinked value)
-    providerAlreadyLinked,
-    required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
-  }) {
-    return unknown(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
-    TResult? Function(WrongPassword value)? wrongPassword,
-    TResult? Function(UserNotFound value)? userNotFound,
-    TResult? Function(InvalidEmail value)? invalidEmail,
-    TResult? Function(WeakPassword value)? weakPassword,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
-  }) {
-    return unknown?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
-    TResult Function(WrongPassword value)? wrongPassword,
-    TResult Function(UserNotFound value)? userNotFound,
-    TResult Function(InvalidEmail value)? invalidEmail,
-    TResult Function(WeakPassword value)? weakPassword,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (unknown != null) {
-      return unknown(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class UnknownAuthFailure implements AuthFailure {
-  const factory UnknownAuthFailure([final String? message]) =
-      _$UnknownAuthFailureImpl;
-
-  String? get message;
-
-  /// Create a copy of AuthFailure
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UnknownAuthFailureImplCopyWith<_$UnknownAuthFailureImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$WrongPasswordImplCopyWith<$Res> {
-  factory _$$WrongPasswordImplCopyWith(
-    _$WrongPasswordImpl value,
-    $Res Function(_$WrongPasswordImpl) then,
-  ) = __$$WrongPasswordImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$WrongPasswordImplCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$WrongPasswordImpl>
-    implements _$$WrongPasswordImplCopyWith<$Res> {
-  __$$WrongPasswordImplCopyWithImpl(
-    _$WrongPasswordImpl _value,
-    $Res Function(_$WrongPasswordImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AuthFailure
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$WrongPasswordImpl implements WrongPassword {
-  const _$WrongPasswordImpl();
-
-  @override
-  String toString() {
-    return 'AuthFailure.wrongPassword()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WrongPasswordImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
-    required TResult Function() wrongPassword,
-    required TResult Function() userNotFound,
-    required TResult Function() invalidEmail,
-    required TResult Function() weakPassword,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() providerAlreadyLinked,
-    required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
-  }) {
-    return wrongPassword();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? userNotFound,
-    TResult? Function()? invalidEmail,
-    TResult? Function()? weakPassword,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? providerAlreadyLinked,
-    TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
-  }) {
-    return wrongPassword?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
-    TResult Function()? wrongPassword,
-    TResult Function()? userNotFound,
-    TResult Function()? invalidEmail,
-    TResult Function()? weakPassword,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? providerAlreadyLinked,
-    TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (wrongPassword != null) {
-      return wrongPassword();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
-    required TResult Function(WrongPassword value) wrongPassword,
-    required TResult Function(UserNotFound value) userNotFound,
-    required TResult Function(InvalidEmail value) invalidEmail,
-    required TResult Function(WeakPassword value) weakPassword,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(ProviderAlreadyLinked value)
-    providerAlreadyLinked,
-    required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
-  }) {
-    return wrongPassword(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
-    TResult? Function(WrongPassword value)? wrongPassword,
-    TResult? Function(UserNotFound value)? userNotFound,
-    TResult? Function(InvalidEmail value)? invalidEmail,
-    TResult? Function(WeakPassword value)? weakPassword,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
-  }) {
-    return wrongPassword?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
-    TResult Function(WrongPassword value)? wrongPassword,
-    TResult Function(UserNotFound value)? userNotFound,
-    TResult Function(InvalidEmail value)? invalidEmail,
-    TResult Function(WeakPassword value)? weakPassword,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (wrongPassword != null) {
-      return wrongPassword(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class WrongPassword implements AuthFailure {
-  const factory WrongPassword() = _$WrongPasswordImpl;
-}
-
-/// @nodoc
-abstract class _$$UserNotFoundImplCopyWith<$Res> {
-  factory _$$UserNotFoundImplCopyWith(
-    _$UserNotFoundImpl value,
-    $Res Function(_$UserNotFoundImpl) then,
-  ) = __$$UserNotFoundImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$UserNotFoundImplCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$UserNotFoundImpl>
-    implements _$$UserNotFoundImplCopyWith<$Res> {
-  __$$UserNotFoundImplCopyWithImpl(
-    _$UserNotFoundImpl _value,
-    $Res Function(_$UserNotFoundImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AuthFailure
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$UserNotFoundImpl implements UserNotFound {
-  const _$UserNotFoundImpl();
-
-  @override
-  String toString() {
-    return 'AuthFailure.userNotFound()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UserNotFoundImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
-    required TResult Function() wrongPassword,
-    required TResult Function() userNotFound,
-    required TResult Function() invalidEmail,
-    required TResult Function() weakPassword,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() providerAlreadyLinked,
-    required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
-  }) {
-    return userNotFound();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? userNotFound,
-    TResult? Function()? invalidEmail,
-    TResult? Function()? weakPassword,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? providerAlreadyLinked,
-    TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
-  }) {
-    return userNotFound?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
-    TResult Function()? wrongPassword,
-    TResult Function()? userNotFound,
-    TResult Function()? invalidEmail,
-    TResult Function()? weakPassword,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? providerAlreadyLinked,
-    TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (userNotFound != null) {
-      return userNotFound();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
-    required TResult Function(WrongPassword value) wrongPassword,
-    required TResult Function(UserNotFound value) userNotFound,
-    required TResult Function(InvalidEmail value) invalidEmail,
-    required TResult Function(WeakPassword value) weakPassword,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(ProviderAlreadyLinked value)
-    providerAlreadyLinked,
-    required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
-  }) {
-    return userNotFound(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
-    TResult? Function(WrongPassword value)? wrongPassword,
-    TResult? Function(UserNotFound value)? userNotFound,
-    TResult? Function(InvalidEmail value)? invalidEmail,
-    TResult? Function(WeakPassword value)? weakPassword,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
-  }) {
-    return userNotFound?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
-    TResult Function(WrongPassword value)? wrongPassword,
-    TResult Function(UserNotFound value)? userNotFound,
-    TResult Function(InvalidEmail value)? invalidEmail,
-    TResult Function(WeakPassword value)? weakPassword,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (userNotFound != null) {
-      return userNotFound(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class UserNotFound implements AuthFailure {
-  const factory UserNotFound() = _$UserNotFoundImpl;
-}
-
-/// @nodoc
-abstract class _$$InvalidEmailImplCopyWith<$Res> {
-  factory _$$InvalidEmailImplCopyWith(
-    _$InvalidEmailImpl value,
-    $Res Function(_$InvalidEmailImpl) then,
-  ) = __$$InvalidEmailImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InvalidEmailImplCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$InvalidEmailImpl>
-    implements _$$InvalidEmailImplCopyWith<$Res> {
-  __$$InvalidEmailImplCopyWithImpl(
-    _$InvalidEmailImpl _value,
-    $Res Function(_$InvalidEmailImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AuthFailure
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$InvalidEmailImpl implements InvalidEmail {
-  const _$InvalidEmailImpl();
-
-  @override
-  String toString() {
-    return 'AuthFailure.invalidEmail()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InvalidEmailImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
-    required TResult Function() wrongPassword,
-    required TResult Function() userNotFound,
-    required TResult Function() invalidEmail,
-    required TResult Function() weakPassword,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() providerAlreadyLinked,
-    required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
-  }) {
-    return invalidEmail();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? userNotFound,
-    TResult? Function()? invalidEmail,
-    TResult? Function()? weakPassword,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? providerAlreadyLinked,
-    TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
-  }) {
-    return invalidEmail?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
-    TResult Function()? wrongPassword,
-    TResult Function()? userNotFound,
-    TResult Function()? invalidEmail,
-    TResult Function()? weakPassword,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? providerAlreadyLinked,
-    TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (invalidEmail != null) {
-      return invalidEmail();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
-    required TResult Function(WrongPassword value) wrongPassword,
-    required TResult Function(UserNotFound value) userNotFound,
-    required TResult Function(InvalidEmail value) invalidEmail,
-    required TResult Function(WeakPassword value) weakPassword,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(ProviderAlreadyLinked value)
-    providerAlreadyLinked,
-    required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
-  }) {
-    return invalidEmail(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
-    TResult? Function(WrongPassword value)? wrongPassword,
-    TResult? Function(UserNotFound value)? userNotFound,
-    TResult? Function(InvalidEmail value)? invalidEmail,
-    TResult? Function(WeakPassword value)? weakPassword,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
-  }) {
-    return invalidEmail?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
-    TResult Function(WrongPassword value)? wrongPassword,
-    TResult Function(UserNotFound value)? userNotFound,
-    TResult Function(InvalidEmail value)? invalidEmail,
-    TResult Function(WeakPassword value)? weakPassword,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (invalidEmail != null) {
-      return invalidEmail(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class InvalidEmail implements AuthFailure {
-  const factory InvalidEmail() = _$InvalidEmailImpl;
-}
-
-/// @nodoc
-abstract class _$$WeakPasswordImplCopyWith<$Res> {
-  factory _$$WeakPasswordImplCopyWith(
-    _$WeakPasswordImpl value,
-    $Res Function(_$WeakPasswordImpl) then,
-  ) = __$$WeakPasswordImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$WeakPasswordImplCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$WeakPasswordImpl>
-    implements _$$WeakPasswordImplCopyWith<$Res> {
-  __$$WeakPasswordImplCopyWithImpl(
-    _$WeakPasswordImpl _value,
-    $Res Function(_$WeakPasswordImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AuthFailure
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$WeakPasswordImpl implements WeakPassword {
-  const _$WeakPasswordImpl();
-
-  @override
-  String toString() {
-    return 'AuthFailure.weakPassword()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$WeakPasswordImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
-    required TResult Function() wrongPassword,
-    required TResult Function() userNotFound,
-    required TResult Function() invalidEmail,
-    required TResult Function() weakPassword,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() providerAlreadyLinked,
-    required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
-  }) {
-    return weakPassword();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? userNotFound,
-    TResult? Function()? invalidEmail,
-    TResult? Function()? weakPassword,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? providerAlreadyLinked,
-    TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
-  }) {
-    return weakPassword?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
-    TResult Function()? wrongPassword,
-    TResult Function()? userNotFound,
-    TResult Function()? invalidEmail,
-    TResult Function()? weakPassword,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? providerAlreadyLinked,
-    TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (weakPassword != null) {
-      return weakPassword();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
-    required TResult Function(WrongPassword value) wrongPassword,
-    required TResult Function(UserNotFound value) userNotFound,
-    required TResult Function(InvalidEmail value) invalidEmail,
-    required TResult Function(WeakPassword value) weakPassword,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(ProviderAlreadyLinked value)
-    providerAlreadyLinked,
-    required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
-  }) {
-    return weakPassword(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
-    TResult? Function(WrongPassword value)? wrongPassword,
-    TResult? Function(UserNotFound value)? userNotFound,
-    TResult? Function(InvalidEmail value)? invalidEmail,
-    TResult? Function(WeakPassword value)? weakPassword,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
-  }) {
-    return weakPassword?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
-    TResult Function(WrongPassword value)? wrongPassword,
-    TResult Function(UserNotFound value)? userNotFound,
-    TResult Function(InvalidEmail value)? invalidEmail,
-    TResult Function(WeakPassword value)? weakPassword,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (weakPassword != null) {
-      return weakPassword(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class WeakPassword implements AuthFailure {
-  const factory WeakPassword() = _$WeakPasswordImpl;
-}
-
-/// @nodoc
-abstract class _$$EmailAlreadyInUseImplCopyWith<$Res> {
-  factory _$$EmailAlreadyInUseImplCopyWith(
-    _$EmailAlreadyInUseImpl value,
-    $Res Function(_$EmailAlreadyInUseImpl) then,
-  ) = __$$EmailAlreadyInUseImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$EmailAlreadyInUseImplCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$EmailAlreadyInUseImpl>
-    implements _$$EmailAlreadyInUseImplCopyWith<$Res> {
-  __$$EmailAlreadyInUseImplCopyWithImpl(
-    _$EmailAlreadyInUseImpl _value,
-    $Res Function(_$EmailAlreadyInUseImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AuthFailure
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$EmailAlreadyInUseImpl implements EmailAlreadyInUse {
-  const _$EmailAlreadyInUseImpl();
-
-  @override
-  String toString() {
-    return 'AuthFailure.emailAlreadyInUse()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$EmailAlreadyInUseImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
-    required TResult Function() wrongPassword,
-    required TResult Function() userNotFound,
-    required TResult Function() invalidEmail,
-    required TResult Function() weakPassword,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() providerAlreadyLinked,
-    required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
-  }) {
-    return emailAlreadyInUse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? userNotFound,
-    TResult? Function()? invalidEmail,
-    TResult? Function()? weakPassword,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? providerAlreadyLinked,
-    TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
-  }) {
-    return emailAlreadyInUse?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
-    TResult Function()? wrongPassword,
-    TResult Function()? userNotFound,
-    TResult Function()? invalidEmail,
-    TResult Function()? weakPassword,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? providerAlreadyLinked,
-    TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (emailAlreadyInUse != null) {
-      return emailAlreadyInUse();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
-    required TResult Function(WrongPassword value) wrongPassword,
-    required TResult Function(UserNotFound value) userNotFound,
-    required TResult Function(InvalidEmail value) invalidEmail,
-    required TResult Function(WeakPassword value) weakPassword,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(ProviderAlreadyLinked value)
-    providerAlreadyLinked,
-    required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
-  }) {
-    return emailAlreadyInUse(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
-    TResult? Function(WrongPassword value)? wrongPassword,
-    TResult? Function(UserNotFound value)? userNotFound,
-    TResult? Function(InvalidEmail value)? invalidEmail,
-    TResult? Function(WeakPassword value)? weakPassword,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
-  }) {
-    return emailAlreadyInUse?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
-    TResult Function(WrongPassword value)? wrongPassword,
-    TResult Function(UserNotFound value)? userNotFound,
-    TResult Function(InvalidEmail value)? invalidEmail,
-    TResult Function(WeakPassword value)? weakPassword,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (emailAlreadyInUse != null) {
-      return emailAlreadyInUse(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class EmailAlreadyInUse implements AuthFailure {
-  const factory EmailAlreadyInUse() = _$EmailAlreadyInUseImpl;
-}
-
-/// @nodoc
-abstract class _$$ProviderAlreadyLinkedImplCopyWith<$Res> {
-  factory _$$ProviderAlreadyLinkedImplCopyWith(
-    _$ProviderAlreadyLinkedImpl value,
-    $Res Function(_$ProviderAlreadyLinkedImpl) then,
-  ) = __$$ProviderAlreadyLinkedImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$ProviderAlreadyLinkedImplCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$ProviderAlreadyLinkedImpl>
-    implements _$$ProviderAlreadyLinkedImplCopyWith<$Res> {
-  __$$ProviderAlreadyLinkedImplCopyWithImpl(
-    _$ProviderAlreadyLinkedImpl _value,
-    $Res Function(_$ProviderAlreadyLinkedImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AuthFailure
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$ProviderAlreadyLinkedImpl implements ProviderAlreadyLinked {
-  const _$ProviderAlreadyLinkedImpl();
-
-  @override
-  String toString() {
-    return 'AuthFailure.providerAlreadyLinked()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ProviderAlreadyLinkedImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
-    required TResult Function() wrongPassword,
-    required TResult Function() userNotFound,
-    required TResult Function() invalidEmail,
-    required TResult Function() weakPassword,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() providerAlreadyLinked,
-    required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
-  }) {
-    return providerAlreadyLinked();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? userNotFound,
-    TResult? Function()? invalidEmail,
-    TResult? Function()? weakPassword,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? providerAlreadyLinked,
-    TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
-  }) {
-    return providerAlreadyLinked?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
-    TResult Function()? wrongPassword,
-    TResult Function()? userNotFound,
-    TResult Function()? invalidEmail,
-    TResult Function()? weakPassword,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? providerAlreadyLinked,
-    TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (providerAlreadyLinked != null) {
-      return providerAlreadyLinked();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
-    required TResult Function(WrongPassword value) wrongPassword,
-    required TResult Function(UserNotFound value) userNotFound,
-    required TResult Function(InvalidEmail value) invalidEmail,
-    required TResult Function(WeakPassword value) weakPassword,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(ProviderAlreadyLinked value)
-    providerAlreadyLinked,
-    required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
-  }) {
-    return providerAlreadyLinked(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
-    TResult? Function(WrongPassword value)? wrongPassword,
-    TResult? Function(UserNotFound value)? userNotFound,
-    TResult? Function(InvalidEmail value)? invalidEmail,
-    TResult? Function(WeakPassword value)? weakPassword,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
-  }) {
-    return providerAlreadyLinked?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
-    TResult Function(WrongPassword value)? wrongPassword,
-    TResult Function(UserNotFound value)? userNotFound,
-    TResult Function(InvalidEmail value)? invalidEmail,
-    TResult Function(WeakPassword value)? weakPassword,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (providerAlreadyLinked != null) {
-      return providerAlreadyLinked(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ProviderAlreadyLinked implements AuthFailure {
-  const factory ProviderAlreadyLinked() = _$ProviderAlreadyLinkedImpl;
-}
-
-/// @nodoc
-abstract class _$$InvalidOtpImplCopyWith<$Res> {
-  factory _$$InvalidOtpImplCopyWith(
-    _$InvalidOtpImpl value,
-    $Res Function(_$InvalidOtpImpl) then,
-  ) = __$$InvalidOtpImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InvalidOtpImplCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$InvalidOtpImpl>
-    implements _$$InvalidOtpImplCopyWith<$Res> {
-  __$$InvalidOtpImplCopyWithImpl(
-    _$InvalidOtpImpl _value,
-    $Res Function(_$InvalidOtpImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AuthFailure
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$InvalidOtpImpl implements InvalidOtp {
-  const _$InvalidOtpImpl();
-
-  @override
-  String toString() {
-    return 'AuthFailure.invalidOtp()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InvalidOtpImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
-    required TResult Function() wrongPassword,
-    required TResult Function() userNotFound,
-    required TResult Function() invalidEmail,
-    required TResult Function() weakPassword,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() providerAlreadyLinked,
-    required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
-  }) {
-    return invalidOtp();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? userNotFound,
-    TResult? Function()? invalidEmail,
-    TResult? Function()? weakPassword,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? providerAlreadyLinked,
-    TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
-  }) {
-    return invalidOtp?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
-    TResult Function()? wrongPassword,
-    TResult Function()? userNotFound,
-    TResult Function()? invalidEmail,
-    TResult Function()? weakPassword,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? providerAlreadyLinked,
-    TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (invalidOtp != null) {
-      return invalidOtp();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
-    required TResult Function(WrongPassword value) wrongPassword,
-    required TResult Function(UserNotFound value) userNotFound,
-    required TResult Function(InvalidEmail value) invalidEmail,
-    required TResult Function(WeakPassword value) weakPassword,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(ProviderAlreadyLinked value)
-    providerAlreadyLinked,
-    required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
-  }) {
-    return invalidOtp(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
-    TResult? Function(WrongPassword value)? wrongPassword,
-    TResult? Function(UserNotFound value)? userNotFound,
-    TResult? Function(InvalidEmail value)? invalidEmail,
-    TResult? Function(WeakPassword value)? weakPassword,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
-  }) {
-    return invalidOtp?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
-    TResult Function(WrongPassword value)? wrongPassword,
-    TResult Function(UserNotFound value)? userNotFound,
-    TResult Function(InvalidEmail value)? invalidEmail,
-    TResult Function(WeakPassword value)? weakPassword,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (invalidOtp != null) {
-      return invalidOtp(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class InvalidOtp implements AuthFailure {
-  const factory InvalidOtp() = _$InvalidOtpImpl;
-}
-
-/// @nodoc
-abstract class _$$ReauthRequiredImplCopyWith<$Res> {
-  factory _$$ReauthRequiredImplCopyWith(
-    _$ReauthRequiredImpl value,
-    $Res Function(_$ReauthRequiredImpl) then,
-  ) = __$$ReauthRequiredImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$ReauthRequiredImplCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$ReauthRequiredImpl>
-    implements _$$ReauthRequiredImplCopyWith<$Res> {
-  __$$ReauthRequiredImplCopyWithImpl(
-    _$ReauthRequiredImpl _value,
-    $Res Function(_$ReauthRequiredImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AuthFailure
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$ReauthRequiredImpl implements ReauthRequired {
-  const _$ReauthRequiredImpl();
-
-  @override
-  String toString() {
-    return 'AuthFailure.reauthRequired()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ReauthRequiredImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
-    required TResult Function() wrongPassword,
-    required TResult Function() userNotFound,
-    required TResult Function() invalidEmail,
-    required TResult Function() weakPassword,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() providerAlreadyLinked,
-    required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
-  }) {
-    return reauthRequired();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? userNotFound,
-    TResult? Function()? invalidEmail,
-    TResult? Function()? weakPassword,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? providerAlreadyLinked,
-    TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
-  }) {
-    return reauthRequired?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
-    TResult Function()? wrongPassword,
-    TResult Function()? userNotFound,
-    TResult Function()? invalidEmail,
-    TResult Function()? weakPassword,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? providerAlreadyLinked,
-    TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (reauthRequired != null) {
-      return reauthRequired();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
-    required TResult Function(WrongPassword value) wrongPassword,
-    required TResult Function(UserNotFound value) userNotFound,
-    required TResult Function(InvalidEmail value) invalidEmail,
-    required TResult Function(WeakPassword value) weakPassword,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(ProviderAlreadyLinked value)
-    providerAlreadyLinked,
-    required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
-  }) {
-    return reauthRequired(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
-    TResult? Function(WrongPassword value)? wrongPassword,
-    TResult? Function(UserNotFound value)? userNotFound,
-    TResult? Function(InvalidEmail value)? invalidEmail,
-    TResult? Function(WeakPassword value)? weakPassword,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
-  }) {
-    return reauthRequired?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
-    TResult Function(WrongPassword value)? wrongPassword,
-    TResult Function(UserNotFound value)? userNotFound,
-    TResult Function(InvalidEmail value)? invalidEmail,
-    TResult Function(WeakPassword value)? weakPassword,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (reauthRequired != null) {
-      return reauthRequired(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ReauthRequired implements AuthFailure {
-  const factory ReauthRequired() = _$ReauthRequiredImpl;
-}
-
-/// @nodoc
-abstract class _$$SessionExpiredImplCopyWith<$Res> {
-  factory _$$SessionExpiredImplCopyWith(
-    _$SessionExpiredImpl value,
-    $Res Function(_$SessionExpiredImpl) then,
-  ) = __$$SessionExpiredImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$SessionExpiredImplCopyWithImpl<$Res>
-    extends _$AuthFailureCopyWithImpl<$Res, _$SessionExpiredImpl>
-    implements _$$SessionExpiredImplCopyWith<$Res> {
-  __$$SessionExpiredImplCopyWithImpl(
-    _$SessionExpiredImpl _value,
-    $Res Function(_$SessionExpiredImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of AuthFailure
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$SessionExpiredImpl implements SessionExpired {
-  const _$SessionExpiredImpl();
-
-  @override
-  String toString() {
-    return 'AuthFailure.sessionExpired()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SessionExpiredImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
-    required TResult Function() wrongPassword,
-    required TResult Function() userNotFound,
-    required TResult Function() invalidEmail,
-    required TResult Function() weakPassword,
-    required TResult Function() emailAlreadyInUse,
-    required TResult Function() providerAlreadyLinked,
-    required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
-  }) {
-    return sessionExpired();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
-    TResult? Function()? wrongPassword,
-    TResult? Function()? userNotFound,
-    TResult? Function()? invalidEmail,
-    TResult? Function()? weakPassword,
-    TResult? Function()? emailAlreadyInUse,
-    TResult? Function()? providerAlreadyLinked,
-    TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
-  }) {
-    return sessionExpired?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
-    TResult Function()? wrongPassword,
-    TResult Function()? userNotFound,
-    TResult Function()? invalidEmail,
-    TResult Function()? weakPassword,
-    TResult Function()? emailAlreadyInUse,
-    TResult Function()? providerAlreadyLinked,
-    TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (sessionExpired != null) {
-      return sessionExpired();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
-    required TResult Function(WrongPassword value) wrongPassword,
-    required TResult Function(UserNotFound value) userNotFound,
-    required TResult Function(InvalidEmail value) invalidEmail,
-    required TResult Function(WeakPassword value) weakPassword,
-    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
-    required TResult Function(ProviderAlreadyLinked value)
-    providerAlreadyLinked,
-    required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
-  }) {
-    return sessionExpired(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
-    TResult? Function(WrongPassword value)? wrongPassword,
-    TResult? Function(UserNotFound value)? userNotFound,
-    TResult? Function(InvalidEmail value)? invalidEmail,
-    TResult? Function(WeakPassword value)? weakPassword,
-    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
-  }) {
-    return sessionExpired?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
-    TResult Function(WrongPassword value)? wrongPassword,
-    TResult Function(UserNotFound value)? userNotFound,
-    TResult Function(InvalidEmail value)? invalidEmail,
-    TResult Function(WeakPassword value)? weakPassword,
-    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
-    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
-    TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
-    required TResult orElse(),
-  }) {
-    if (sessionExpired != null) {
-      return sessionExpired(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SessionExpired implements AuthFailure {
-  const factory SessionExpired() = _$SessionExpiredImpl;
 }
 
 /// @nodoc
@@ -3483,22 +3227,24 @@ class _$TooManyRequestsImpl implements TooManyRequests {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() invalidCredentials,
-    required TResult Function() userDisabled,
-    required TResult Function() emailNotVerified,
-    required TResult Function() tokenExpired,
-    required TResult Function() networkIssue,
-    required TResult Function(int? statusCode) serverIssue,
-    required TResult Function(String? message) unknown,
     required TResult Function() wrongPassword,
     required TResult Function() userNotFound,
     required TResult Function() invalidEmail,
     required TResult Function() weakPassword,
     required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
     required TResult Function() providerAlreadyLinked,
     required TResult Function() invalidOtp,
-    required TResult Function() reauthRequired,
-    required TResult Function() sessionExpired,
-    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
   }) {
     return tooManyRequests(retryAfterSeconds);
   }
@@ -3507,22 +3253,24 @@ class _$TooManyRequestsImpl implements TooManyRequests {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? invalidCredentials,
-    TResult? Function()? userDisabled,
-    TResult? Function()? emailNotVerified,
-    TResult? Function()? tokenExpired,
-    TResult? Function()? networkIssue,
-    TResult? Function(int? statusCode)? serverIssue,
-    TResult? Function(String? message)? unknown,
     TResult? Function()? wrongPassword,
     TResult? Function()? userNotFound,
     TResult? Function()? invalidEmail,
     TResult? Function()? weakPassword,
     TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
     TResult? Function()? providerAlreadyLinked,
     TResult? Function()? invalidOtp,
-    TResult? Function()? reauthRequired,
-    TResult? Function()? sessionExpired,
-    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
   }) {
     return tooManyRequests?.call(retryAfterSeconds);
   }
@@ -3531,22 +3279,24 @@ class _$TooManyRequestsImpl implements TooManyRequests {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? invalidCredentials,
-    TResult Function()? userDisabled,
-    TResult Function()? emailNotVerified,
-    TResult Function()? tokenExpired,
-    TResult Function()? networkIssue,
-    TResult Function(int? statusCode)? serverIssue,
-    TResult Function(String? message)? unknown,
     TResult Function()? wrongPassword,
     TResult Function()? userNotFound,
     TResult Function()? invalidEmail,
     TResult Function()? weakPassword,
     TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
     TResult Function()? providerAlreadyLinked,
     TResult Function()? invalidOtp,
-    TResult Function()? reauthRequired,
-    TResult Function()? sessionExpired,
-    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
     required TResult orElse(),
   }) {
     if (tooManyRequests != null) {
@@ -3559,23 +3309,25 @@ class _$TooManyRequestsImpl implements TooManyRequests {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InvalidCredentials value) invalidCredentials,
-    required TResult Function(UserDisabled value) userDisabled,
-    required TResult Function(EmailNotVerified value) emailNotVerified,
-    required TResult Function(TokenExpired value) tokenExpired,
-    required TResult Function(NetworkIssue value) networkIssue,
-    required TResult Function(ServerIssue value) serverIssue,
-    required TResult Function(UnknownAuthFailure value) unknown,
     required TResult Function(WrongPassword value) wrongPassword,
     required TResult Function(UserNotFound value) userNotFound,
     required TResult Function(InvalidEmail value) invalidEmail,
     required TResult Function(WeakPassword value) weakPassword,
     required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
     required TResult Function(ProviderAlreadyLinked value)
     providerAlreadyLinked,
     required TResult Function(InvalidOtp value) invalidOtp,
-    required TResult Function(ReauthRequired value) reauthRequired,
-    required TResult Function(SessionExpired value) sessionExpired,
-    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
   }) {
     return tooManyRequests(this);
   }
@@ -3584,22 +3336,24 @@ class _$TooManyRequestsImpl implements TooManyRequests {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InvalidCredentials value)? invalidCredentials,
-    TResult? Function(UserDisabled value)? userDisabled,
-    TResult? Function(EmailNotVerified value)? emailNotVerified,
-    TResult? Function(TokenExpired value)? tokenExpired,
-    TResult? Function(NetworkIssue value)? networkIssue,
-    TResult? Function(ServerIssue value)? serverIssue,
-    TResult? Function(UnknownAuthFailure value)? unknown,
     TResult? Function(WrongPassword value)? wrongPassword,
     TResult? Function(UserNotFound value)? userNotFound,
     TResult? Function(InvalidEmail value)? invalidEmail,
     TResult? Function(WeakPassword value)? weakPassword,
     TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
     TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult? Function(InvalidOtp value)? invalidOtp,
-    TResult? Function(ReauthRequired value)? reauthRequired,
-    TResult? Function(SessionExpired value)? sessionExpired,
-    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
   }) {
     return tooManyRequests?.call(this);
   }
@@ -3608,22 +3362,24 @@ class _$TooManyRequestsImpl implements TooManyRequests {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InvalidCredentials value)? invalidCredentials,
-    TResult Function(UserDisabled value)? userDisabled,
-    TResult Function(EmailNotVerified value)? emailNotVerified,
-    TResult Function(TokenExpired value)? tokenExpired,
-    TResult Function(NetworkIssue value)? networkIssue,
-    TResult Function(ServerIssue value)? serverIssue,
-    TResult Function(UnknownAuthFailure value)? unknown,
     TResult Function(WrongPassword value)? wrongPassword,
     TResult Function(UserNotFound value)? userNotFound,
     TResult Function(InvalidEmail value)? invalidEmail,
     TResult Function(WeakPassword value)? weakPassword,
     TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
     TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
     TResult Function(InvalidOtp value)? invalidOtp,
-    TResult Function(ReauthRequired value)? reauthRequired,
-    TResult Function(SessionExpired value)? sessionExpired,
-    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
     required TResult orElse(),
   }) {
     if (tooManyRequests != null) {
@@ -3643,5 +3399,885 @@ abstract class TooManyRequests implements AuthFailure {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TooManyRequestsImplCopyWith<_$TooManyRequestsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ProviderAlreadyLinkedImplCopyWith<$Res> {
+  factory _$$ProviderAlreadyLinkedImplCopyWith(
+    _$ProviderAlreadyLinkedImpl value,
+    $Res Function(_$ProviderAlreadyLinkedImpl) then,
+  ) = __$$ProviderAlreadyLinkedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ProviderAlreadyLinkedImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$ProviderAlreadyLinkedImpl>
+    implements _$$ProviderAlreadyLinkedImplCopyWith<$Res> {
+  __$$ProviderAlreadyLinkedImplCopyWithImpl(
+    _$ProviderAlreadyLinkedImpl _value,
+    $Res Function(_$ProviderAlreadyLinkedImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$ProviderAlreadyLinkedImpl implements ProviderAlreadyLinked {
+  const _$ProviderAlreadyLinkedImpl();
+
+  @override
+  String toString() {
+    return 'AuthFailure.providerAlreadyLinked()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProviderAlreadyLinkedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidCredentials,
+    required TResult Function() wrongPassword,
+    required TResult Function() userNotFound,
+    required TResult Function() invalidEmail,
+    required TResult Function() weakPassword,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() providerAlreadyLinked,
+    required TResult Function() invalidOtp,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
+  }) {
+    return providerAlreadyLinked();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? userNotFound,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? weakPassword,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? providerAlreadyLinked,
+    TResult? Function()? invalidOtp,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
+  }) {
+    return providerAlreadyLinked?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidCredentials,
+    TResult Function()? wrongPassword,
+    TResult Function()? userNotFound,
+    TResult Function()? invalidEmail,
+    TResult Function()? weakPassword,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? providerAlreadyLinked,
+    TResult Function()? invalidOtp,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
+    required TResult orElse(),
+  }) {
+    if (providerAlreadyLinked != null) {
+      return providerAlreadyLinked();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(WrongPassword value) wrongPassword,
+    required TResult Function(UserNotFound value) userNotFound,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(WeakPassword value) weakPassword,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ProviderAlreadyLinked value)
+    providerAlreadyLinked,
+    required TResult Function(InvalidOtp value) invalidOtp,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
+  }) {
+    return providerAlreadyLinked(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(WrongPassword value)? wrongPassword,
+    TResult? Function(UserNotFound value)? userNotFound,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(WeakPassword value)? weakPassword,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult? Function(InvalidOtp value)? invalidOtp,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
+  }) {
+    return providerAlreadyLinked?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(WrongPassword value)? wrongPassword,
+    TResult Function(UserNotFound value)? userNotFound,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(WeakPassword value)? weakPassword,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult Function(InvalidOtp value)? invalidOtp,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (providerAlreadyLinked != null) {
+      return providerAlreadyLinked(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ProviderAlreadyLinked implements AuthFailure {
+  const factory ProviderAlreadyLinked() = _$ProviderAlreadyLinkedImpl;
+}
+
+/// @nodoc
+abstract class _$$InvalidOtpImplCopyWith<$Res> {
+  factory _$$InvalidOtpImplCopyWith(
+    _$InvalidOtpImpl value,
+    $Res Function(_$InvalidOtpImpl) then,
+  ) = __$$InvalidOtpImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvalidOtpImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$InvalidOtpImpl>
+    implements _$$InvalidOtpImplCopyWith<$Res> {
+  __$$InvalidOtpImplCopyWithImpl(
+    _$InvalidOtpImpl _value,
+    $Res Function(_$InvalidOtpImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$InvalidOtpImpl implements InvalidOtp {
+  const _$InvalidOtpImpl();
+
+  @override
+  String toString() {
+    return 'AuthFailure.invalidOtp()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$InvalidOtpImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidCredentials,
+    required TResult Function() wrongPassword,
+    required TResult Function() userNotFound,
+    required TResult Function() invalidEmail,
+    required TResult Function() weakPassword,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() providerAlreadyLinked,
+    required TResult Function() invalidOtp,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
+  }) {
+    return invalidOtp();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? userNotFound,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? weakPassword,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? providerAlreadyLinked,
+    TResult? Function()? invalidOtp,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
+  }) {
+    return invalidOtp?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidCredentials,
+    TResult Function()? wrongPassword,
+    TResult Function()? userNotFound,
+    TResult Function()? invalidEmail,
+    TResult Function()? weakPassword,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? providerAlreadyLinked,
+    TResult Function()? invalidOtp,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidOtp != null) {
+      return invalidOtp();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(WrongPassword value) wrongPassword,
+    required TResult Function(UserNotFound value) userNotFound,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(WeakPassword value) weakPassword,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ProviderAlreadyLinked value)
+    providerAlreadyLinked,
+    required TResult Function(InvalidOtp value) invalidOtp,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
+  }) {
+    return invalidOtp(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(WrongPassword value)? wrongPassword,
+    TResult? Function(UserNotFound value)? userNotFound,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(WeakPassword value)? weakPassword,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult? Function(InvalidOtp value)? invalidOtp,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
+  }) {
+    return invalidOtp?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(WrongPassword value)? wrongPassword,
+    TResult Function(UserNotFound value)? userNotFound,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(WeakPassword value)? weakPassword,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult Function(InvalidOtp value)? invalidOtp,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidOtp != null) {
+      return invalidOtp(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidOtp implements AuthFailure {
+  const factory InvalidOtp() = _$InvalidOtpImpl;
+}
+
+/// @nodoc
+abstract class _$$InvalidPhoneImplCopyWith<$Res> {
+  factory _$$InvalidPhoneImplCopyWith(
+    _$InvalidPhoneImpl value,
+    $Res Function(_$InvalidPhoneImpl) then,
+  ) = __$$InvalidPhoneImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvalidPhoneImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$InvalidPhoneImpl>
+    implements _$$InvalidPhoneImplCopyWith<$Res> {
+  __$$InvalidPhoneImplCopyWithImpl(
+    _$InvalidPhoneImpl _value,
+    $Res Function(_$InvalidPhoneImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$InvalidPhoneImpl implements InvalidPhone {
+  const _$InvalidPhoneImpl();
+
+  @override
+  String toString() {
+    return 'AuthFailure.invalidPhone()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$InvalidPhoneImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidCredentials,
+    required TResult Function() wrongPassword,
+    required TResult Function() userNotFound,
+    required TResult Function() invalidEmail,
+    required TResult Function() weakPassword,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() providerAlreadyLinked,
+    required TResult Function() invalidOtp,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
+  }) {
+    return invalidPhone();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? userNotFound,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? weakPassword,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? providerAlreadyLinked,
+    TResult? Function()? invalidOtp,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
+  }) {
+    return invalidPhone?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidCredentials,
+    TResult Function()? wrongPassword,
+    TResult Function()? userNotFound,
+    TResult Function()? invalidEmail,
+    TResult Function()? weakPassword,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? providerAlreadyLinked,
+    TResult Function()? invalidOtp,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidPhone != null) {
+      return invalidPhone();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(WrongPassword value) wrongPassword,
+    required TResult Function(UserNotFound value) userNotFound,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(WeakPassword value) weakPassword,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ProviderAlreadyLinked value)
+    providerAlreadyLinked,
+    required TResult Function(InvalidOtp value) invalidOtp,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
+  }) {
+    return invalidPhone(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(WrongPassword value)? wrongPassword,
+    TResult? Function(UserNotFound value)? userNotFound,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(WeakPassword value)? weakPassword,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult? Function(InvalidOtp value)? invalidOtp,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
+  }) {
+    return invalidPhone?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(WrongPassword value)? wrongPassword,
+    TResult Function(UserNotFound value)? userNotFound,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(WeakPassword value)? weakPassword,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult Function(InvalidOtp value)? invalidOtp,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidPhone != null) {
+      return invalidPhone(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidPhone implements AuthFailure {
+  const factory InvalidPhone() = _$InvalidPhoneImpl;
+}
+
+/// @nodoc
+abstract class _$$UnknownAuthFailureImplCopyWith<$Res> {
+  factory _$$UnknownAuthFailureImplCopyWith(
+    _$UnknownAuthFailureImpl value,
+    $Res Function(_$UnknownAuthFailureImpl) then,
+  ) = __$$UnknownAuthFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? message});
+}
+
+/// @nodoc
+class __$$UnknownAuthFailureImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$UnknownAuthFailureImpl>
+    implements _$$UnknownAuthFailureImplCopyWith<$Res> {
+  __$$UnknownAuthFailureImplCopyWithImpl(
+    _$UnknownAuthFailureImpl _value,
+    $Res Function(_$UnknownAuthFailureImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? message = freezed}) {
+    return _then(
+      _$UnknownAuthFailureImpl(
+        freezed == message
+            ? _value.message
+            : message // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+
+class _$UnknownAuthFailureImpl implements UnknownAuthFailure {
+  const _$UnknownAuthFailureImpl([this.message]);
+
+  @override
+  final String? message;
+
+  @override
+  String toString() {
+    return 'AuthFailure.unknown(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UnknownAuthFailureImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UnknownAuthFailureImplCopyWith<_$UnknownAuthFailureImpl> get copyWith =>
+      __$$UnknownAuthFailureImplCopyWithImpl<_$UnknownAuthFailureImpl>(
+        this,
+        _$identity,
+      );
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() invalidCredentials,
+    required TResult Function() wrongPassword,
+    required TResult Function() userNotFound,
+    required TResult Function() invalidEmail,
+    required TResult Function() weakPassword,
+    required TResult Function() emailAlreadyInUse,
+    required TResult Function() userDisabled,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reauthRequired,
+    required TResult Function() tokenExpired,
+    required TResult Function() sessionExpired,
+    required TResult Function() networkIssue,
+    required TResult Function() networkTimeout,
+    required TResult Function(int? statusCode) serverIssue,
+    required TResult Function(int? retryAfterSeconds) tooManyRequests,
+    required TResult Function() providerAlreadyLinked,
+    required TResult Function() invalidOtp,
+    required TResult Function() invalidPhone,
+    required TResult Function(String? message) unknown,
+  }) {
+    return unknown(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? wrongPassword,
+    TResult? Function()? userNotFound,
+    TResult? Function()? invalidEmail,
+    TResult? Function()? weakPassword,
+    TResult? Function()? emailAlreadyInUse,
+    TResult? Function()? userDisabled,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reauthRequired,
+    TResult? Function()? tokenExpired,
+    TResult? Function()? sessionExpired,
+    TResult? Function()? networkIssue,
+    TResult? Function()? networkTimeout,
+    TResult? Function(int? statusCode)? serverIssue,
+    TResult? Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult? Function()? providerAlreadyLinked,
+    TResult? Function()? invalidOtp,
+    TResult? Function()? invalidPhone,
+    TResult? Function(String? message)? unknown,
+  }) {
+    return unknown?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? invalidCredentials,
+    TResult Function()? wrongPassword,
+    TResult Function()? userNotFound,
+    TResult Function()? invalidEmail,
+    TResult Function()? weakPassword,
+    TResult Function()? emailAlreadyInUse,
+    TResult Function()? userDisabled,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reauthRequired,
+    TResult Function()? tokenExpired,
+    TResult Function()? sessionExpired,
+    TResult Function()? networkIssue,
+    TResult Function()? networkTimeout,
+    TResult Function(int? statusCode)? serverIssue,
+    TResult Function(int? retryAfterSeconds)? tooManyRequests,
+    TResult Function()? providerAlreadyLinked,
+    TResult Function()? invalidOtp,
+    TResult Function()? invalidPhone,
+    TResult Function(String? message)? unknown,
+    required TResult orElse(),
+  }) {
+    if (unknown != null) {
+      return unknown(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(WrongPassword value) wrongPassword,
+    required TResult Function(UserNotFound value) userNotFound,
+    required TResult Function(InvalidEmail value) invalidEmail,
+    required TResult Function(WeakPassword value) weakPassword,
+    required TResult Function(EmailAlreadyInUse value) emailAlreadyInUse,
+    required TResult Function(UserDisabled value) userDisabled,
+    required TResult Function(EmailNotVerified value) emailNotVerified,
+    required TResult Function(ReauthRequired value) reauthRequired,
+    required TResult Function(TokenExpired value) tokenExpired,
+    required TResult Function(SessionExpired value) sessionExpired,
+    required TResult Function(NetworkIssue value) networkIssue,
+    required TResult Function(NetworkTimeout value) networkTimeout,
+    required TResult Function(ServerIssue value) serverIssue,
+    required TResult Function(TooManyRequests value) tooManyRequests,
+    required TResult Function(ProviderAlreadyLinked value)
+    providerAlreadyLinked,
+    required TResult Function(InvalidOtp value) invalidOtp,
+    required TResult Function(InvalidPhone value) invalidPhone,
+    required TResult Function(UnknownAuthFailure value) unknown,
+  }) {
+    return unknown(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(WrongPassword value)? wrongPassword,
+    TResult? Function(UserNotFound value)? userNotFound,
+    TResult? Function(InvalidEmail value)? invalidEmail,
+    TResult? Function(WeakPassword value)? weakPassword,
+    TResult? Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult? Function(UserDisabled value)? userDisabled,
+    TResult? Function(EmailNotVerified value)? emailNotVerified,
+    TResult? Function(ReauthRequired value)? reauthRequired,
+    TResult? Function(TokenExpired value)? tokenExpired,
+    TResult? Function(SessionExpired value)? sessionExpired,
+    TResult? Function(NetworkIssue value)? networkIssue,
+    TResult? Function(NetworkTimeout value)? networkTimeout,
+    TResult? Function(ServerIssue value)? serverIssue,
+    TResult? Function(TooManyRequests value)? tooManyRequests,
+    TResult? Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult? Function(InvalidOtp value)? invalidOtp,
+    TResult? Function(InvalidPhone value)? invalidPhone,
+    TResult? Function(UnknownAuthFailure value)? unknown,
+  }) {
+    return unknown?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(WrongPassword value)? wrongPassword,
+    TResult Function(UserNotFound value)? userNotFound,
+    TResult Function(InvalidEmail value)? invalidEmail,
+    TResult Function(WeakPassword value)? weakPassword,
+    TResult Function(EmailAlreadyInUse value)? emailAlreadyInUse,
+    TResult Function(UserDisabled value)? userDisabled,
+    TResult Function(EmailNotVerified value)? emailNotVerified,
+    TResult Function(ReauthRequired value)? reauthRequired,
+    TResult Function(TokenExpired value)? tokenExpired,
+    TResult Function(SessionExpired value)? sessionExpired,
+    TResult Function(NetworkIssue value)? networkIssue,
+    TResult Function(NetworkTimeout value)? networkTimeout,
+    TResult Function(ServerIssue value)? serverIssue,
+    TResult Function(TooManyRequests value)? tooManyRequests,
+    TResult Function(ProviderAlreadyLinked value)? providerAlreadyLinked,
+    TResult Function(InvalidOtp value)? invalidOtp,
+    TResult Function(InvalidPhone value)? invalidPhone,
+    TResult Function(UnknownAuthFailure value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (unknown != null) {
+      return unknown(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UnknownAuthFailure implements AuthFailure {
+  const factory UnknownAuthFailure([final String? message]) =
+      _$UnknownAuthFailureImpl;
+
+  String? get message;
+
+  /// Create a copy of AuthFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UnknownAuthFailureImplCopyWith<_$UnknownAuthFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
