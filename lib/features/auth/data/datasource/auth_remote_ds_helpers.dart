@@ -7,7 +7,6 @@
 // NOTE: Keep this file in the same folder as auth_remote_ds.dart so the import
 // path in the main file does not need to change.
 
-import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:firebase_auth/firebase_auth.dart' as fa;
 
 /// Firestore collection names used by the auth module.
@@ -44,9 +43,3 @@ extension FirebaseAuthRequireFresh on fa.FirebaseAuth {
   }
 }
 
-/// Utility to get a typed DocumentReference for user profiles.
-fs.DocumentReference<Map<String, dynamic>> profileDoc(
-    fs.FirebaseFirestore firestore,
-    String uid,
-    ) =>
-    firestore.collection(FsPaths.profiles).doc(uid);
