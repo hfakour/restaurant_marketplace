@@ -23,7 +23,7 @@ class _AuthGateState extends State<AuthGate> {
           case AuthViewStatus.loading:
           case AuthViewStatus.sendingEmailVerification:
           case AuthViewStatus.checkingEmailVerification:
-          // در حال پردازش → همون صفحه لودینگ بمونه
+          // stay on the loading gate
             break;
 
           case AuthViewStatus.unauthenticated:
@@ -38,22 +38,34 @@ class _AuthGateState extends State<AuthGate> {
             break;
 
           case AuthViewStatus.emailVerificationSent:
-          // کاربر باید ایمیلش را تأیید کند
+          // direct user to verify email flow
             _navigateTo('/verify-email', clearStack: true);
             break;
 
           case AuthViewStatus.authenticated:
-          // کاربر وریفای شده یا پس از چک پاس شده → برو خانه
+          // verified / fully signed in
             _navigateTo('/home', clearStack: true);
             break;
 
           case AuthViewStatus.rateLimited:
-          // ریت‌لیمیت: جایی نرو—فقط پیام بده تا UI زمان بده/دکمه‌ها disable بشن
+          // do not navigate; just inform user
             final secs = state.retryAfterSeconds;
             final msg = secs != null
                 ? 'تلاش‌های زیاد. لطفاً $secs ثانیه صبر کنید.'
                 : 'تلاش‌های زیاد. لطفاً کمی بعد دوباره تلاش کنید.';
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+            break;
+
+        // ---- NEW: MFA branches ----
+          case AuthViewStatus.mfaRequired:
+          // User must select a factor (or you may auto-select if only one).
+          // Route names are examples; wire them to your existing navigator table.
+            _navigateTo('/mfa/factors', clearStack: false);
+            break;
+
+          case AuthViewStatus.mfaCodeSent:
+          // SMS sent; show code entry screen.
+            _navigateTo('/mfa/code', clearStack: false);
             break;
         }
       },
@@ -64,7 +76,7 @@ class _AuthGateState extends State<AuthGate> {
   }
 
   void _navigateTo(String targetRoute, {bool clearStack = false}) {
-    // Debounce: اگر همین مقصد اخیراً برنامه‌ریزی شده، رد شو
+    // Debounce: skip if identical navigation is already scheduled
     if (_navScheduled && _lastTargetRoute == targetRoute) return;
     _navScheduled = true;
     _lastTargetRoute = targetRoute;

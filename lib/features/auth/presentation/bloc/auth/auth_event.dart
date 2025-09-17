@@ -102,3 +102,31 @@ class ClearAuthError extends AuthEvent {
 class ClearPendingSensitiveOp extends AuthEvent {
   const ClearPendingSensitiveOp();
 }
+// AuthEvent
+class LoginWithEmailRequested extends AuthEvent {
+  final String email;
+  final String password;
+  const LoginWithEmailRequested(this.email, this.password);
+}
+
+// MFA branch
+class MfaFactorChosen extends AuthEvent {
+  final Object resolver;        // opaque resolver from Login result
+  final String factorUid;       // user-picked factor UID
+  const MfaFactorChosen(this.resolver, this.factorUid);
+}
+
+class MfaCodeSubmitted extends AuthEvent {
+  final Object resolver;
+  final String verificationId;
+  final String smsCode;
+  const MfaCodeSubmitted({
+    required this.resolver,
+    required this.verificationId,
+    required this.smsCode,
+  });
+}
+
+class MfaCancelRequested extends AuthEvent {
+  const MfaCancelRequested();
+}

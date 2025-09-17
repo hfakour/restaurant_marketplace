@@ -9,8 +9,12 @@
 // separate reduces file size and improves readability while preserving the
 // original public API.
 
+import 'dart:async';
+import 'dart:developer' as developer;
+
 import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:firebase_auth/firebase_auth.dart' as fa;
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 import 'auth_remote_ds_helpers.dart';
 
@@ -18,7 +22,16 @@ class AuthRemoteDataSource {
   final fa.FirebaseAuth _auth;
   final fs.FirebaseFirestore _firestore;
 
-  AuthRemoteDataSource(this._auth, this._firestore);
+  /// Optional default ActionCodeSettings used for email verification and
+  /// password reset links when the caller does not provide one explicitly.
+  /// Provide this via DI if you want custom redirect URLs / package IDs.
+  final fa.ActionCodeSettings? _defaultAcs;
+
+  AuthRemoteDataSource(
+      this._auth,
+      this._firestore, {
+        fa.ActionCodeSettings? defaultAcs,
+      }) : _defaultAcs = defaultAcs;
 
   // Current user (may be null).
   fa.User? get currentUser => _auth.currentUser;
@@ -65,7 +78,21 @@ class AuthRemoteDataSource {
   Future<fa.UserCredential> loginAnonymous() => _auth.signInAnonymously();
 
   /// Send email verification for the given [user].
-  Future<void> sendEmailVerification(fa.User user) => user.sendEmailVerification();
+  /// Uses [_defaultAcs] when available; keeps the original signature intact.
+  Future<void> sendEmailVerification(fa.User user) {
+    final acs = _defaultAcs;
+    if (acs != null) {
+      return user.sendEmailVerification(acs);
+    }
+    return user.sendEmailVerification();
+  }
+
+  /// Overload when you want to pass custom ActionCodeSettings explicitly.
+  Future<void> sendEmailVerificationWithSettings(
+      fa.User user,
+      fa.ActionCodeSettings acs,
+      ) =>
+      user.sendEmailVerification(acs);
 
   /// Sign out current session.
   Future<void> signOut() => _auth.signOut();
@@ -99,13 +126,16 @@ class AuthRemoteDataSource {
     await user.linkWithCredential(cred);
 
     // After linking, ensure an email verification is sent (if needed).
-    // SDK does not always auto-send so we do this explicitly.
     if (user.email != null && !user.emailVerified) {
       try {
-        await user.sendEmailVerification();
+        final acs = _defaultAcs;
+        if (acs != null) {
+          await user.sendEmailVerification(acs);
+        } else {
+          await user.sendEmailVerification();
+        }
       } catch (_) {
-        // Intentionally swallow any sendEmailVerification exceptions here --
-        // repository / UI can try again or show an appropriate message.
+        // Intentionally swallow here; UI can offer retry.
       }
     }
 
@@ -113,17 +143,35 @@ class AuthRemoteDataSource {
     await user.reload();
   }
 
-  /// Send password reset email to [email].
-  Future<void> sendPasswordResetEmail(String email) =>
-      _auth.sendPasswordResetEmail(email: email.trim());
+  /// Send password reset email to [email]. Uses [_defaultAcs] if provided.
+  Future<void> sendPasswordResetEmail(String email) {
+    final e = email.trim();
+    final acs = _defaultAcs;
+    if (acs != null) {
+      return _auth.sendPasswordResetEmail(
+        email: e,
+        actionCodeSettings: acs,
+      );
+    }
+    return _auth.sendPasswordResetEmail(email: e);
+  }
+
+  /// Overload when you want to pass custom ActionCodeSettings explicitly.
+  Future<void> sendPasswordResetEmailWithSettings(
+      String email,
+      fa.ActionCodeSettings acs,
+      ) =>
+      _auth.sendPasswordResetEmail(email: email.trim(), actionCodeSettings: acs);
 
   // ------------------- REAUTH -------------------
 
   /// Reauthenticate using email/password against the currently signed-in user.
   Future<void> reauthWithPassword(String email, String password) async {
     final user = await _auth.requireFreshUser();
-    final cred =
-    fa.EmailAuthProvider.credential(email: email.trim(), password: password);
+    final cred = fa.EmailAuthProvider.credential(
+      email: email.trim(),
+      password: password,
+    );
     await user.reauthenticateWithCredential(cred);
   }
 
@@ -135,18 +183,6 @@ class AuthRemoteDataSource {
 
   // ------------------- SENSITIVE OPS -------------------
 
-  /// Update email using verifyBeforeUpdateEmail when available.
-  ///
-  /// This will send a verification email to the new address and, after the user
-  /// confirms the change, the server will apply the update. We reload afterwards.
-// make sure at top of file:
-// import 'package:firebase_auth/firebase_auth.dart' as fa;
-  /// Update the current user's email to [newEmail].
-  /// - Uses a fresh/reloaded user via `_auth.requireFreshUser()` (helper).
-  /// - Calls `updateEmail` (available in firebase_auth v6).
-  /// - On `requires-recent-login` (or other FirebaseAuthException codes) rethrows
-  ///   the FirebaseAuthException so repository/error-mapper can handle it.
-  /// - After success, attempts to send a verification email and reloads user.
   /// Update the current user's email to [newEmail], with a compatibility shim
   /// that works across firebase_auth versions:
   /// - If `verifyBeforeUpdateEmail` exists (newer versions) we call it.
@@ -165,15 +201,12 @@ class AuthRemoteDataSource {
 
     // 1) Prefer verifyBeforeUpdateEmail (newer Firebase SDKs / FlutterFire).
     try {
-      // Try calling verifyBeforeUpdateEmail dynamically.
-      // If it doesn't exist, this will throw a NoSuchMethodError which we catch below.
       await dynUser.verifyBeforeUpdateEmail(trimmed);
     } on NoSuchMethodError {
       // 2) Fallback: try updateEmail (older SDKs).
       try {
         await dynUser.updateEmail(trimmed);
       } on NoSuchMethodError {
-        // Neither method exists on the runtime User object — likely wrong SDK.
         throw fa.FirebaseAuthException(
           code: 'unsupported-operation',
           message:
@@ -181,24 +214,31 @@ class AuthRemoteDataSource {
         );
       }
     } on fa.FirebaseAuthException {
-      // Re-throw FirebaseAuthException so upstream repo/error-mapper can interpret codes
-      // like 'requires-recent-login', 'invalid-email', etc.
+      // Let the repository mapper handle specific codes like requires-recent-login.
       rethrow;
-    } catch (e) {
-      // Wrap unknown errors for consistent upstream mapping.
+    } catch (e, stack) {
+      // Record unexpected errors to Crashlytics and wrap in a FirebaseAuthException.
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        stack,
+        reason: 'updateEmail unexpected error',
+      );
       throw fa.FirebaseAuthException(
         code: 'unknown',
-        message: 'Failed to update email: ${e?.toString() ?? 'unknown error'}',
+        message: 'Failed to update email: ${e.toString()}',
       );
     }
 
     // 3) After a successful call, attempt to send verification email (best practice).
-    //    If verifyBeforeUpdateEmail was used, the SDK may already have sent the link;
-    //    but calling sendEmailVerification is safe to attempt if needed.
     try {
       final refreshed = _auth.currentUser;
       if (refreshed != null && !refreshed.emailVerified) {
-        await refreshed.sendEmailVerification();
+        final acs = _defaultAcs;
+        if (acs != null) {
+          await refreshed.sendEmailVerification(acs);
+        } else {
+          await refreshed.sendEmailVerification();
+        }
       }
     } catch (_) {
       // Swallow sendEmailVerification errors — UI/repo can surface retry option.
@@ -208,16 +248,14 @@ class AuthRemoteDataSource {
     try {
       await user.reload();
     } catch (_) {
-      // ignore reload failures here; authState stream will reflect eventual state.
+      // ignore reload failures; authState stream will reflect eventual state.
     }
   }
-
 
   /// Update password for the current user. Caller must handle reauth on failure.
   Future<void> updatePassword(String newPassword) async {
     final user = await _auth.requireFreshUser();
     await user.updatePassword(newPassword);
-    // It's good practice to reload so token/claims are fresh.
     await user.reload();
   }
 
@@ -225,6 +263,120 @@ class AuthRemoteDataSource {
   Future<void> deleteAccount() async {
     final user = await _auth.requireFreshUser();
     await user.delete();
+  }
+
+  // ------------------- MFA (Phone as second factor) -------------------
+
+  /// Starts phone enrollment for MFA and resolves with the [verificationId]
+  /// when the SMS code is sent. You must then call [mfaFinalizeEnrollment].
+  Future<String> mfaStartPhoneEnrollment(String phoneNumber) async {
+    final user = await _auth.requireFreshUser();
+    final session = await user.multiFactor.getSession();
+
+    final completer = Completer<String>();
+    await _auth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      multiFactorSession: session,
+      verificationCompleted: (_) {
+        // We don't auto-complete here; we rely on user entering the code.
+      },
+      verificationFailed: (fa.FirebaseAuthException e) {
+        completer.completeError(e);
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        completer.complete(verificationId);
+      },
+      codeAutoRetrievalTimeout: (_) {},
+    );
+
+    return completer.future;
+  }
+
+  /// Finalizes MFA enrollment using the [verificationId] and [smsCode] from the
+  /// SMS that was sent in [mfaStartPhoneEnrollment].
+  Future<void> mfaFinalizeEnrollment({
+    required String verificationId,
+    required String smsCode,
+    String? displayName,
+  }) async {
+    final user = await _auth.requireFreshUser();
+    final credential = fa.PhoneAuthProvider.credential(
+      verificationId: verificationId,
+      smsCode: smsCode,
+    );
+    await user.multiFactor.enroll(
+      fa.PhoneMultiFactorGenerator.getAssertion(credential),
+      displayName: displayName,
+    );
+  }
+
+  /// Unenroll a second factor by its UID (see `user.multiFactor.enrolledFactors`).
+  Future<void> mfaUnenrollByUid(String factorUid) async {
+    final user = await _auth.requireFreshUser();
+    await user.multiFactor.unenroll(factorUid: factorUid);
+  }
+
+  // ------------------- MFA Sign-In Challenge -------------------
+
+  /// When login throws FirebaseAuthMultiFactorException, pass its resolver here.
+  /// Select the phone factor by [factorUid], send the SMS, and get the verificationId.
+  Future<String> mfaStartSignInResolve(
+      Object resolver, {
+        required String factorUid,
+      }) async {
+    try {
+      final r = resolver as fa.MultiFactorResolver;
+
+      final phoneInfo = r.hints
+          .whereType<fa.PhoneMultiFactorInfo>()
+          .firstWhere(
+            (h) => h.uid == factorUid,
+        orElse: () => throw fa.FirebaseAuthException(
+          code: 'invalid-argument',
+          message: 'MFA factor UID not found on resolver',
+        ),
+      );
+
+      final completer = Completer<String>();
+      await _auth.verifyPhoneNumber(
+        multiFactorSession: r.session,
+        phoneNumber: phoneInfo.phoneNumber!,
+        verificationCompleted: (_) {},
+        verificationFailed: (fa.FirebaseAuthException e) {
+          completer.completeError(e);
+        },
+        codeSent: (String verificationId, int? _) {
+          completer.complete(verificationId);
+        },
+        codeAutoRetrievalTimeout: (_) {},
+      );
+      return completer.future;
+    } catch (e, stack) {
+      FirebaseCrashlytics.instance
+          .recordError(e, stack, reason: 'mfaStartSignInResolve error');
+      rethrow;
+    }
+  }
+
+  /// Finalize MFA sign-in after user enters [smsCode] that matches [verificationId].
+  Future<fa.UserCredential> mfaFinalizeSignIn({
+    required Object resolver,
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    try {
+      final r = resolver as fa.MultiFactorResolver;
+      final cred = fa.PhoneAuthProvider.credential(
+        verificationId: verificationId,
+        smsCode: smsCode,
+      );
+      final assertion = fa.PhoneMultiFactorGenerator.getAssertion(cred);
+      return r.resolveSignIn(assertion);
+    } catch (e, stack) {
+      FirebaseCrashlytics.instance
+          .recordError(e, stack, reason: 'mfaFinalizeSignIn error');
+      rethrow;
+    }
   }
 
   // ------------------- FIRESTORE -------------------
@@ -236,7 +388,8 @@ class AuthRemoteDataSource {
   /// - 'updatedAt' is always set to server timestamp.
   Future<void> upsertProfile(String uid, Map<String, dynamic> data) async {
     await _firestore.runTransaction((tx) async {
-      final ref = profileDoc(_firestore, uid);
+      // Use the private _profileDoc helper to avoid ambiguity with any top-level helper.
+      final ref = _profileDoc(uid);
       final snap = await tx.get(ref);
       final now = fs.FieldValue.serverTimestamp();
 

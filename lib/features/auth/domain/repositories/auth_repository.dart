@@ -82,7 +82,42 @@ abstract class AuthRepository {
     String? authCode,
   });
 
-  /// عملیات حساس
+  // ---------------------- MFA (Phone as second factor) ----------------------
+
+  /// شروع ثبت‌نام عامل دوم (SMS). مقدار بازگشتی `verificationId` است که
+  /// باید همراه با کد دریافتی کاربر به `mfaFinalizeEnrollment` پاس داده شود.
+  Future<String> mfaStartPhoneEnrollment(String phoneNumber);
+
+  /// نهایی‌سازی ثبت‌نام MFA با `verificationId` و `smsCode`.
+  /// (اختیاری) می‌توان `displayName` برای عامل دوم ثبت کرد.
+  Future<void> mfaFinalizeEnrollment({
+    required String verificationId,
+    required String smsCode,
+    String? displayName,
+  });
+
+  /// لغو ثبت‌نام عامل دوم با UID عامل (از `enrolledFactors` به‌دست می‌آید).
+  Future<void> mfaUnenrollByUid(String factorUid);
+
+  // ---------------------- MFA Sign-In Challenge ----------------------
+
+  /// وقتی login با استثناء MFA متوقف می‌شود، این متد با شیء رزولور (opaque)
+  /// و UID عامل انتخاب‌شده، SMS را ارسال می‌کند و `verificationId` برمی‌گرداند.
+  Future<String> mfaStartSignInResolve(
+      Object resolver, {
+        required String factorUid,
+      });
+
+  /// نهایی‌سازی ورود چندمرحله‌ای با `verificationId` و `smsCode`.
+  /// رزولور همان شیء opaque از مرحله‌ی قبل است.
+  Future<AuthAccount> mfaFinalizeSignIn({
+    required Object resolver,
+    required String verificationId,
+    required String smsCode,
+  });
+
+  // ---------------------- Sensitive Ops ----------------------
+
   Future<void> updateEmail(String newEmail);
   Future<void> updatePassword(String newPassword);
   Future<void> deleteAccount();

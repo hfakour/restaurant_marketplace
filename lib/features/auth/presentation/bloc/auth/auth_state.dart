@@ -12,6 +12,10 @@ enum AuthViewStatus {
   emailVerificationSent,
   checkingEmailVerification,
 
+  // --- MFA flow ---
+  mfaRequired,        // user must pick a factor (or single factor auto-selected)
+  mfaCodeSent,        // SMS sent; waiting for user to enter code
+
   // --- rate limit / too many requests ---
   rateLimited,
 }
@@ -34,6 +38,11 @@ class AuthState extends Equatable {
 
     // Rate limit
     this.retryAfterSeconds,
+
+    // --- MFA ---
+    this.mfaResolver,
+    this.mfaFactorUids,
+    this.mfaVerificationId,
   });
 
   // پایه
@@ -50,6 +59,27 @@ class AuthState extends Equatable {
       : this._(account: account, status: AuthViewStatus.emailVerificationSent);
   const AuthState.checkingEmailVerification({AuthAccount? account})
       : this._(account: account, status: AuthViewStatus.checkingEmailVerification);
+
+  // --- MFA flow ---
+  /// نشان‌دهنده نیاز به MFA؛ UI می‌تواند factor انتخاب کند (اگر چندتا بود).
+  const AuthState.mfaRequired({
+    required Object resolver,
+    required List<String> factorUids,
+  }) : this._(
+    status: AuthViewStatus.mfaRequired,
+    mfaResolver: resolver,
+    mfaFactorUids: factorUids,
+  );
+
+  /// SMS ارسال شده و UI فقط کد را از کاربر می‌گیرد.
+  const AuthState.mfaCodeSent({
+    required Object resolver,
+    required String verificationId,
+  }) : this._(
+    status: AuthViewStatus.mfaCodeSent,
+    mfaResolver: resolver,
+    mfaVerificationId: verificationId,
+  );
 
   // --- rate limit ---
   const AuthState.rateLimited({AuthAccount? account, int? retryAfterSeconds})
@@ -74,6 +104,14 @@ class AuthState extends Equatable {
   // Rate limit
   final int? retryAfterSeconds;
 
+  // --- MFA ---
+  /// شیء opaque که از Firebase می‌آید اما به لایه‌های بالاتر لو نمی‌دهیم.
+  final Object? mfaResolver;
+  /// لیست UIDهای عامل‌های ثبت‌شده (وقتی mfaRequired هست).
+  final List<String>? mfaFactorUids;
+  /// verificationId آخرین SMS ارسال‌شده (وقتی mfaCodeSent هست).
+  final String? mfaVerificationId;
+
   AuthState copyWith({
     AuthAccount? account,
     bool clearAccount = false,
@@ -96,6 +134,14 @@ class AuthState extends Equatable {
     // Rate limit
     int? retryAfterSeconds,
     bool clearRetryAfter = false,
+
+    // --- MFA ---
+    Object? mfaResolver,
+    bool clearMfaResolver = false,
+    List<String>? mfaFactorUids,
+    bool clearMfaFactorUids = false,
+    String? mfaVerificationId,
+    bool clearMfaVerificationId = false,
   }) {
     return AuthState._(
       account: clearAccount ? null : (account ?? this.account),
@@ -114,6 +160,14 @@ class AuthState extends Equatable {
 
       retryAfterSeconds:
       clearRetryAfter ? null : (retryAfterSeconds ?? this.retryAfterSeconds),
+
+      // --- MFA ---
+      mfaResolver: clearMfaResolver ? null : (mfaResolver ?? this.mfaResolver),
+      mfaFactorUids:
+      clearMfaFactorUids ? null : (mfaFactorUids ?? this.mfaFactorUids),
+      mfaVerificationId: clearMfaVerificationId
+          ? null
+          : (mfaVerificationId ?? this.mfaVerificationId),
     );
   }
 
@@ -128,5 +182,10 @@ class AuthState extends Equatable {
     pendingLinkEmail,
     pendingLinkPassword,
     retryAfterSeconds,
+
+    // --- MFA ---
+    mfaResolver,
+    mfaFactorUids,
+    mfaVerificationId,
   ];
 }

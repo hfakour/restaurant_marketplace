@@ -6,6 +6,7 @@ import '../../domain/entities/auth_account.dart';
 import '../datasource/auth_remote_ds.dart';
 import '../mapper/auth_mappers.dart';            // authAccountFromFirebaseUser
 import '../mapper/auth_error_mapper.dart';       // mapFirebaseAuthException
+import 'auth_repository_helpers.dart';           // fullName, sensitive, isPasswordStrong
 
 // ---- Concrete repo implementation ----
 class AuthRepositoryImpl implements AuthRepository {
@@ -21,24 +22,6 @@ class AuthRepositoryImpl implements AuthRepository {
   // مپرهای تزریقی/پیش‌فرض
   final AuthAccount Function(User) _userMapper;
   final AuthFailure Function(FirebaseAuthException) _errorMapper;
-
-  String _fullName(String first, String last) =>
-      [first.trim(), last.trim()].where((s) => s.isNotEmpty).join(' ');
-
-  // ======================= Helper: Sensitive Ops (Reauth + Retry pattern) =======================
-  Future<T> _sensitive<T>(Future<T> Function() op) async {
-    try {
-      return await op();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'requires-recent-login') {
-        throw const AuthFailure.reauthRequired();
-      }
-      if (e.code == 'user-token-expired') {
-        throw const AuthFailure.sessionExpired();
-      }
-      throw _errorMapper(e);
-    }
-  }
 
   // ======================= جدیدها (هم‌راستا با AuthRepository) =======================
 
@@ -83,6 +66,60 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
+  // ---------------------- MFA (Phone as second factor) ----------------------
+
+  @override
+  Future<String> mfaStartPhoneEnrollment(String phoneNumber) =>
+      sensitive(() => _remote.mfaStartPhoneEnrollment(phoneNumber), _errorMapper);
+
+  @override
+  Future<void> mfaFinalizeEnrollment({
+    required String verificationId,
+    required String smsCode,
+    String? displayName,
+  }) =>
+      sensitive(
+            () => _remote.mfaFinalizeEnrollment(
+          verificationId: verificationId,
+          smsCode: smsCode,
+          displayName: displayName,
+        ),
+        _errorMapper,
+      );
+
+  @override
+  Future<void> mfaUnenrollByUid(String factorUid) =>
+      sensitive(() => _remote.mfaUnenrollByUid(factorUid), _errorMapper);
+
+  // ---------------------- MFA Sign-In Challenge ----------------------
+
+  @override
+  Future<String> mfaStartSignInResolve(
+      Object resolver, {
+        required String factorUid,
+      }) =>
+      sensitive(
+            () => _remote.mfaStartSignInResolve(resolver, factorUid: factorUid),
+        _errorMapper,
+      );
+
+  @override
+  Future<AuthAccount> mfaFinalizeSignIn({
+    required Object resolver,
+    required String verificationId,
+    required String smsCode,
+  }) =>
+      sensitive(() async {
+        final cred = await _remote.mfaFinalizeSignIn(
+          resolver: resolver,
+          verificationId: verificationId,
+          smsCode: smsCode,
+        );
+        final user = cred.user!;
+        await user.reload();
+        return _userMapper(user);
+      }, _errorMapper);
+
   // ======================= قبلی‌ها =======================
 
   @override
@@ -103,7 +140,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (email == null || email.trim().isEmpty) {
       final cred = await _remote.loginAnonymous();
       final u = cred.user!;
-      final dn = _fullName(firstName, lastName);
+      final dn = fullName(firstName, lastName);
       if (dn.isNotEmpty) {
         await _remote.updateDisplayName(user: u, displayName: dn);
       }
@@ -117,13 +154,18 @@ class AuthRepositoryImpl implements AuthRepository {
       return _userMapper(u);
     }
 
+    // Enforce password strength for email/password registration
+    if (!isPasswordStrong(password)) {
+      throw const AuthFailure.weakPassword();
+    }
+
     final cred = await _remote.createEmailUser(
       email: email.trim(),
       password: password,
     );
     await cred.user?.reload();
     final u = cred.user!;
-    final dn = _fullName(firstName, lastName);
+    final dn = fullName(firstName, lastName);
     if (dn.isNotEmpty) {
       await _remote.updateDisplayName(user: u, displayName: dn);
     }
@@ -144,26 +186,25 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
   }) async {
     try {
-      final cred = await _remote.loginWithEmail(
-        email: email,
-        password: password,
-      );
+      final cred = await _remote.loginWithEmail(email: email, password: password);
       final user = cred.user!;
-      await user.reload(); // تضمین تازه بودن
+      await user.reload();
 
-      // سخت‌گیرانه: ورود تنها برای ایمیل وریفای‌شده
       if (!user.emailVerified) {
         await _remote.sendEmailVerification(user);
         await _remote.signOut();
-        // BLoC این Failure را به state.emailVerificationSent ترجمه/هدایت می‌کند
         throw const AuthFailure.emailNotVerified();
       }
 
       return _userMapper(user);
+    } on FirebaseAuthMultiFactorException catch (_) {
+      // IMPORTANT: bubble MFA to the use case
+      rethrow;
     } on FirebaseAuthException catch (e) {
       throw _errorMapper(e);
     }
   }
+
 
   @override
   Future<AuthAccount> loginAnonymous({
@@ -173,7 +214,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     final cred = await _remote.loginAnonymous();
     final u = cred.user!;
-    final dn = _fullName(firstName, lastName);
+    final dn = fullName(firstName, lastName);
     if (dn.isNotEmpty) {
       await _remote.updateDisplayName(user: u, displayName: dn);
     }
@@ -192,7 +233,10 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String password,
   }) =>
-      _sensitive(() => _remote.linkEmailPassword(email: email, password: password));
+      sensitive(
+            () => _remote.linkEmailPassword(email: email, password: password),
+        _errorMapper,
+      );
 
   @override
   Future<void> resetPassword({required String email}) {
@@ -277,15 +321,20 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> updateEmail(String newEmail) =>
-      _sensitive(() => _remote.updateEmail(newEmail));
+      sensitive(() => _remote.updateEmail(newEmail), _errorMapper);
 
   @override
   Future<void> updatePassword(String newPassword) =>
-      _sensitive(() => _remote.updatePassword(newPassword));
+      sensitive(() async {
+        if (!isPasswordStrong(newPassword)) {
+          throw const AuthFailure.weakPassword();
+        }
+        return _remote.updatePassword(newPassword);
+      }, _errorMapper);
 
   @override
   Future<void> deleteAccount() =>
-      _sensitive(() => _remote.deleteAccount());
+      sensitive(() => _remote.deleteAccount(), _errorMapper);
 
   @override
   Future<UserProfile> ensureUserProfile({

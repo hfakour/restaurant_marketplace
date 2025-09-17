@@ -38,9 +38,12 @@ Map<String, dynamic> userProfileToFirestore(UserProfile p) => {
 /// don’t have to null-check. Feature modules can rehydrate refs later.
 UserProfile firestoreToUserProfile(Map<String, dynamic> json) => UserProfile(
   id: json['id'] as String,
-  firstName: json['firstName'] as String,
-  lastName: json['lastName'] as String,
-  contactNumber: json['contactNumber'] as String,
+  // These fields are required on the domain entity. Firestore documents may
+  // omit them if an upstream write was incomplete or legacy data exists.
+  // Safely fall back to empty strings to avoid runtime casts on null.
+  firstName: json['firstName'] as String? ?? '',
+  lastName: json['lastName'] as String? ?? '',
+  contactNumber: json['contactNumber'] as String? ?? '',
   email: json['email'] as String?,
   avatarUrl: json['avatarUrl'] as String?,
   // Typed empty lists for safety
