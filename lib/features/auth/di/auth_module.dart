@@ -79,7 +79,16 @@ void registerAuthModule(GetIt sl) {
     dispose: (b) => b.close(),
   );
 
-  // بقیه بلوک‌ها معمولاً صفحه‌ای/کوتاه‌عمر هستند → factory
-  sl.registerFactory<LoginBloc>(() => LoginBloc(sl<LoginWithEmailUseCase>()));
-  sl.registerFactory<SignUpBloc>(() => SignUpBloc(sl<RegisterWithEmailUseCase>()));
+  // LoginBloc نیاز دارد AuthBloc را برای handoff رویداد MFA دریافت کند.
+  sl.registerFactory<LoginBloc>(
+        () => LoginBloc(
+      sl<LoginWithEmailUseCase>(),
+      sl<AuthBloc>(), // inject AuthBloc for MfaRequiredDiscovered dispatch
+    ),
+  );
+
+  // SignUpBloc (در صورت افزودن cooldown نیازی به وابستگی اضافه ندارد)
+  sl.registerFactory<SignUpBloc>(
+        () => SignUpBloc(sl<RegisterWithEmailUseCase>()),
+  );
 }

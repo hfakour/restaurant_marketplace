@@ -25,3 +25,8 @@ class SignUpSubmitted extends SignUpEvent {
   @override
   List<Object?> get props => [firstName, lastName, phone, password, email];
 }
+
+// رویداد داخلی برای تیک خوردن شمارنده‌ی ریت‌لیمیت
+class _CooldownTicked extends SignUpEvent {
+  const _CooldownTicked();
+}

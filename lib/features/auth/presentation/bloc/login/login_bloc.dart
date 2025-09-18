@@ -7,16 +7,20 @@ import 'package:restaurant_marketplace/features/auth/domain/extensions/auth_fail
 import '../../../domain/usecase/login_with_email.dart';
 import '../../../domain/entities/auth_failures.dart';
 
+// Inject AuthBloc to dispatch MFA handoff event
+import '../auth/auth_bloc.dart';
+
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc(this._login) : super(const LoginState.idle()) {
+  LoginBloc(this._login, this._authBloc) : super(const LoginState.idle()) {
     on<LoginSubmitted>(_onSubmit);
     on<_CooldownTicked>(_onCooldownTicked);
   }
 
   final LoginWithEmailUseCase _login;
+  final AuthBloc _authBloc;
 
   Timer? _cooldownTimer;
   int? _cooldownRemaining; // ثانیه‌های باقیمانده
@@ -33,9 +37,29 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     emit(const LoginState.submitting());
     try {
-      await _login(email: e.email, password: e.password);
-      emit(const LoginState.success());
-      // AuthBloc via authState() مسئول روتینگ کلی اپ است
+      final result = await _login(email: e.email, password: e.password);
+
+      // MFA handoff: اگر به MFA نیاز است، جریان را به AuthBloc بده
+      if (result.requiresMfa) {
+        _authBloc.add(MfaRequiredDiscovered(
+          resolver: result.resolver!,
+          factorUids: result.factorUids,
+        ));
+        // UI را در حالت خنثی نگه دار تا AuthBloc جریان را ادامه دهد
+        emit(const LoginState.idle());
+        return;
+      }
+
+      if (result.isSuccess) {
+        emit(const LoginState.success());
+        // AuthBloc via authState() مسئول روتینگ کلی اپ است
+        return;
+      }
+
+      if (result.isFailure) {
+        emit(LoginState.failure(result.failure!.humanMessage));
+        return;
+      }
     } on AuthFailure catch (f) {
       if (f is TooManyRequests) {
         final secs = f.retryAfterSeconds;
