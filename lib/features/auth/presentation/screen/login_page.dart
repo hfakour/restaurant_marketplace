@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';  // Email validator package
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.all(24),
             child: BlocConsumer<LoginBloc, LoginState>(
               listenWhen: (previous, current) =>
-                  previous.status != current.status || previous.message != current.message,
+              previous.status != current.status || previous.message != current.message,
               listener: (context, state) {
                 // Display server-provided error messages when available.
                 if ((state.status == LoginStatus.failure || state.status == LoginStatus.cooldown) &&
@@ -57,6 +58,11 @@ class _LoginPageState extends State<LoginPage> {
                     SnackBar(content: Text(state.message!)),
                   );
                 }
+
+                // Navigate on success
+                if (state.status == LoginStatus.success) {
+                  Navigator.of(context).pushReplacementNamed('/home');
+                }
               },
               builder: (context, state) {
                 final busy = state.status == LoginStatus.submitting;
@@ -64,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                 final secs = state.cooldownSeconds;
                 return Form(
                   key: _form,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,  // Validate on user interaction
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -79,8 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                         validator: (value) {
                           final s = (value ?? '').trim();
                           if (s.isEmpty) return 'Email is required';
-                          final emailRegExp = RegExp(r'^[^@]+@[^@]+\.[^@]+\$');
-                          if (!emailRegExp.hasMatch(s)) return 'Enter a valid email';
+                          if (!EmailValidator.validate(s)) return 'Enter a valid email';
                           return null;
                         },
                         enabled: !busy && !onCooldown,
@@ -104,10 +110,10 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: (busy || onCooldown) ? null : () => _submit(context),
                           child: busy
                               ? const SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: CircularProgressIndicator(strokeWidth: 2),
-                                )
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
                               : const Text('Sign in'),
                         ),
                       ),
@@ -130,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 12),
                       TextButton(
                         onPressed:
-                            (busy || onCooldown) ? null : () => Navigator.of(context).pushNamed('/signup'),
+                        (busy || onCooldown) ? null : () => Navigator.of(context).pushNamed('/signup'),
                         child: const Text('Create an account'),
                       ),
                       TextButton(

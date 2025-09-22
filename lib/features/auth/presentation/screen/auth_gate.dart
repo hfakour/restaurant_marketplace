@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../app.dart'; // for DemoPage (or move DemoPage out)
+import '../../../../app.dart';
 import '../../../../injection.dart';
 import '../../presentation/screen/mfa_code_page.dart';
 import '../../presentation/screen/mfa_factors_page.dart';

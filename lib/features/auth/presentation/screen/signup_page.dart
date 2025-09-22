@@ -1,9 +1,12 @@
+import 'package:email_validator/email_validator.dart'; // Import email validator
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../bloc/signup/signup_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
@@ -103,7 +106,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         validator: (v) {
                           final s = (v ?? '').trim();
                           if (s.isEmpty) return null; // optional
-                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$').hasMatch(s)) return 'Enter a valid email';
+                          if (!EmailValidator.validate(s)) return 'Enter a valid email'; // Using email_validator package
                           return null;
                         },
                         enabled: !busy,
