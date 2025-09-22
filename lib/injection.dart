@@ -8,7 +8,9 @@ final GetIt getIt = GetIt.instance;
 /// Add other feature modules here as your app grows.
 Future<void> configureDependencies() async {
   // Order matters only if modules depend on each other.
+  print('[MAIN] DI wired. About to runApp.');
   registerAuthModule(getIt);
+  print('[MAIN] DI wired. About to runApp.');
   // registerPaymentsModule(getIt);
   // registerRestaurantsModule(getIt);
 }

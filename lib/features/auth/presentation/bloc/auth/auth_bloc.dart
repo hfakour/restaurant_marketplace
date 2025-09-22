@@ -9,6 +9,7 @@ import '../../../domain/entities/auth_failures.dart';
 import '../../../domain/repositories/auth_repository.dart';
 
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -19,7 +20,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     // Handoff from LoginBloc when MFA is required
     on<MfaRequiredDiscovered>((e, emit) {
-      emit(AuthState.mfaRequired(resolver: e.resolver, factorUids: e.factorUids));
+      emit(
+        AuthState.mfaRequired(resolver: e.resolver, factorUids: e.factorUids),
+      );
     });
 
     // Primary
@@ -53,17 +56,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   // ---------------- Stream ----------------
 
   Future<void> _onStreamRequested(
-      _AuthStreamRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    _AuthStreamRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     await _sub?.cancel();
     _sub = _repo.authState().listen((a) => add(_AuthAccountChanged(a)));
   }
 
   Future<void> _onAccountChanged(
-      _AuthAccountChanged event,
-      Emitter<AuthState> emit,
-      ) async {
+    _AuthAccountChanged event,
+    Emitter<AuthState> emit,
+  ) async {
     final a = event.account;
     if (a == null) {
       emit(const AuthState.unauthenticated());
@@ -75,9 +78,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   // ---------------- Primary ----------------
 
   Future<void> _onSignOut(
-      SignOutRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    SignOutRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     try {
       await _repo.signOut();
       emit(const AuthState.unauthenticated());
@@ -91,9 +94,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   // ------------- Email verification -------------
 
   Future<void> _onSendEmailVerification(
-      SendEmailVerificationRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    SendEmailVerificationRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(AuthState.sendingEmailVerification(account: state.account));
     try {
       await _repo.sendEmailVerification();
@@ -106,9 +109,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onCheckEmailVerification(
-      CheckEmailVerificationRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    CheckEmailVerificationRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(AuthState.checkingEmailVerification(account: state.account));
     try {
       final verified = await _repo.reloadAndEmailVerified();
@@ -139,19 +142,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   // ---------------- Reauth ----------------
 
   Future<void> _onReauthPassword(
-      ReauthenticateWithPasswordRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    ReauthenticateWithPasswordRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     try {
-      await _repo.reauthenticateWithPassword(event.email.trim(), event.password);
+      await _repo.reauthenticateWithPassword(
+        event.email.trim(),
+        event.password,
+      );
       await _retryPendingOp(emit);
     } on AuthFailure catch (f) {
       // GAP FIX: promote rate limit to dedicated view
       if (f is TooManyRequests) {
-        emit(AuthState.rateLimited(
-          account: state.account,
-          retryAfterSeconds: f.retryAfterSeconds,
-        ));
+        emit(
+          AuthState.rateLimited(
+            account: state.account,
+            retryAfterSeconds: f.retryAfterSeconds,
+          ),
+        );
         return;
       }
       emit(state.copyWith(status: AuthViewStatus.error, error: f.humanMessage));
@@ -163,9 +171,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   // ------------- Sensitive operations -------------
 
   Future<void> _onUpdateEmail(
-      UpdateEmailRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    UpdateEmailRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     await _performSensitive(
       emit,
       op: () => _repo.updateEmail(event.newEmail.trim()),
@@ -180,9 +188,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onUpdatePassword(
-      UpdatePasswordRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    UpdatePasswordRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     await _performSensitive(
       emit,
       op: () => _repo.updatePassword(event.newPassword),
@@ -196,9 +204,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onLinkEmailPassword(
-      LinkEmailPasswordRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    LinkEmailPasswordRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     await _performSensitive(
       emit,
       op: () => _repo.linkEmailPassword(
@@ -216,9 +224,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onDeleteAccount(
-      DeleteAccountRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    DeleteAccountRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     await _performSensitive(
       emit,
       op: _repo.deleteAccount,
@@ -234,25 +242,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   // ---------------- MFA ----------------
 
   Future<void> _onMfaStartResolve(
-      MfaStartResolveRequested event,
-      Emitter<AuthState> emit,
-      ) async {
+    MfaStartResolveRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     try {
       final verificationId = await _repo.mfaStartSignInResolve(
         event.resolver,
         factorUid: event.factorUid.trim(),
       );
-      emit(AuthState.mfaCodeSent(
-        resolver: event.resolver,
-        verificationId: verificationId,
-      ));
+      emit(
+        AuthState.mfaCodeSent(
+          resolver: event.resolver,
+          verificationId: verificationId,
+        ),
+      );
     } on AuthFailure catch (f) {
       // Too many requests → rateLimit view for better UX
       if (f is TooManyRequests) {
-        emit(AuthState.rateLimited(
-          account: state.account,
-          retryAfterSeconds: f.retryAfterSeconds,
-        ));
+        emit(
+          AuthState.rateLimited(
+            account: state.account,
+            retryAfterSeconds: f.retryAfterSeconds,
+          ),
+        );
         return;
       }
       emit(state.copyWith(status: AuthViewStatus.error, error: f.humanMessage));
@@ -262,9 +274,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onMfaCodeSubmitted(
-      MfaCodeSubmitted event,
-      Emitter<AuthState> emit,
-      ) async {
+    MfaCodeSubmitted event,
+    Emitter<AuthState> emit,
+  ) async {
     try {
       final account = await _repo.mfaFinalizeSignIn(
         resolver: event.resolver,
@@ -280,27 +292,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onMfaCancel(
-      MfaCancelRequested event,
-      Emitter<AuthState> emit,
-      ) async {
-    emit(state.copyWith(
-      clearMfaResolver: true,
-      clearMfaFactorUids: true,
-      clearMfaVerificationId: true,
-      status: state.account == null
-          ? AuthViewStatus.unauthenticated
-          : AuthViewStatus.authenticated,
-    ));
+    MfaCancelRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        clearMfaResolver: true,
+        clearMfaFactorUids: true,
+        clearMfaVerificationId: true,
+        status: state.account == null
+            ? AuthViewStatus.unauthenticated
+            : AuthViewStatus.authenticated,
+      ),
+    );
   }
 
   // ---------------- Helpers ----------------
 
   Future<void> _performSensitive(
-      Emitter<AuthState> emit, {
-        required Future<void> Function() op,
-        AuthState? onReauthRequired,
-        void Function()? onSuccess,
-      }) async {
+    Emitter<AuthState> emit, {
+    required Future<void> Function() op,
+    AuthState? onReauthRequired,
+    void Function()? onSuccess,
+  }) async {
     try {
       await op();
       onSuccess?.call();
@@ -314,25 +328,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
 
       // Clear any pending op data since it succeeded
-      emit(state.copyWith(
-        clearPendingOp: true,
-        clearPendingNewEmail: true,
-        clearPendingNewPassword: true,
-        clearPendingLinkEmail: true,
-        clearPendingLinkPassword: true,
-        clearRetryAfter: true,
-        clearError: true,
-      ));
+      emit(
+        state.copyWith(
+          clearPendingOp: true,
+          clearPendingNewEmail: true,
+          clearPendingNewPassword: true,
+          clearPendingLinkEmail: true,
+          clearPendingLinkPassword: true,
+          clearRetryAfter: true,
+          clearError: true,
+        ),
+      );
     } on AuthFailure catch (f) {
       if (f is ReauthRequired && onReauthRequired != null) {
         emit(onReauthRequired);
         return;
       }
       if (f is TooManyRequests) {
-        emit(AuthState.rateLimited(
-          account: state.account,
-          retryAfterSeconds: f.retryAfterSeconds,
-        ));
+        emit(
+          AuthState.rateLimited(
+            account: state.account,
+            retryAfterSeconds: f.retryAfterSeconds,
+          ),
+        );
         return;
       }
       emit(state.copyWith(status: AuthViewStatus.error, error: f.humanMessage));
@@ -347,42 +365,46 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     try {
       switch (pending) {
-      case PendingSensitiveOp.updateEmail:
-      final email = state.pendingNewEmail;
-      if (email != null) await _repo.updateEmail(email);
-      break;
-      case PendingSensitiveOp.updatePassword:
-      final pwd = state.pendingNewPassword;
-      if (pwd != null) await _repo.updatePassword(pwd);
-      break;
-      case PendingSensitiveOp.linkEmailPassword:
-      final e = state.pendingLinkEmail;
-      final p = state.pendingLinkPassword;
-      if (e != null && p != null) {
-      await _repo.linkEmailPassword(email: e, password: p);
-      }
-      break;
-      case PendingSensitiveOp.deleteAccount:
-      await _repo.deleteAccount();
-      emit(const AuthState.unauthenticated());
-      break;
+        case PendingSensitiveOp.updateEmail:
+          final email = state.pendingNewEmail;
+          if (email != null) await _repo.updateEmail(email);
+          break;
+        case PendingSensitiveOp.updatePassword:
+          final pwd = state.pendingNewPassword;
+          if (pwd != null) await _repo.updatePassword(pwd);
+          break;
+        case PendingSensitiveOp.linkEmailPassword:
+          final e = state.pendingLinkEmail;
+          final p = state.pendingLinkPassword;
+          if (e != null && p != null) {
+            await _repo.linkEmailPassword(email: e, password: p);
+          }
+          break;
+        case PendingSensitiveOp.deleteAccount:
+          await _repo.deleteAccount();
+          emit(const AuthState.unauthenticated());
+          break;
       }
 
-      emit(state.copyWith(
-        clearPendingOp: true,
-        clearPendingNewEmail: true,
-        clearPendingNewPassword: true,
-        clearPendingLinkEmail: true,
-        clearPendingLinkPassword: true,
-        clearRetryAfter: true,
-        clearError: true,
-      ));
+      emit(
+        state.copyWith(
+          clearPendingOp: true,
+          clearPendingNewEmail: true,
+          clearPendingNewPassword: true,
+          clearPendingLinkEmail: true,
+          clearPendingLinkPassword: true,
+          clearRetryAfter: true,
+          clearError: true,
+        ),
+      );
     } on AuthFailure catch (f) {
       if (f is TooManyRequests) {
-        emit(AuthState.rateLimited(
-          account: state.account,
-          retryAfterSeconds: f.retryAfterSeconds,
-        ));
+        emit(
+          AuthState.rateLimited(
+            account: state.account,
+            retryAfterSeconds: f.retryAfterSeconds,
+          ),
+        );
         return;
       }
       emit(state.copyWith(status: AuthViewStatus.error, error: f.humanMessage));

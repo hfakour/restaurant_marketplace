@@ -1,17 +1,21 @@
 // app.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/profile/presentation/screens/profile_screen.dart';
-import 'features/reservations/domain/value_objects/reservation_vos.dart';
-import 'features/reservations/presentation/screens/reservations_list_screen.dart';
-import 'injection.dart';
 
 import 'features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'features/auth/presentation/bloc/login/login_bloc.dart';
 import 'features/auth/presentation/bloc/signup/signup_bloc.dart';
 import 'features/auth/presentation/screen/auth_gate.dart';
 import 'features/auth/presentation/screen/login_page.dart';
+import 'features/auth/presentation/screen/mfa_code_page.dart';
+import 'features/auth/presentation/screen/mfa_factors_page.dart';
+import 'features/auth/presentation/screen/reset_password_page.dart';
 import 'features/auth/presentation/screen/signup_page.dart';
+import 'features/auth/presentation/screen/verify_email_page.dart';
+import 'features/profile/presentation/screens/profile_screen.dart';
+import 'features/reservations/domain/value_objects/reservation_vos.dart';
+import 'features/reservations/presentation/screens/reservations_list_screen.dart';
+import 'injection.dart';
 
 // DemoPage را از app.dart خارج کن تا حلقه import نشود.
 // مثلا ببرش به: features/shell/presentation/demo_page.dart
@@ -34,7 +38,7 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                 builder: (_) => BlocProvider(
                   create: (_) => getIt<LoginBloc>(),
-                  // child: const LoginPage(),
+                  child: const LoginPage(),
                 ),
               );
             case '/signup':
@@ -47,6 +51,22 @@ class MyApp extends StatelessWidget {
             case '/home':
               return MaterialPageRoute(
                 builder: (_) => const DemoPage(), // حالا خارج از app.dart تعریف شده
+              );
+            case '/reset-password':
+              return MaterialPageRoute(
+                builder: (_) => const ResetPasswordPage(),
+              );
+            case '/verify-email':
+              return MaterialPageRoute(
+                builder: (_) => const VerifyEmailPage(),
+              );
+            case '/mfa/factors':
+              return MaterialPageRoute(
+                builder: (_) => const MfaFactorsPage(),
+              );
+            case '/mfa/code':
+              return MaterialPageRoute(
+                builder: (_) => const MfaCodePage(),
               );
             default:
               return null;

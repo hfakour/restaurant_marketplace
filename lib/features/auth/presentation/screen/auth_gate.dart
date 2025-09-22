@@ -1,98 +1,72 @@
 // features/auth/presentation/screen/auth_gate.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/auth/auth_bloc.dart';
 
-class AuthGate extends StatefulWidget {
+import '../../../../app.dart'; // for DemoPage (or move DemoPage out)
+import '../../../../injection.dart';
+import '../../presentation/screen/mfa_code_page.dart';
+import '../../presentation/screen/mfa_factors_page.dart';
+import '../../presentation/screen/verify_email_page.dart';
+import '../bloc/auth/auth_bloc.dart';
+import '../bloc/login/login_bloc.dart';
+import '../screen/login_page.dart';
+
+class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
 
   @override
-  State<AuthGate> createState() => _AuthGateState();
-}
-
-class _AuthGateState extends State<AuthGate> {
-  String? _lastTargetRoute;
-  bool _navScheduled = false;
-
-  @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-      listenWhen: (prev, curr) => prev.status != curr.status,
-      listener: (context, state) {
+    return BlocBuilder<AuthBloc, AuthState>(
+      buildWhen: (p, c) =>
+          p.status != c.status || p.account?.id != c.account?.id,
+      builder: (context, state) {
         switch (state.status) {
           case AuthViewStatus.loading:
-          case AuthViewStatus.sendingEmailVerification:
-          case AuthViewStatus.checkingEmailVerification:
-          // stay on the loading gate
-            break;
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            );
 
           case AuthViewStatus.unauthenticated:
-            _navigateTo('/login', clearStack: true);
-            break;
-
           case AuthViewStatus.error:
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error ?? 'Auth error')),
+            // Provide LoginBloc locally
+            return BlocProvider(
+              create: (_) => getIt<LoginBloc>(),
+              child: const LoginPage(),
             );
-            _navigateTo('/login', clearStack: true);
-            break;
-
-          case AuthViewStatus.emailVerificationSent:
-          // direct user to verify email flow
-            _navigateTo('/verify-email', clearStack: true);
-            break;
 
           case AuthViewStatus.authenticated:
-          // verified / fully signed in
-            _navigateTo('/home', clearStack: true);
-            break;
+            return const DemoPage();
 
-          case AuthViewStatus.rateLimited:
-          // do not navigate; just inform user
-            final secs = state.retryAfterSeconds;
-            final msg = secs != null
-                ? 'تلاش‌های زیاد. لطفاً $secs ثانیه صبر کنید.'
-                : 'تلاش‌های زیاد. لطفاً کمی بعد دوباره تلاش کنید.';
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
-            break;
-
-        // ---- NEW: MFA branches ----
           case AuthViewStatus.mfaRequired:
-          // User must select a factor (or you may auto-select if only one).
-          // Route names are examples; wire them to your existing navigator table.
-            _navigateTo('/mfa/factors', clearStack: false);
-            break;
+            return const MfaFactorsPage();
 
           case AuthViewStatus.mfaCodeSent:
-          // SMS sent; show code entry screen.
-            _navigateTo('/mfa/code', clearStack: false);
-            break;
+            return const MfaCodePage();
+
+          case AuthViewStatus.sendingEmailVerification:
+          case AuthViewStatus.emailVerificationSent:
+          case AuthViewStatus.checkingEmailVerification:
+            return const VerifyEmailPage();
+
+          case AuthViewStatus.rateLimited:
+            // Show a minimal info + keep user on login/profile depending on account
+            final msg = state.retryAfterSeconds != null
+                ? 'Too many attempts. Please wait ${state.retryAfterSeconds} seconds.'
+                : 'Too many attempts. Please try again soon.';
+            return Scaffold(
+              body: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 12),
+                    Text(msg),
+                  ],
+                ),
+              ),
+            );
         }
       },
-      child: const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      ),
     );
-  }
-
-  void _navigateTo(String targetRoute, {bool clearStack = false}) {
-    // Debounce: skip if identical navigation is already scheduled
-    if (_navScheduled && _lastTargetRoute == targetRoute) return;
-    _navScheduled = true;
-    _lastTargetRoute = targetRoute;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _navScheduled = false;
-      if (!context.mounted) return;
-
-      final current = ModalRoute.of(context)?.settings.name;
-      if (current == targetRoute) return;
-
-      if (clearStack) {
-        Navigator.of(context).pushNamedAndRemoveUntil(targetRoute, (r) => false);
-      } else {
-        Navigator.of(context).pushReplacementNamed(targetRoute);
-      }
-    });
   }
 }

@@ -11,6 +11,7 @@ import '../../../domain/entities/auth_failures.dart';
 import '../auth/auth_bloc.dart';
 
 part 'login_event.dart';
+
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -41,10 +42,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       // MFA handoff: اگر به MFA نیاز است، جریان را به AuthBloc بده
       if (result.requiresMfa) {
-        _authBloc.add(MfaRequiredDiscovered(
-          resolver: result.resolver!,
-          factorUids: result.factorUids,
-        ));
+        _authBloc.add(
+          MfaRequiredDiscovered(
+            resolver: result.resolver!,
+            factorUids: result.factorUids,
+          ),
+        );
         // UI را در حالت خنثی نگه دار تا AuthBloc جریان را ادامه دهد
         emit(const LoginState.idle());
         return;
@@ -67,10 +70,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           _startCooldown(secs, emit, message: f.humanMessage);
         } else {
           // اگر مدت مشخص نیست، تنها پیام را نمایش بده و به UI اجازه بده تصمیم بگیرد
-          emit(LoginState.cooldown(
-            cooldownSeconds: null,
-            message: f.humanMessage,
-          ));
+          emit(
+            LoginState.cooldown(cooldownSeconds: null, message: f.humanMessage),
+          );
         }
       } else {
         emit(LoginState.failure(f.humanMessage));
@@ -80,10 +82,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  void _startCooldown(int seconds, Emitter<LoginState> emit, {String? message}) {
+  void _startCooldown(
+    int seconds,
+    Emitter<LoginState> emit, {
+    String? message,
+  }) {
     _cancelCooldown();
     _cooldownRemaining = seconds;
-    emit(LoginState.cooldown(cooldownSeconds: _cooldownRemaining, message: message));
+    emit(
+      LoginState.cooldown(
+        cooldownSeconds: _cooldownRemaining,
+        message: message,
+      ),
+    );
 
     _cooldownTimer = Timer.periodic(const Duration(seconds: 1), (_) {
       add(const _CooldownTicked());
@@ -97,7 +108,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<void> _onCooldownTicked(
-      _CooldownTicked event, Emitter<LoginState> emit) async {
+    _CooldownTicked event,
+    Emitter<LoginState> emit,
+  ) async {
     final remain = _cooldownRemaining;
     if (remain == null) return;
 
